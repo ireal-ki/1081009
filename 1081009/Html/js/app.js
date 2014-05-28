@@ -962,7 +962,7 @@ var callForgot = function ($scope, apiCaller, email) {
     var params = [];
 
     for (var param in apiParams) {
-        if (param != 'email') {
+        if (param == 'email') {
             params.push(param + '=' + email);
         }
     }
