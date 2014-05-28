@@ -1,0 +1,525 @@
+﻿<!DOCTYPE html>
+<!--[if IEMobile 7 ]>    <html class="no-js iem7"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!-->
+<html class="no-js" ng-app="wp1081009">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="touch-event-mode" value="native">
+    <meta name="cursor-event-mode" value="native">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-route.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body onload="setTimeout(function() { window.scrollTo(0, 1) }, 100);" ng-controller="appCtrl">
+    <!-- .intro -->
+    <main class="intro">
+        <div class="tutorial">
+            <img src="img/intro/tutorial-01.png" alt="กดเพื่อเปิดหน้าหลัก" width="252">
+            <img src="img/intro/tutorial-02.png" alt="กดเพื่อลงทะเบียนเข้าสู่ระบบ" width="234">
+            <img src="img/intro/tutorial-03.png" alt="กดเพื่อเปิดเครื่องมือค้นหาเรื่องราวท่องเที่ยว" width="196">
+            <img src="img/intro/tutorial-04.png" alt="กดเพื่อดูเรื่องราวท่องเที่ยวที่เกี่ยวข้อง" width="238">
+        </div>
+        <header>
+            <h1></h1>
+            <div class="wrap-button" style="white-space:nowrap;">
+                <a href="#" id="btnHome" ng-click="getHomeFeed()">Home</a>
+                <a href="#" id="btnUser" ng-click="getUserMenu()">User</a>
+                <a href="#" id="btnSearch" ng-click="getSearch()">Search</a>
+            </div>
+        </header>
+        <article>
+            <div id="banner-top10" ng-style="{'background-image':'url('+cover.url_image+')'}" id="banner-top10"></div>
+            <figure ng-repeat="list in toplist" ng-style="{'background-image':'url('+list.url_image+')'}">
+                <a href class="popup" data-effect="mfp-zoom-in" data-view="{{list.view}}" data-share="{{list.stories}}" title="{{list.title}}" ng-click="openViewPhoto(list)">&nbsp;</a>
+            </figure>
+        </article>
+    </main>
+    <!-- .feed -->
+    <main class="feed grid">
+        <header>
+            <h1></h1>
+            <div class="wrap-button" style="white-space:nowrap;">
+                <a href="#" id="btnHome" ng-click="getHomeFeed()">Home</a>
+                <a href="#" id="btnUser" ng-click="getUserMenu()">User</a>
+                <a href="#" id="btnSearch" ng-click="getSearch()">Search</a>
+            </div>
+        </header>
+        <article class="grid" content-grid>
+            <input type="search" name="" id="" value="{{feedLanding}}" disabled>
+            <figure ng-repeat="list in feedContent" ng-click="openWebView(list)">
+                <img src="{{list.image}}" alt="">
+                <figcaption>
+                    <p>
+                        <strong><a href>{{list.title}}</a></strong>
+                        <span>{{list.description}}</span>
+                    </p>
+                    <ul class="stat">
+                        <li><span ng-class="{'like' : list.isLike}" ng-click="setIsLike(list, $event)"><i class="icon-heart"></i> {{list.like}}</span></li> <!-- add Class "like" when liked -->
+                        <li><label>views :</label> {{list.view}}</li>
+                    </ul>
+                </figcaption>
+            </figure>
+        </article>
+    </main>
+    <!-- .view-photo -->
+    <main class="view-photo">
+        <div class="tutorial">
+            <img src="img/view-photo/tutorial-01.png" alt="จำนวนครั้งที่มีการเข้าชม" width="160">
+            <img src="img/view-photo/tutorial-02.png" alt="จำนวนเรื่องราวท่องเที่ยวที่เกี่ยวข้อง สามารถกดเพื่อไปดูได้" width="322">
+        </div>
+        <article>
+            <figure>
+                <img src="{{viewPhoto.url_image}}" alt="">
+                <figcaption>
+                    <p>{{viewPhoto.title}}</p>
+                    <section>
+                        <strong>views: {{viewPhoto.view}}</strong>
+                        <a href ng-click="getFeedSearch(viewPhoto.keyword)">{{viewPhoto.stories}} Stories</a>
+                    </section>
+                </figcaption>
+            </figure>
+        </article>
+        <a href="javascript:void(0);" class="btn-back">Back</a>
+    </main>
+    <!-- Map-->
+    <main class="map">
+        <header>
+            <h1></h1>
+            <div class="wrap-button" style="white-space:nowrap;">
+                <a href="#" id="btnHome" ng-click="getHomeFeed()">Home</a>
+                <a href="#" id="btnUser" ng-click="getUserMenu()">User</a>
+                <a href="#" id="btnSearch" ng-click="getSearch()">Search</a>
+            </div>
+        </header>
+        <article>
+            <div id="map-canvas" style="width: 100%; height: 100%"></div>
+            <!--
+             <div class="tools">
+                <p>
+                    Bangkok, Thailand <br>
+                    <a href="#">Directions</a> <a href="#">Save</a> <a href="#">Zoom</a> <a href="#">Send</a>
+                </p>
+            </div>-->
+        </article>
+    </main>
+    <!-- .menulist -->
+    <main class="search">
+        <div class="tutorial">
+            <img src="img/search/tutorial-01.png" alt="พิมพ์ข้อความเพื่อค้นหา เรื่องราวท่องเที่ยวที่เกี่ยวข้อง" width="310">
+            <img src="img/search/tutorial-02.png" alt="กดเพื่อดูเรื่องราวท่องเที่ยวในหมวดหมู่ต่างๆ" width="218">
+        </div>
+        <header>
+            <h1></h1>
+            <div class="wrap-button" style="white-space:nowrap;">
+                <a href="#" id="btnHome" ng-click="getHomeFeed()">Home</a>
+                <a href="#" id="btnUser" ng-click="getUserMenu()">User</a>
+                <a href="#" id="btnSearch" ng-click="getSearch()">Search</a>
+            </div>
+        </header>
+        <article>
+            <form ng-submit="searchKeyword()"><p><input type="search" name="searchbox" id="searchbox" placeholder="ค้นหาเรื่องราวท่องเที่ยว"></p></form>
+            <ul class="list">
+                <li>
+                    <a href="#" ng-click="getHomeFeed()">เรื่องราวท่องเที่ยวทั้งหมด</a>
+                    <ul>
+                        <li><a href="#" ng-click="getSearchSub(1, 'ท่องเที่ยวเชิงวัฒนธรรม')">ท่องเที่ยวเชิงวัฒนธรรม</a></li>
+                        <li><a href="#" ng-click="getSearchSub(2, 'ท่องเทียวเชิงนิเวศ')">ท่องเทียวเชิงนิเวศ</a></li>
+                        <li><a href="#" ng-click="getSearchSub(3, 'เที่ยวธรรมชาติ')">เที่ยวธรรมชาติ</a></li>
+                        <li><a href="#" ng-click="getSearchSub(4, 'สถานหย่อนใจ')">สถานหย่อนใจ</a></li>
+                        <li><a href="#" ng-click="getSearchSub(5, 'ศิลปะ, วัฒนธรรม และโบราณสถาน')">ศิลปะ, วัฒนธรรม และโบราณสถาน</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" ng-click="getSearchSub(6, 'กิจกรรมทางทะเล')">กิจกรรมทางทะเล</a>
+                    <ul>
+                        <li><a href="#" ng-click="getSearchSub(7, 'กิจกรรมผจญภัย')">กิจกรรมผจญภัย</a></li>
+                        <li><a href="#" ng-click="getSearchSub(8, 'กิจกรรมอื่นๆ')">กิจกรรมอื่นๆ</a></li>
+                        <li><a href="#" ng-click="getSearchSub(9, 'ที่พัก')">ที่พัก</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
+    </main>
+    <!-- .search -->
+    <main class="search2">
+        <header>
+            <h1></h1>
+            <div class="wrap-button" style="white-space:nowrap;">
+                <a href="#" id="btnHome" ng-click="getHomeFeed()">Home</a>
+                <a href="#" id="btnUser" ng-click="getUserMenu()">User</a>
+                <a href="#" id="btnSearch" ng-click="getSearch()">Search</a>
+            </div>
+        </header>
+        <article>
+            <form ng-submit="searchKeyword2(searchSub)"><p><input type="search" name="searchbox2" id="searchbox2" placeholder="ค้นหาเรื่องราวท่องเที่ยว"></p></form>
+            <ul class="list" ng-repeat="list in searchSub">
+                <li><a href="#" ng-click="getSearchFeedTrip(list.group, list.type, list.title)">{{list.title}}</a></li>
+            </ul>
+        </article>
+        <footer class="invert">
+            <a href="javascript:void(0);" class="btn-back">Back</a>
+        </footer>
+    </main>
+    <!-- .menulist -->
+    <main class="menulist">
+        <header>
+            <h1 class="text">เรื่องราวท่องเที่ยว</h1>
+        </header>
+        <article>
+            <ul class="list">
+                <li>
+                    <a href="#" ng-click="getFeedTrip('latest_trip', 'โพสต์ล่าสุด')">โพสต์ล่าสุด</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="getFeedTrip('mostlike_trip', 'ความนิยม')">ความนิยม</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="getFeedTrip('topview_trip', 'จำนวนคนเข้าชม')">จำนวนคนเข้าชม</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="getFeedTrip('travel_trip', 'สถานที่ท่องเที่ยว')">สถานที่ท่องเที่ยว</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="getFeedTrip('hotel_trip', 'ที่พัก')">ที่พัก</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="getFeedTrip('restaurant_trip', 'ร้านอาหาร')">ร้านอาหาร</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="getFeedTrip('video', 'เฉพาะวิดีโอ')">เฉพาะวิดีโอ</a>
+                </li>
+            </ul>
+        </article>
+        <footer>
+            <a href="javascript:void(0);" class="btn-back">Back</a>
+        </footer>
+    </main>
+    <!--webview-->
+    <main class="webview">
+        <header>
+            <ul class="stat">
+                <li><a href ng-click="setIsLike(webview)" ng-class="{'like' : webview.isLike}"><i class="icon-heart"></i> {{webview.like}}</a></li> <!-- add Class "like" when liked -->
+                <li><label>views :</label> {{webview.view}}</li>
+            </ul>
+            <a href ng-click="setIsFav(webview)" class="btnFavBig" ng-class="{'active' : webview.isFav}">Favorite</a>
+            <a href class="btnHistory" ng-click="getHistory()">History</a>
+        </header>
+        <article>
+            <iframe ng-src="{{trustSrc(webview.url)}}" frameborder="0" id="webviewFrame" width="100%" height="100%"></iframe>
+        </article>
+        <footer>
+            <a href="javascript:void(0);" id="btnShare">Share</a>
+            <a href ng-click="callIE(webview.url)" id="btnGo">
+                {{webview.url}}
+            </a>
+            <a href="javascript:void(0);" class="btn-back">Back</a>
+        </footer>
+    </main>
+    <!--user menu-->
+    <main class="menu">
+        <header>
+            <h1></h1>
+            <div class="wrap-button" style="white-space:nowrap;">
+                <a href="#" id="btnHome" ng-click="getHomeFeed()">Home</a>
+                <a href="#" id="btnUser" ng-click="getUserMenu()">User</a>
+                <a href="#" id="btnSearch" ng-click="getSearch()">Search</a>
+            </div>
+        </header>
+        <article>
+            <ul class="tile">
+                <li ng-click="userSetting()">
+                    <a href="#">
+                        <img src="img/menu/tile-user_2x.png" alt="icon user">
+                        {{userInfo.first_name}} {{userInfo.last_name}}<br>
+                        {{userInfo.email}}<br>
+                        {{userInfo.username}}
+                    </a>
+                </li>
+                <li ng-click="getFav()">
+                    <a href="#">
+                        <img src="img/menu/tile-fav_2x.png" alt="icon favorite">
+                        สถานที่โปรด
+                    </a>
+                </li>
+                <li ng-click="getMyStory()">
+                    <a href="#">
+                        <img src="img/menu/tile-article_2x.png" alt="icon my story">
+                        เรื่องราวท่องเที่ยว<br>ของฉัน
+                    </a>
+                </li>
+                <li ng-click="getSetting()">
+                    <a href="#">
+                        <img src="img/menu/tile-setting_2x.png" alt="icon Setting">
+                        Setting
+                    </a>
+                </li>
+                <li ng-click="addArticle()">
+                    <a href="#">
+                        <img src="img/menu/tile-add_2x.png" alt="add article">
+                        เพิ่มเรื่องราวท่องเที่ยว
+                    </a>
+                </li>
+            </ul>
+        </article>
+        <footer>
+            <a href="javascript:void(0);" class="btn-back">Back</a>
+        </footer>
+    </main>
+    <!-- .login -->
+    <main class="login">
+        <header>
+            <h1 class="text">เข้าสู่ระบบ</h1>
+        </header>
+        <article class="lv2 ">
+            <section>
+                <div>
+                    <p><label for="login-username">ชื่อผู้ใช้</label><input type="text" name="login-username" id="login-username"></p>
+                    <p>
+                        <label for="login-password">รหัสผ่าน</label><input type="password" name="login-password" id="login-password">
+                    </p>
+                </div>
+            </section>
+            <input type="submit" value="เข้าสู่ระบบ" ng-click="login()">
+
+            <button ng-click="fbLogin()">เข้าสู่ระบบด้วย Facebook ของคุณ</button>
+
+            <p class="center">หรือ</p>
+
+            <a href="#" class="button" ng-click="regist()">ลงทะเบียน</a><br />
+
+            <p class="center"><a href="javascript:void(0);" id="btn-forget_password">ลืมรหัสผ่าน?</a></p>
+
+        </article>
+    </main>
+    <!-- .regist -->
+    <main class="regist">
+        <header>
+            <h1 class="text">ลงทะเบียน</h1>
+        </header>
+        <article class="lv2">
+            <section>
+                <div>
+                    <p><label for="regist-name">ชื่อ</label><input type="text" name="regist-name" id="regist-name"></p>
+                    <p><label for="regist-surname">นามสกุล</label><input type="text" name="regist-surname" id="regist-surname"></p>
+                    <p><label for="regist-email">อีเมล์</label><input type="email" name="regist-email" id="regist-email"></p>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <p><label for="regist-username">ชื่อผู้ใช้</label><input type="text" name="regist-username" id="regist-username"></p>
+                    <p><label for="regist-password">รหัสผ่าน</label><input type="password" name="regist-password" id="regist-password"></p>
+                    <p><label for="regist-confirm">ยืนยันรหัสผ่าน</label><input type="password" name="regist-confirm" id="regist-confirm"></p>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <p><input type="submit" value="บันทึกการลงทะเบียน" ng-click="registNewMember()"></p>
+                    <br>
+                </div>
+            </section>
+        </article>
+    </main>
+    <!-- .setting -->
+    <main class="setting">
+        <header>
+            <h1 class="text">Setting</h1>
+        </header>
+        <article>
+            <ul class="list">
+                <li>
+                    <a href="#" ng-click="userSetting()">Setting</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="getTerm()">Term and Condition</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="logout()">Logout</a>
+                </li>
+            </ul>
+        </article>
+    </main>
+    <!-- .user-setting -->
+    <main class="user-setting">
+        <header>
+            <h1 class="text">ลงทะเบียน</h1>
+        </header>
+        <article class="lv2">
+            <section>
+                <div>
+                    <p><label for="regist-name">ชื่อ</label><input type="text" name="setting-name" id="setting-name"></p>
+                    <p><label for="regist-surname">นามสกุล</label><input type="text" name="setting-surname" id="setting-surname"></p>
+                    <p><label for="regist-email">อีเมล์</label><input type="email" name="setting-email" id="setting-email"></p>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <p><label for="regist-username">ชื่อผู้ใช้</label><input type="text" name="setting-username" id="setting-username"></p>
+                    <p><label for="regist-password">รหัสผ่าน</label><input type="password" name="setting-password" id="setting-password"></p>
+                    <p><label for="regist-confirm">ยืนยันรหัสผ่าน</label><input type="password" name="setting-confirm" id="setting-confirm"></p>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <p><input type="submit" value="บันทึกการลงทะเบียน" ng-click="saveProfileChange()"></p>
+                    <br>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- .term -->
+    <main class="term">
+        <header>
+            <h1 class="text">เงื่อนไขการให้บริการ</h1>
+        </header>
+        <article class="lv2">
+            <section>
+
+                <p>หากคุณมีความประสงค์จะเป็นสมาชิกเว็บไซต์ กรุณาอ่านเงื่อนไขและยอมรับเงื่อนไขการใช้งานดังต่อไปนี้ :</p>
+                <h3>กฎ กติกา และเงื่อนไขการใช้งานเว็บไซต์การท่องเที่ยวแห่งประเทศไทย</h3>
+
+                <ol>
+                    <li>การลงทะเบียนเว็บไซต์การท่องเที่ยวแห่งประเทศไทยนี้ไม่เสียค่าบริการใดๆทั้ง สิ้น ขอความกรุณาช่วยกันรักษากฎกติกามารยาทที่ให้ไว้ข้างล่างด้วย หากคุณตกลงที่จะทำตามเงื่อนไขนี้ กรุณาทำสัญลักษณ์ที่กล่อง 'ตกลง' และกดปุ่ม 'Accept' ที่มุมขวาบน หากคุณต้องการที่จะยกเลิกการลงทะเบียน กรุณากดลูกศรที่มุมบนซ้ายของหน้าจอเพื่อกลับไปที่หน้าก่อนหน้าได้</li>
+                    <li>ข้อความหรือรูปภาพที่ปรากฏในแอ็พพลิเคชันที่ท่านเห็นอยู่นี้ เกิดจากการตั้งกระทู้และถูกส่งขึ้นสู่แอ็พพลิเคชันการท่องเที่ยวแห่งประเทศไทย โดยอัตโนมัติจากบุคคลทั่วไป ซึ่ง คณะผู้จัดทำแอ็พพลิเคชันของการท่องเที่ยวแห่งประเทศไทย มิได้มีส่วนร่วมรู้เห็น ตรวจสอบ หรือพิสูจน์ข้อเท็จจริงใดๆ ทั้งสิ้น หากท่านพบเห็นข้อความ หรือรูปภาพในกระทู้ที่ไม่เหมาะสม กรุณาแจ้งทีมงานทราบ เพื่อดำเนินการต่อไป</li>
+                    <li>ถึงแม้ว่าผู้ดูแลแอ็พพลิเคชันการท่องเที่ยวแห่งประเทศไทย จะพยายามควบคุมไม่ให้มีเนื้อหาที่ไม่เหมาะสมอยู่ในแอ็พพลิเคชันนี้ แต่ก็อาจมีข้อความ หรือความคิดเห็นต่างๆ ที่เรา ไม่อาจจะดูแลได้อย่างทั่วถึงทั้งหมด ข้อความทั้งหมดเป็นความคิดเห็นส่วนบุคคลของผู้เขียน และไม่ใช่ของผู้ดูแลแอ็พพลิเคชันของการท่องเที่ยวแห่งประเทศไทย และคณะผู้จัดทำแอ็พพลิเคชันการท่องเที่ยวแห่งประเทศไทย จะไม่มีการรับผิดชอบต่อเนื้อหาใดๆ ทั้งสิ้น</li>
+                    <li>โดยการตกลงที่จะทำตามกฎกติกามารยาท คุณยืนยันว่าจะไม่พิมพ์ข้อความที่หยาบคาย เสียดสี หรือตำหนิติเตียนบุคคลใดๆในทางเสียหาย หรือที่ละเมิดกฎหมายบ้านเมือง</li>
+                    <li>ผู้ดูแล และคณะผู้จัดทำแอ็พพลิเคชันการท่องเที่ยวแห่งประเทศไทยขอสงวนสิทธิ์ที่จะลบ แก้ไข ยกเลิกการเป็นสมาชิก หรือดำเนินการกระทำใดๆ ก็ได้</li>
+                    <li>ในกรณีที่ท่านต้องการติเตียนบุคคล หรือองค์กรใดๆ ในทางที่สร้างสรรค์ ให้ท่านลงชื่อและที่อยู่ หรือหมายเลขโทรศัพท์ หรือ email Address ที่สามารถติดต่อกลับได้ เพื่อให้ผู้ที่ถูกพาดพิงได้มีโอกาสชี้แจงกับท่านโดยตรง ถ้าท่านไม่ลงข้อมูลดังกล่าว ทางการท่องเที่ยวแห่งประเทศไทยขอสงวนสิทธิ์ที่จะลบ หรือแก้ไขกระทู้ของท่าน</li>
+                </ol>
+                <p>ข้าพเจ้าได้อ่านและตกลงที่จะทำตามกฎกติกามารยาทในแอ็พพลิเคชันการท่องเที่ยวแห่งประเทศไทย</p>
+            </section>
+
+            <button ng-click="accept()">ยอมรับ</button>
+        </article>
+    </main>
+    <!--recent-->
+    <main class="recent">
+        <header>
+            <h1 class="text">เปิดดูล่าสุด</h1>
+        </header>
+        <article>
+            <ul class="list" ng-repeat="list in recentList">
+                <li ng-click="openWebView(list)"><a href>{{list.title}}</a></li>
+            </ul>
+        </article>
+        <footer>
+            <a href="javascript:void(0);" class="btn-back">Back</a>
+        </footer>
+    </main>
+
+
+    <!-- Overlay Popup -->
+    <div id="overlay"></div>
+
+    <div id="logout" class="wp-popup">
+        <h2>Logout</h2>
+        <h3>Logout complete</h3>
+        <p>
+            <button ng-click="logoutComplete()">OK</button>
+        </p>
+    </div>
+
+    <div id="forget_password" class="wp-popup">
+        <form ng-submit="sendForgotPassword()">
+            <h2>ลืมรหัสผ่าน</h2>
+            <h3>ใส่ email ของคุณเพื่อขอรับรหัสผ่านใหม่</h3>
+            <input type="email" id="forgotPwdEmail" name="forgotPwdEmail">
+            <p class="grid-2">
+                <input type="submit" value="รับรหัสผ่าน" ng-click="sendForgotPassword()">
+                <input type="reset" value="ยกเลิก" class="button close-overlay">
+            </p>
+        </form>
+    </div>
+
+    <div id="share" class="wp-popup">
+        <a href="http://www.facebook.com" class="button">Facebook</a>
+        <a href="http://www.twitter.com" class="button">Twitter</a> <br>
+        <button class="close-overlay">Cancel</button>
+    </div>
+
+    <div id="add-article" class="wp-popup">
+        <h2>เพิ่มเรื่องราวท่องเที่ยว</h2>
+        <h3>ใส่ลิงค์เพื่อเพิ่มเรื่องราวท่องเที่ยวของคุณ</h3>
+        <p>
+            <input type="url" name="input-url" id="input-url">
+        </p>
+        <p class="grid-2"><input type="submit" value="เพิ่มลิงค์" ng-click="addArticalSubmit()"> <button class="close-overlay">ยกเลิก</button></p>
+    </div>
+
+    <div id="error" class="wp-popup">
+        <h2>Error</h2>
+        <h3>มี URL นี้แล้วในระบบ</h3>
+        <p>
+            <button class="btnPopupOk">OK</button>
+        </p>
+    </div>
+
+    <div id="alert1" class="wp-popup">
+        <h2>Alert</h2>
+        <h3>ไม่มีเรื่องราวท่องเที่ยวของฉัน</h3>
+        <p>
+            <button class="btnPopupOk">OK</button>
+        </p>
+    </div>
+
+    <div id="alert2" class="wp-popup">
+        <h2>Alert</h2>
+        <h3>Exist username</h3>
+        <p>
+            <button class="btnPopupOk">OK</button>
+        </p>
+    </div>
+
+    <div id="alert3" class="wp-popup">
+        <h2>Alert</h2>
+        <h3>Email is not allowed empty</h3>
+        <p>
+            <button class="btnPopupOk">OK</button>
+        </p>
+    </div>
+
+    <div id="alert4" class="wp-popup">
+        <h2>Alert</h2>
+        <h3>ไม่มีเรื่องราวท่องเที่ยวที่คุณค้นหา</h3>
+        <p>
+            <button class="btnPopupOk">OK</button>
+        </p>
+    </div>
+
+    <div id="alert5" class="wp-popup">
+        <h2>Alert</h2>
+        <h3>รหัสผ่านไม่ถูกต้อง</h3>
+        <p>
+            <button class="btnPopupOk">OK</button>
+        </p>
+    </div>
+
+    <div id="alert6" class="wp-popup">
+        <h2>Alert</h2>
+        <h3>{{alertMsg}}</h3>
+        <p>
+            <button class="btnPopupOk">OK</button>
+        </p>
+    </div>
+
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/jquery.mobile.custom.js"></script>
+    <script src="js/vendor/jquery.grid-a-licious.js"></script>
+    <script src="js/vendor/jquery.magnific-popup.js"></script>
+    <script src="js/vendor/breakpoints.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7A67F426-3109-47FE-8630-8521367AD27A}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_1081009</RootNamespace>
+    <AssemblyName>1081009</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>_1081009_$(Configuration)_$(Platform).xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>_1081009.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Html\font\icon.eot" />
+    <None Include="Html\font\icon.ttf" />
+    <None Include="Html\font\icon.woff" />
+    <None Include="Html\font\pslxthaicommon.eot" />
+    <None Include="Html\font\pslxthaicommon.ttf" />
+    <None Include="Html\font\pslxthaicommon.woff" />
+    <None Include="Html\font\pslxthaicommon_bold.eot" />
+    <None Include="Html\font\pslxthaicommon_bold.ttf" />
+    <None Include="Html\font\pslxthaicommon_bold.woff" />
+    <None Include="packages.config" />
+    <None Include="Properties\AppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\WMAppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\ApplicationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AppBar\appbar.back.rest.png" />
+    <Content Include="Assets\AppBar\appbar.next.rest.png" />
+    <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileMedium.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileMediumLarge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Html\css\font.css" />
+    <Content Include="Html\css\main.css" />
+    <Content Include="Html\font\icon.svg" />
+    <Content Include="Html\font\pslxthaicommon-demo.html" />
+    <Content Include="Html\font\pslxthaicommon.svg" />
+    <Content Include="Html\font\pslxthaicommon_bold-demo.html" />
+    <Content Include="Html\font\pslxthaicommon_bold.svg" />
+    <Content Include="Html\img\base\btnBack.png" />
+    <Content Include="Html\img\base\btnBack_2x.png" />
+    <Content Include="Html\img\base\icon-home-active.png" />
+    <Content Include="Html\img\base\icon-home-active_2x.png" />
+    <Content Include="Html\img\base\icon-home.png" />
+    <Content Include="Html\img\base\icon-home_2x.png" />
+    <Content Include="Html\img\base\icon-location.png" />
+    <Content Include="Html\img\base\icon-location_2x.png" />
+    <Content Include="Html\img\base\icon-question.png" />
+    <Content Include="Html\img\base\icon-search-active.png" />
+    <Content Include="Html\img\base\icon-search-active_2x.png" />
+    <Content Include="Html\img\base\icon-search.png" />
+    <Content Include="Html\img\base\icon-search_2x.png" />
+    <Content Include="Html\img\base\icon-story.png" />
+    <Content Include="Html\img\base\icon-story_2x.png" />
+    <Content Include="Html\img\base\icon-top10.png" />
+    <Content Include="Html\img\base\icon-top10_2x.png" />
+    <Content Include="Html\img\base\icon-user-active.png" />
+    <Content Include="Html\img\base\icon-user-active_2x.png" />
+    <Content Include="Html\img\base\icon-user.png" />
+    <Content Include="Html\img\base\icon-user_2x.png" />
+    <Content Include="Html\img\base\logo.png" />
+    <Content Include="Html\img\base\logo_2x.png" />
+    <Content Include="Html\img\btnDone%402x.png" />
+    <Content Include="Html\img\btnDone.png" />
+    <Content Include="Html\img\favorite\favorite%402x.png" />
+    <Content Include="Html\img\favorite\favorite-active%402x.png" />
+    <Content Include="Html\img\favorite\favorite-active.png" />
+    <Content Include="Html\img\favorite\favorite.png" />
+    <Content Include="Html\img\favorite\img-fav-01%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-01.jpg" />
+    <Content Include="Html\img\favorite\img-fav-02%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-02.jpg" />
+    <Content Include="Html\img\favorite\img-fav-03%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-03.jpg" />
+    <Content Include="Html\img\favorite\img-fav-04%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-04.jpg" />
+    <Content Include="Html\img\favorite\img-fav-05%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-05.jpg" />
+    <Content Include="Html\img\favorite\img-fav-06%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-06.jpg" />
+    <Content Include="Html\img\favorite\img-fav-07%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-07.jpg" />
+    <Content Include="Html\img\favorite\img-fav-08%402x.jpg" />
+    <Content Include="Html\img\favorite\img-fav-08.jpg" />
+    <Content Include="Html\img\form\btn-forgot_password%402x.png" />
+    <Content Include="Html\img\form\btn-forgot_password.png" />
+    <Content Include="Html\img\form\button-submit%402x.png" />
+    <Content Include="Html\img\form\button-submit.png" />
+    <Content Include="Html\img\form\icon-facebook%402x.png" />
+    <Content Include="Html\img\form\icon-facebook.png" />
+    <Content Include="Html\img\guide\guide-01%402x.png" />
+    <Content Include="Html\img\guide\guide-01.png" />
+    <Content Include="Html\img\guide\guide-02%402x.png" />
+    <Content Include="Html\img\guide\guide-02.png" />
+    <Content Include="Html\img\guide\guide-03%402x.png" />
+    <Content Include="Html\img\guide\guide-03.png" />
+    <Content Include="Html\img\hd-top10%402x.png" />
+    <Content Include="Html\img\hd-top10.png" />
+    <Content Include="Html\img\history\icon-paper%402x.png" />
+    <Content Include="Html\img\history\icon-paper.png" />
+    <Content Include="Html\img\icon-share%402x.png" />
+    <Content Include="Html\img\icon-share.png" />
+    <Content Include="Html\img\intro\banner-intro.png" />
+    <Content Include="Html\img\intro\full\img-full-01%402x.jpg" />
+    <Content Include="Html\img\intro\full\img-full-01.jpg" />
+    <Content Include="Html\img\intro\full\img-full-02%402x.jpg" />
+    <Content Include="Html\img\intro\full\img-full-02.jpg" />
+    <Content Include="Html\img\intro\full\img-full-03%402x.jpg" />
+    <Content Include="Html\img\intro\full\img-full-03.jpg" />
+    <Content Include="Html\img\intro\icon-share_mini.png" />
+    <Content Include="Html\img\intro\icon-share_mini_2x.png" />
+    <Content Include="Html\img\intro\img-1.jpg" />
+    <Content Include="Html\img\intro\img-10.jpg" />
+    <Content Include="Html\img\intro\img-2.jpg" />
+    <Content Include="Html\img\intro\img-3.jpg" />
+    <Content Include="Html\img\intro\img-4.jpg" />
+    <Content Include="Html\img\intro\img-5.jpg" />
+    <Content Include="Html\img\intro\img-6.jpg" />
+    <Content Include="Html\img\intro\img-7.jpg" />
+    <Content Include="Html\img\intro\img-8.jpg" />
+    <Content Include="Html\img\intro\img-9.jpg" />
+    <Content Include="Html\img\intro\tutorial-01.png" />
+    <Content Include="Html\img\intro\tutorial-02.png" />
+    <Content Include="Html\img\intro\tutorial-03.png" />
+    <Content Include="Html\img\intro\tutorial-04.png" />
+    <Content Include="Html\img\menu\tile-add.png" />
+    <Content Include="Html\img\menu\tile-add_2x.png" />
+    <Content Include="Html\img\menu\tile-article.png" />
+    <Content Include="Html\img\menu\tile-article_2x.png" />
+    <Content Include="Html\img\menu\tile-fav.png" />
+    <Content Include="Html\img\menu\tile-fav_2x.png" />
+    <Content Include="Html\img\menu\tile-setting.png" />
+    <Content Include="Html\img\menu\tile-setting_2x.png" />
+    <Content Include="Html\img\menu\tile-user.png" />
+    <Content Include="Html\img\menu\tile-user_2x.png" />
+    <Content Include="Html\img\recent\bullet-recent.png" />
+    <Content Include="Html\img\recent\bullet-recent_2x.png" />
+    <Content Include="Html\img\search\icon-search.png" />
+    <Content Include="Html\img\search\icon-search_2x.png" />
+    <Content Include="Html\img\search\icon-search_sub.png" />
+    <Content Include="Html\img\search\icon-search_sub_2x.png" />
+    <Content Include="Html\img\search\tutorial-01.png" />
+    <Content Include="Html\img\search\tutorial-02.png" />
+    <Content Include="Html\img\startup\startup-retina-4in.png" />
+    <Content Include="Html\img\startup\startup-retina.png" />
+    <Content Include="Html\img\startup\startup-tablet-landscape-retina.png" />
+    <Content Include="Html\img\startup\startup-tablet-landscape.png" />
+    <Content Include="Html\img\startup\startup-tablet-portrait-retina.png" />
+    <Content Include="Html\img\startup\startup-tablet-portrait.png" />
+    <Content Include="Html\img\startup\startup.png" />
+    <Content Include="Html\img\touch\apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="Html\img\touch\apple-touch-icon-144x144-precomposed.png" />
+    <Content Include="Html\img\touch\apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="Html\img\touch\apple-touch-icon-72x72-precomposed.png" />
+    <Content Include="Html\img\touch\apple-touch-icon-precomposed.png" />
+    <Content Include="Html\img\touch\apple-touch-icon.png" />
+    <Content Include="Html\img\view-photo\btnBack.png" />
+    <Content Include="Html\img\view-photo\btnBack_2x.png" />
+    <Content Include="Html\img\view-photo\tutorial-01.png" />
+    <Content Include="Html\img\view-photo\tutorial-02.png" />
+    <Content Include="Html\img\webview\icon-fav-active.png" />
+    <Content Include="Html\img\webview\icon-fav-active_2x.png" />
+    <Content Include="Html\img\webview\icon-fav.png" />
+    <Content Include="Html\img\webview\icon-fav_2x.png" />
+    <Content Include="Html\img\webview\icon-goto.png" />
+    <Content Include="Html\img\webview\icon-goto_2x.png" />
+    <Content Include="Html\img\webview\icon-history.png" />
+    <Content Include="Html\img\webview\icon-history_2x.png" />
+    <Content Include="Html\img\webview\icon-share.png" />
+    <Content Include="Html\img\webview\icon-share_2x.png" />
+    <Content Include="Html\index.html" />
+    <Content Include="Html\js\angular-route.min.js" />
+    <Content Include="Html\js\angular.min.js" />
+    <Content Include="Html\js\api.js" />
+    <Content Include="Html\js\app.js" />
+    <Content Include="Html\js\helper.js" />
+    <Content Include="Html\js\main.js" />
+    <Content Include="Html\js\main.min.js" />
+    <Content Include="Html\js\plugins.js" />
+    <Content Include="Html\js\vendor\breakpoints.js" />
+    <Content Include="Html\js\vendor\jquery.grid-a-licious.js" />
+    <Content Include="Html\js\vendor\jquery.magnific-popup.js" />
+    <Content Include="Html\js\vendor\jquery.min.js" />
+    <Content Include="Html\js\vendor\jquery.mobile.custom.js" />
+    <Content Include="Html\js\vendor\modernizr-2.6.2.min.js" />
+    <Content Include="icon_nokia_01.png" />
+    <Content Include="icon_nokia_01_l.png" />
+    <Content Include="icon_nokia_01_m.png" />
+    <Content Include="icon_nokia_01_s.png" />
+    <Content Include="README_FIRST.txt" />
+    <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.4.2\lib\wp8\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Client">
+      <HintPath>..\packages\Facebook.Client.0.8.5-alpha\lib\wp8\Facebook.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.11-beta\lib\wp8\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Phone">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.11-beta\lib\wp8\Microsoft.Threading.Tasks.Extensions.Phone.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.13\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.13\lib\sl4-windowsphone71\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\portable-wp8+netcore45+net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.13\lib\sl4-windowsphone71\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+</Project>
