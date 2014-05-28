@@ -796,24 +796,22 @@ var callArticalView = function ($scope, apiCaller) {
     }, $scope);
 };
 
-var callArticalAdd = function ($scope, apiCaller, url) {
+var callArticalAdd = function ($scope, apiCaller, article_url) {
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
-    var url = apiList.my_article_add.url;
+    var apiURL = apiList.my_article_add.url;
     var apiParams = apiList.my_article_add.params;
     var params = [];
 
     for (var param in apiParams) {
         if (param == 'username') {
             params.push(param + '=' + $scope.username);
-        } else if (param == 'article_url') {
-            params.push(param + '=' + url);
         } else {
-            params.push(param + '=' + apiParams[param]);
+            params.push(param + '=' + article_url);
         }
     }
 
-    apiCaller.call(url, params, function (response, self) {
+    apiCaller.call(apiURL, params, function (response, self) {
 
         callWindowsPhoneNotify('responseNavigated');
     }, $scope);
