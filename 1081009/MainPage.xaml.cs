@@ -150,17 +150,34 @@ namespace _1081009
         {
             System.Diagnostics.Debug.WriteLine("Browser_ScriptNotify:" + e.Value);
 
+            // show content
+            if (e.Value.StartsWith("show_contentWebBrowser"))
+            {
+                // show content if exist
+                if (_contentWebBrowser != null)
+                    _contentWebBrowser.Visibility = System.Windows.Visibility.Visible;
+
+                return;
+            }
+
             // hide content
             if (e.Value.StartsWith("hide_contentWebBrowser"))
             {
                 // hide content if exist
                 if (_contentWebBrowser != null)
-                {
                     _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
 
-                    // release to prevent crash
-                    _contentWebBrowser = null;
-                }
+                return;
+            }
+
+            // release content
+            if (e.Value.StartsWith("release_contentWebBrowser"))
+            {
+                // hide content if exist
+                if (_contentWebBrowser != null)
+                    _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
+
+                _contentWebBrowser = null;
 
                 return;
             }

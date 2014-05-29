@@ -179,8 +179,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getTop10 = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $scope.isShowHome = true;
@@ -193,8 +193,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getHomeFeed = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $scope.isShowFeed = true;
@@ -215,8 +215,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getMap = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $('main').hide();
@@ -229,8 +229,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getUserMenu = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $('main').hide();
@@ -244,8 +244,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getSearch = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
 
         $scope.hideAll();
@@ -257,8 +257,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getSearchSub = function (group, name) {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         var list = apiCaller.category(group);
@@ -273,8 +273,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getSearchFeedTrip = function (group, type, title) {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $scope.isShowFeed = true;
@@ -295,8 +295,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getMenu = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $('main').hide();
@@ -306,8 +306,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getFeedTrip = function (feedName, name) {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $scope.isShowFeed = true;
@@ -328,8 +328,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.regist = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $('main').hide();
@@ -337,8 +337,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.registNewMember = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         var name = $('#regist-name').val();
         var surname = $('#regist-surname').val();
@@ -374,8 +374,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.login = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         var username = $('#login-username').val();
         var password = $('#login-password').val();
@@ -384,8 +384,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.openViewPhoto = function (list) {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         if (list != null) {
             $scope.viewPhoto = list;
@@ -398,8 +398,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getFeedSearch = function (keyword) {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $scope.isShowFeed = true;
@@ -437,8 +437,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.openRecentView = function (itemList) {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.recentList = itemList;
         $('main').hide();
@@ -468,8 +468,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
             callIsFav($scope, apiCaller, item.id);
         } else {
 
-            // will hide _contentWebBrowser
-            callWindowsPhoneNotify('hide_contentWebBrowser');
+            // will release _contentWebBrowser
+            callWindowsPhoneNotify('release_contentWebBrowser');
 
             $('main').hide();
             $('main.login').show();
@@ -477,32 +477,32 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getSetting = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $('main').hide();
         $('main.setting').show();
     };
     $scope.getTerm = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $('main').hide();
         $('main.term').show();
     };
     $scope.accept = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $('main').hide();
         $('main.menu').show();
     };
     $scope.logout = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.isLoggedIn = false;
         $scope.username = '';
@@ -518,8 +518,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getFav = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $scope.isShowFeed = true;
@@ -539,8 +539,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getMyStory = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
         $scope.isShowFeed = true;
@@ -573,8 +573,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.userSetting = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $('#setting-name').val($scope.userInfo.first_name);
         $('#setting-surname').val($scope.userInfo.last_name);
@@ -586,16 +586,16 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.saveProfileChange = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         $('main').hide();
         $('main.menu').show();
     };
     $scope.searchKeyword = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         var group = '-1';
         var keyword = $('#searchbox').val();
@@ -651,15 +651,15 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.getHistory = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         callWindowsPhoneNotify('getRecent');
     };
     $scope.fbLogin = function () {
 
-        // will hide _contentWebBrowser
-        callWindowsPhoneNotify('hide_contentWebBrowser');
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
 
         callWindowsPhoneNotify('fbLogin');
     };
@@ -706,8 +706,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
 var callMap = function ($scope, apiCaller) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     if ($scope.mapObject == null) {
         document.scope = $scope;
@@ -787,8 +787,8 @@ var callMapData = function ($scope, apiCaller) {
 
 var callTop10 = function ($scope, apiCaller) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     //$scope.showFeed = false;
@@ -820,8 +820,8 @@ var callTop10 = function ($scope, apiCaller) {
 
 var callHomeFeed = function ($scope, apiCaller) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -849,8 +849,8 @@ var callHomeFeed = function ($scope, apiCaller) {
 
 var callFavView = function ($scope, apiCaller) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -889,8 +889,8 @@ var callFavView = function ($scope, apiCaller) {
 
 var callArticalView = function ($scope, apiCaller) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -931,8 +931,8 @@ var callArticalView = function ($scope, apiCaller) {
 
 var callArticalAdd = function ($scope, apiCaller, article_url) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -956,8 +956,8 @@ var callArticalAdd = function ($scope, apiCaller, article_url) {
 
 var callFeedSearch = function ($scope, apiCaller, keyword) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -987,8 +987,8 @@ var callFeedSearch = function ($scope, apiCaller, keyword) {
 
 var callSearchKeyword = function ($scope, apiCaller, group, keyword) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -1020,8 +1020,8 @@ var callSearchKeyword = function ($scope, apiCaller, group, keyword) {
 
 var callFeedTrip = function ($scope, apiCaller, apiName) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -1049,8 +1049,8 @@ var callFeedTrip = function ($scope, apiCaller, apiName) {
 
 var callRegist = function ($scope, apiCaller, registParams) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -1107,8 +1107,8 @@ var callRegist = function ($scope, apiCaller, registParams) {
 
 var callForgot = function ($scope, apiCaller, email) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -1150,8 +1150,8 @@ var callForgot = function ($scope, apiCaller, email) {
 
 var callLogin = function ($scope, apiCaller, username, password) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -1200,8 +1200,8 @@ var callLogin = function ($scope, apiCaller, username, password) {
 
 var callFeedSubActivityTrip = function ($scope, apiCaller, group, type) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -1279,8 +1279,8 @@ var callIslike = function ($scope, apiCaller, itemId) {
 
 var callSaveView = function ($scope, apiCaller, itemId) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
@@ -1307,8 +1307,8 @@ var callSaveView = function ($scope, apiCaller, itemId) {
 
 var callFacebookLogin = function ($scope, apiCaller, fbid) {
 
-    // will hide _contentWebBrowser
-    callWindowsPhoneNotify('hide_contentWebBrowser');
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
