@@ -37,6 +37,9 @@ namespace _1081009
         private double _accuracy = 0.0;
         private GeoCoordinate MyCoordinate = null;
 
+        // sub content webview
+        private static WebBrowser _contentWebBrowser = null;
+
         // Constructor
         public MainPage()
         {
@@ -145,6 +148,23 @@ namespace _1081009
 
         void Browser_ScriptNotify(object sender, NotifyEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("Browser_ScriptNotify:" + e.Value);
+
+            // hide content
+            if (e.Value.StartsWith("hide_contentWebBrowser"))
+            {
+                // hide content if exist
+                if (_contentWebBrowser != null)
+                {
+                    _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
+
+                    // release to prevent crash
+                    _contentWebBrowser = null;
+                }
+
+                return;
+            }
+
             if (e.Value.StartsWith("MapData"))
             {
                 BindDataMap(e.Value.Split('|')[1]);
@@ -172,6 +192,10 @@ namespace _1081009
 
             if (e.Value.StartsWith("responseNavigating"))
             {
+                // hide content
+                if (_contentWebBrowser != null)
+                    _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
+
                 setProgressIndicator(true);
                 return;
             }
@@ -319,6 +343,14 @@ namespace _1081009
                 return;
             }
 
+            // will open content webview          
+            if (e.Value.StartsWith("webview"))
+            {
+                string[] str = e.Value.Split('|');
+                ShowContentWebView(str[1]);
+                return;
+            }
+
             if (pageNavigation.Count > 0)
             {
                 if (pageNavigation.Last() != e.Value)
@@ -326,6 +358,28 @@ namespace _1081009
             }
             else
                 pageNavigation.Add(e.Value);
+        }
+
+        private void ShowContentWebView(String uriString)
+        {
+            // create if not exist
+            if(_contentWebBrowser == null)
+                _contentWebBrowser = new WebBrowser();
+
+            _contentWebBrowser.Visibility = System.Windows.Visibility.Visible;
+
+            // avoid top bar+bottom bar
+            Thickness margin = _contentWebBrowser.Margin;
+            margin.Top = 80;
+            margin.Bottom = 72;
+            _contentWebBrowser.Margin = margin;
+
+            // present to view
+            _contentWebBrowser.Width = LayoutRoot.Width;
+            LayoutRoot.Children.Add(_contentWebBrowser);
+
+            // nav to url
+            _contentWebBrowser.Navigate(new Uri(uriString, UriKind.Absolute));
         }
 
         private void MyMap_Loaded(object sender, RoutedEventArgs e)
