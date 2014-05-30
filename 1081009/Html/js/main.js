@@ -34,10 +34,13 @@ jQuery(document).ready(function($){
 
 	$('#btnShare').on('click', function () {
 
+        /*
+        deprecated
 	    // will hide _contentWebBrowser
 	    if (window.external)
 	        window.external.notify("hide_contentWebBrowser");
 
+	    
 		$('#share').show();
 		$('body').addClass('show-overlay');
 		$('.close-overlay, #overlay').on('click', function(){
@@ -47,6 +50,11 @@ jQuery(document).ready(function($){
 		    if (window.external)
 		        window.external.notify("show_contentWebBrowser");
 		})
+        */
+
+        // will share content
+	    if (window.external)
+	        window.external.notify("share_content");
 	})
 
 

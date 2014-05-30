@@ -39,6 +39,7 @@ namespace _1081009
 
         // sub content webview
         private static WebBrowser _contentWebBrowser = null;
+        private String _currentContentLink = null;
 
         // Constructor
         public MainPage()
@@ -129,7 +130,7 @@ namespace _1081009
         void FacebookLogin()
         {
             FacebookSessionClient fb = new FacebookSessionClient("321684751264693");
-            fb.LoginWithApp("basic_info", "custom_state_string");
+            fb.LoginWithApp("basic_info,publish_actions", "custom_state_string");
         }
 
         public static async void GetFacebookId()
@@ -146,9 +147,30 @@ namespace _1081009
            // }
         }
 
+        // TODO : move to FB helper class
+        private void WillShareLink(String urlString)
+        {
+            // will use native wp8 share
+            ShareLinkTask shareLinkTask = new ShareLinkTask();
+
+            shareLinkTask.Title = "1081009";
+            shareLinkTask.LinkUri = new Uri(urlString, UriKind.Absolute);
+            shareLinkTask.Message = "";
+
+            shareLinkTask.Show();
+        }
+
         void Browser_ScriptNotify(object sender, NotifyEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Browser_ScriptNotify:" + e.Value);
+
+            // show wp share
+            if (e.Value.StartsWith("share_content"))
+            {
+                WillShareLink(_currentContentLink);
+
+                return;
+            }
 
             // show content
             if (e.Value.StartsWith("show_contentWebBrowser"))
@@ -379,6 +401,9 @@ namespace _1081009
 
         private void ShowContentWebView(String uriString)
         {
+            // for later use
+            _currentContentLink = uriString;
+
             // create if not exist
             if(_contentWebBrowser == null)
                 _contentWebBrowser = new WebBrowser();
