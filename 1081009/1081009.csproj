@@ -299,7 +299,6 @@
     <Content Include="Html\js\app.js" />
     <Content Include="Html\js\helper.js" />
     <Content Include="Html\js\main.js" />
-    <Content Include="Html\js\main.min.js" />
     <Content Include="Html\js\plugins.js" />
     <Content Include="Html\js\vendor\breakpoints.js" />
     <Content Include="Html\js\vendor\jquery.grid-a-licious.js" />
@@ -322,6 +321,7 @@
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

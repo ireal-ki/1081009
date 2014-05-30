@@ -178,6 +178,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $scope.isShowSearch = false;
     };
     $scope.getTop10 = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $scope.isShowHome = true;
         $scope.toplist = [];
@@ -188,6 +192,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callTop10($scope, apiCaller);
     };
     $scope.getHomeFeed = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $scope.isShowFeed = true;
         $scope.feedContent = [];
@@ -206,6 +214,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callHomeFeed($scope, apiCaller);
     };
     $scope.getMap = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $('main').hide();
         $('main.map').show();
@@ -216,6 +228,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callMap($scope, apiCaller);
     };
     $scope.getUserMenu = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $('main').hide();
         if ($scope.isLoggedIn) {
@@ -227,6 +243,11 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('userMenu');
     };
     $scope.getSearch = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
+
         $scope.hideAll();
         $('main').hide();
         $('main.search').show();
@@ -235,6 +256,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('search');
     };
     $scope.getSearchSub = function (group, name) {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         var list = apiCaller.category(group);
         $scope.feedLanding = name;
@@ -247,6 +272,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         }
     };
     $scope.getSearchFeedTrip = function (group, type, title) {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $scope.isShowFeed = true;
         $scope.feedContent = [];
@@ -265,6 +294,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callFeedSubActivityTrip($scope, apiCaller, group, type);
     };
     $scope.getMenu = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $('main').hide();
         $('main.menulist').show();
@@ -272,6 +305,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('menuList');
     };
     $scope.getFeedTrip = function (feedName, name) {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $scope.isShowFeed = true;
         $scope.feedContent = [];
@@ -290,11 +327,19 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callFeedTrip($scope, apiCaller, feedName);
     };
     $scope.regist = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $('main').hide();
         $('main.regist').show();
     };
     $scope.registNewMember = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         var name = $('#regist-name').val();
         var surname = $('#regist-surname').val();
         var email = $('#regist-email').val();
@@ -328,11 +373,20 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         }
     };
     $scope.login = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         var username = $('#login-username').val();
         var password = $('#login-password').val();
+
         callLogin($scope, apiCaller, username, password);
     };
     $scope.openViewPhoto = function (list) {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         if (list != null) {
             $scope.viewPhoto = list;
         }
@@ -343,6 +397,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('viewPhoto');
     };
     $scope.getFeedSearch = function (keyword) {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $scope.isShowFeed = true;
         $scope.feedContent = [];
@@ -361,6 +419,9 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callFeedSearch($scope, apiCaller, keyword);
     };
     $scope.openWebView = function (item) {
+
+        //for test//item.url = "http://sleepydesign.com";
+
         $scope.hideAll();
 
         if (item != null) {
@@ -372,9 +433,13 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify("recentAdd" + "|" + item.title + '|' + item.id + "|" + item.url + "|" + item.isFav + "|" + item.isLike + "|" + item.like + "|" + item.view);
         callSaveView($scope, apiCaller, item.id);
-        callWindowsPhoneNotify('webview');
+        callWindowsPhoneNotify('webview' + "|" + item.url);
     };
     $scope.openRecentView = function (itemList) {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.recentList = itemList;
         $('main').hide();
         $('main.recent').show();
@@ -402,23 +467,43 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
             item.isFav = true;
             callIsFav($scope, apiCaller, item.id);
         } else {
+
+            // will release _contentWebBrowser
+            callWindowsPhoneNotify('release_contentWebBrowser');
+
             $('main').hide();
             $('main.login').show();
         }
     };
     $scope.getSetting = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $('main').hide();
         $('main.setting').show();
     };
     $scope.getTerm = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $('main').hide();
         $('main.term').show();
     };
     $scope.accept = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $('main').hide();
         $('main.menu').show();
     };
     $scope.logout = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.isLoggedIn = false;
         $scope.username = '';
         $scope.userInfo = {};
@@ -432,6 +517,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $('body').removeClass('show-overlay');
     };
     $scope.getFav = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $scope.isShowFeed = true;
         $scope.feedContent = [];
@@ -449,6 +538,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callFavView($scope, apiCaller);
     };
     $scope.getMyStory = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $scope.hideAll();
         $scope.isShowFeed = true;
         $scope.feedContent = [];
@@ -479,6 +572,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $('body').removeClass('show-overlay');
     };
     $scope.userSetting = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $('#setting-name').val($scope.userInfo.first_name);
         $('#setting-surname').val($scope.userInfo.last_name);
         $('#setting-email').val($scope.userInfo.email);
@@ -488,10 +585,18 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $('main.user-setting').show();
     };
     $scope.saveProfileChange = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         $('main').hide();
         $('main.menu').show();
     };
     $scope.searchKeyword = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         var group = '-1';
         var keyword = $('#searchbox').val();
         $scope.hideAll();
@@ -545,9 +650,17 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         }
     };
     $scope.getHistory = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         callWindowsPhoneNotify('getRecent');
     };
     $scope.fbLogin = function () {
+
+        // will release _contentWebBrowser
+        callWindowsPhoneNotify('release_contentWebBrowser');
+
         callWindowsPhoneNotify('fbLogin');
     };
 
@@ -592,6 +705,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 };
 
 var callMap = function ($scope, apiCaller) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     if ($scope.mapObject == null) {
         document.scope = $scope;
         var script = document.createElement('script');
@@ -669,6 +786,10 @@ var callMapData = function ($scope, apiCaller) {
 };
 
 var callTop10 = function ($scope, apiCaller) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     //$scope.showFeed = false;
     var apiList = apiCaller.apiList;
@@ -698,6 +819,10 @@ var callTop10 = function ($scope, apiCaller) {
 };
 
 var callHomeFeed = function ($scope, apiCaller) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.latest_trip.url;
@@ -723,6 +848,10 @@ var callHomeFeed = function ($scope, apiCaller) {
 };
 
 var callFavView = function ($scope, apiCaller) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.favorite_view.url;
@@ -759,6 +888,10 @@ var callFavView = function ($scope, apiCaller) {
 };
 
 var callArticalView = function ($scope, apiCaller) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.my_article_view.url;
@@ -797,6 +930,10 @@ var callArticalView = function ($scope, apiCaller) {
 };
 
 var callArticalAdd = function ($scope, apiCaller, article_url) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var apiURL = apiList.my_article_add.url;
@@ -818,6 +955,10 @@ var callArticalAdd = function ($scope, apiCaller, article_url) {
 };
 
 var callFeedSearch = function ($scope, apiCaller, keyword) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.latest_trip.url;
@@ -845,6 +986,10 @@ var callFeedSearch = function ($scope, apiCaller, keyword) {
 };
 
 var callSearchKeyword = function ($scope, apiCaller, group, keyword) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.latest_trip.url;
@@ -874,6 +1019,10 @@ var callSearchKeyword = function ($scope, apiCaller, group, keyword) {
 };
 
 var callFeedTrip = function ($scope, apiCaller, apiName) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList[apiName].url;
@@ -899,6 +1048,10 @@ var callFeedTrip = function ($scope, apiCaller, apiName) {
 }
 
 var callRegist = function ($scope, apiCaller, registParams) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.register.url;
@@ -953,6 +1106,10 @@ var callRegist = function ($scope, apiCaller, registParams) {
 };
 
 var callForgot = function ($scope, apiCaller, email) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.forgot.url;
@@ -992,6 +1149,10 @@ var callForgot = function ($scope, apiCaller, email) {
 };
 
 var callLogin = function ($scope, apiCaller, username, password) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.auth.url;
@@ -1038,6 +1199,10 @@ var callLogin = function ($scope, apiCaller, username, password) {
 };
 
 var callFeedSubActivityTrip = function ($scope, apiCaller, group, type) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.latest_trip.url;
@@ -1113,6 +1278,10 @@ var callIslike = function ($scope, apiCaller, itemId) {
 };
 
 var callSaveView = function ($scope, apiCaller, itemId) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.save_view.url;
@@ -1137,6 +1306,10 @@ var callSaveView = function ($scope, apiCaller, itemId) {
 };
 
 var callFacebookLogin = function ($scope, apiCaller, fbid) {
+
+    // will release _contentWebBrowser
+    callWindowsPhoneNotify('release_contentWebBrowser');
+
     callWindowsPhoneNotify('responseNavigating');
     var apiList = apiCaller.apiList;
     var url = apiList.authFb.url;

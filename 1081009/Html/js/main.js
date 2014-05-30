@@ -32,11 +32,20 @@ jQuery(document).ready(function($){
 		})
 	})
 
-	$('#btnShare').on('click', function(){
+	$('#btnShare').on('click', function () {
+
+	    // will hide _contentWebBrowser
+	    if (window.external)
+	        window.external.notify("hide_contentWebBrowser");
+
 		$('#share').show();
 		$('body').addClass('show-overlay');
 		$('.close-overlay, #overlay').on('click', function(){
-			$('body').removeClass('show-overlay');
+		    $('body').removeClass('show-overlay');
+
+		    // will hide _contentWebBrowser
+		    if (window.external)
+		        window.external.notify("show_contentWebBrowser");
 		})
 	})
 
