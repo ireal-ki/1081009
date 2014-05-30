@@ -184,10 +184,16 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowHome = true;
-        $scope.toplist = [];
-        $scope.cover = {};
+
+        if ($scope.toplist == null)
+            $scope.toplist = [];
+
+        if ($scope.cover == null)
+            $scope.cover = {};
+
         $('main').hide();
         $('main.intro').show();
+
         callWindowsPhoneNotify('top10');
         callTop10($scope, apiCaller);
     };
@@ -791,31 +797,43 @@ var callTop10 = function ($scope, apiCaller) {
     callWindowsPhoneNotify('release_contentWebBrowser');
 
     callWindowsPhoneNotify('responseNavigating');
-    //$scope.showFeed = false;
-    var apiList = apiCaller.apiList;
-    var url = apiList.top10.url;
-    var apiParams = apiList.top10.params;
-    var params = [];
 
-    for (var param in apiParams) {
-        if (param == 'username') {
-            params.push(param + '=' + $scope.username);
-        } else {
-            params.push(param + '=' + apiParams[param]);
-        }
-    }
+    // already load cover?
+    if (self.cover == null)
+    {
+        // not yet, will fecth top10
 
-    apiCaller.call(url, params, function (response, self) {
-        for (var i = 0; i < response.data.length; i++) {
-            if (response.data[i].iscover == 'true') {
-                self.cover = response.data[i];
+        //$scope.showFeed = false;
+        var apiList = apiCaller.apiList;
+        var url = apiList.top10.url;
+        var apiParams = apiList.top10.params;
+        var params = [];
+
+        for (var param in apiParams) {
+            if (param == 'username') {
+                params.push(param + '=' + $scope.username);
             } else {
-                self.toplist.push(response.data[i]);
+                params.push(param + '=' + apiParams[param]);
             }
         }
+
+        // call api
+        apiCaller.call(url, params, function (response, self) {
+            for (var i = 0; i < response.data.length; i++) {
+                if (response.data[i].iscover == 'true') {
+                    self.cover = response.data[i];
+                } else {
+                    self.toplist.push(response.data[i]);
+                }
+            }
+            callWindowsPhoneNotify('responseNavigated');
+            callWindowsPhoneNotify('top10Loaded');
+        }, $scope);
+    } else {
+        // use cache, no api call just notify then
         callWindowsPhoneNotify('responseNavigated');
         callWindowsPhoneNotify('top10Loaded');
-    }, $scope);
+    }
 };
 
 var callHomeFeed = function ($scope, apiCaller) {
