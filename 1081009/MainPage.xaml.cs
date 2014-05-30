@@ -390,6 +390,12 @@ namespace _1081009
                 return;
             }
 
+            // hide AppBar when access viewPhoto page
+            if (e.Value.StartsWith("viewPhoto"))
+            {
+                ApplicationBar.IsVisible = false;
+            }
+
             if (pageNavigation.Count > 0)
             {
                 if (pageNavigation.Last() != e.Value)
