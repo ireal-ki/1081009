@@ -266,7 +266,7 @@ namespace _1081009
             }
 
             if (e.Value.StartsWith("top10Loaded"))
-            {
+            {                
                 if (!settings.Contains("WasLaunched"))
                 {
                     Browser.InvokeScript("firstTimeLaunched");

@@ -26,10 +26,10 @@
     <!-- .intro -->
     <main class="intro">
         <div class="tutorial">
-            <img src="img/intro/tutorial-01.png" alt="กดเพื่อเปิดหน้าหลัก" width="252">
+            <img src="img/intro/tutorial-01.png" alt="กดเพื่อเปิดหน้าหลัก" width="170">
             <img src="img/intro/tutorial-02.png" alt="กดเพื่อลงทะเบียนเข้าสู่ระบบ" width="234">
             <img src="img/intro/tutorial-03.png" alt="กดเพื่อเปิดเครื่องมือค้นหาเรื่องราวท่องเที่ยว" width="196">
-            <img src="img/intro/tutorial-04.png" alt="กดเพื่อดูเรื่องราวท่องเที่ยวที่เกี่ยวข้อง" width="238">
+            <img src="img/intro/tutorial-04.png" alt="กดเพื่อดูเรื่องราวท่องเที่ยวที่เกี่ยวข้อง" width="200">
         </div>
         <header>
             <h1></h1>
@@ -40,7 +40,7 @@
             </div>
         </header>
         <article>
-            <div id="banner-top10" ng-style="{'background-image':'url('+cover.url_image+')'}" id="banner-top10"></div>
+            <div id="banner-top10" ng-style="{'background-image':'url('+cover.url_image+')'}"></div>
             <figure ng-repeat="list in toplist" ng-style="{'background-image':'url('+list.url_image+')'}">
                 <a href class="popup" data-effect="mfp-zoom-in" data-view="{{list.view}}" data-share="{{list.stories}}" title="{{list.title}}" ng-click="openViewPhoto(list)">&nbsp;</a>
             </figure>
