@@ -29,7 +29,7 @@ function setUUID(id) {
         scopeNg.uuid = id;
     }
 };
-function whenBackFrom_contentWebBrowser() {
+function restoreFeed() {
     if (scopeNg != null) {
         scopeNg.restoreFeed();
     }
@@ -212,6 +212,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
 
         $('main').hide();
         $('main.feed').show(function () {
@@ -237,6 +238,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
         $scope.feedContent = [];
         $scope.feedLanding = 'โพสต์ล่าสุด';
         $('main').hide();
@@ -272,6 +274,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('release_contentWebBrowser');
 
         $scope.hideAll();
+        $scope.appBarVisible(false);
+
         $('main').hide();
         if ($scope.isLoggedIn) {
             $('main.menu').show();
@@ -320,6 +324,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
         $scope.feedContent = [];
         $scope.feedLanding = title;
         $('main').hide();
@@ -356,6 +361,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
         $scope.feedContent = [];
         $scope.feedLanding = name;
         $('main').hide();
@@ -451,6 +457,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
 
         // already cache
         var isCached = ($scope.feedContent.length > 0 && $scope.feedLanding == keyword);
@@ -486,7 +493,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $('main').hide();
         $('main.webview').show();
-        callWindowsPhoneNotify("AppBar|false");
+        $scope.appBarVisible(false);
+
         callWindowsPhoneNotify("recentAdd" + "|" + item.title + '|' + item.id + "|" + item.url + "|" + item.isFav + "|" + item.isLike + "|" + item.like + "|" + item.view);
         callSaveView($scope, apiCaller, item.id);
         callWindowsPhoneNotify('webview' + "|" + item.url);
@@ -582,6 +590,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
         $scope.feedContent = [];
         $scope.feedLanding = 'สถานที่โปรด';
         $('main').hide();
@@ -606,6 +615,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
         $scope.feedContent = [];
         $scope.feedLanding = 'เรื่องราวท่องเที่ยวของฉัน';
         $('main').hide();
@@ -666,6 +676,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         var keyword = $('#searchbox').val();
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
         $scope.feedContent = [];
         $scope.feedLanding = keyword;
         $('main').hide();
@@ -694,6 +705,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         var keyword = $('#searchbox2').val();
         $scope.hideAll();
         $scope.isShowFeed = true;
+        $scope.appBarVisible(true);
         $scope.feedContent = [];
         $scope.feedLanding = keyword;
         $('main').hide();
@@ -733,11 +745,9 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('fbLogin');
     };
 
-    $scope.$watch('isShowFeed', function (newBool, oldBool) {
-        if (newBool != oldBool) {
-            callWindowsPhoneNotify('AppBar|' + newBool);
-        }
-    }.bind(this));
+    $scope.appBarVisible = function (newBool) {
+        callWindowsPhoneNotify('AppBar|' + newBool);
+    };
 
     $scope.$watch('coords', function (data) {
         if ($scope.mapObject != null) {

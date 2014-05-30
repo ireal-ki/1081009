@@ -99,17 +99,15 @@ namespace _1081009
                 if ((_contentWebBrowser != null) && (_contentWebBrowser.Visibility == System.Windows.Visibility.Visible))
                 {
                     _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
-                    ApplicationBar.IsVisible = true;
 
-                    Browser.InvokeScript("whenBackFrom_contentWebBrowser");
-
-                    return;
+                    Browser.InvokeScript("restoreFeed");
                 }
                 else
                 {
                     int numberOfPage = pageNavigation.Count;
                     string page = pageNavigation.ElementAt(numberOfPage - 2);
                     pageNavigation.RemoveAt(numberOfPage - 1);
+
                     if (page == "map")
                     {
                         HereMap.Visibility = System.Windows.Visibility.Visible;
@@ -119,7 +117,14 @@ namespace _1081009
                         HereMap.Visibility = System.Windows.Visibility.Collapsed;
                     }
 
-                    Browser.InvokeScript("onBackBtnPress", new string[] { page });
+                    if (page == "feed")
+                    {
+                        Browser.InvokeScript("restoreFeed");
+                    }
+                    else
+                    {
+                        Browser.InvokeScript("onBackBtnPress", new string[] { page });
+                    }
                 }
             }
         }
