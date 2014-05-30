@@ -105,10 +105,16 @@ namespace _1081009
                 else
                 {
                     int numberOfPage = pageNavigation.Count;
-                    string page = pageNavigation.ElementAt(numberOfPage - 2);
+
+                    string currentPage = pageNavigation.ElementAt(numberOfPage - 1);
+                    string targetPage = pageNavigation.ElementAt(numberOfPage - 2);
+
                     pageNavigation.RemoveAt(numberOfPage - 1);
 
-                    if (page == "map")
+                    System.Diagnostics.Debug.WriteLine("currentPage:" + currentPage);
+                    System.Diagnostics.Debug.WriteLine("targetPage:" + targetPage);
+
+                    if (targetPage == "map")
                     {
                         HereMap.Visibility = System.Windows.Visibility.Visible;
                     }
@@ -117,13 +123,13 @@ namespace _1081009
                         HereMap.Visibility = System.Windows.Visibility.Collapsed;
                     }
 
-                    if (page == "feed")
+                    if (targetPage == "feed")
                     {
                         Browser.InvokeScript("restoreFeed");
                     }
                     else
                     {
-                        Browser.InvokeScript("onBackBtnPress", new string[] { page });
+                        Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
                     }
                 }
             }
@@ -292,6 +298,8 @@ namespace _1081009
                     recentsList += recent[i];
                 }
                 Browser.InvokeScript("getRecentReturn", new string[] { recentsList });
+
+                addPageNav(e.Value);
                 return;
             }
 
@@ -410,6 +418,8 @@ namespace _1081009
 
         private void addPageNav(String pageString)
         {
+            System.Diagnostics.Debug.WriteLine("addPageNav:" + pageString);
+
             if (pageNavigation.Count > 0)
             {
                 if (pageNavigation.Last() != pageString)
