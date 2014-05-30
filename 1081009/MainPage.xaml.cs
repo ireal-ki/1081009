@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Maps.Controls;
-using Microsoft.Phone.Maps.Services;
 using Windows.Devices.Geolocation;
 using System.IO.IsolatedStorage;
 using Facebook;
@@ -19,8 +17,6 @@ using System.Text;
 using System.Device.Location;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Maps.Toolkit;
@@ -147,19 +143,6 @@ namespace _1081009
            // }
         }
 
-        // TODO : move to FB helper class
-        private void WillShareLink(String urlString)
-        {
-            // will use native wp8 share
-            ShareLinkTask shareLinkTask = new ShareLinkTask();
-
-            shareLinkTask.Title = "1081009";
-            shareLinkTask.LinkUri = new Uri(urlString, UriKind.Absolute);
-            shareLinkTask.Message = "";
-
-            shareLinkTask.Show();
-        }
-
         void Browser_ScriptNotify(object sender, NotifyEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Browser_ScriptNotify:" + e.Value);
@@ -167,7 +150,7 @@ namespace _1081009
             // show wp share
             if (e.Value.StartsWith("share_content"))
             {
-                WillShareLink(_currentContentLink);
+                ShareUtil.WillShareLink(_currentContentLink);
 
                 return;
             }
