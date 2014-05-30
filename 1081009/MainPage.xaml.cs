@@ -94,19 +94,33 @@ namespace _1081009
             if (isGoback)
             {
                 e.Cancel = true;
-                int numberOfPage = pageNavigation.Count;
-                string page = pageNavigation.ElementAt(numberOfPage - 2);
-                pageNavigation.RemoveAt(numberOfPage-1);
-                if (page == "map")
+
+                // won't go back if _contentWebBrowser is shown
+                if ((_contentWebBrowser != null) && (_contentWebBrowser.Visibility == System.Windows.Visibility.Visible))
                 {
-                    HereMap.Visibility = System.Windows.Visibility.Visible;
+                    _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
+                    ApplicationBar.IsVisible = true;
+
+                    Browser.InvokeScript("whenBackFrom_contentWebBrowser");
+
+                    return;
                 }
                 else
                 {
-                    HereMap.Visibility = System.Windows.Visibility.Collapsed;
-                }
+                    int numberOfPage = pageNavigation.Count;
+                    string page = pageNavigation.ElementAt(numberOfPage - 2);
+                    pageNavigation.RemoveAt(numberOfPage - 1);
+                    if (page == "map")
+                    {
+                        HereMap.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        HereMap.Visibility = System.Windows.Visibility.Collapsed;
+                    }
 
-                Browser.InvokeScript("onBackBtnPress", new string[] { page });
+                    Browser.InvokeScript("onBackBtnPress", new string[] { page });
+                }
             }
         }
 
@@ -146,6 +160,12 @@ namespace _1081009
         void Browser_ScriptNotify(object sender, NotifyEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Browser_ScriptNotify:" + e.Value);
+
+            if (e.Value.StartsWith("log"))
+            {
+                System.Diagnostics.Debug.WriteLine(e.Value.Split('|')[1]);
+                return;
+            }
 
             // show wp share
             if (e.Value.StartsWith("share_content"))
@@ -379,13 +399,21 @@ namespace _1081009
                 ApplicationBar.IsVisible = false;
             }
 
+            // default case will count as page nav
+            addPageNav(e.Value);
+        }
+
+        private void addPageNav(String pageString)
+        {
             if (pageNavigation.Count > 0)
             {
-                if (pageNavigation.Last() != e.Value)
-                    pageNavigation.Add(e.Value);
+                if (pageNavigation.Last() != pageString)
+                    pageNavigation.Add(pageString);
             }
             else
-                pageNavigation.Add(e.Value);
+            {
+                pageNavigation.Add(pageString);
+            }
         }
 
         private void ShowContentWebView(String uriString)
