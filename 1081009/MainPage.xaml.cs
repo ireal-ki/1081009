@@ -128,7 +128,7 @@ namespace _1081009
 
         void FacebookLogin()
         {
-            FacebookSessionClient fb = new FacebookSessionClient("303330929819566");
+            FacebookSessionClient fb = new FacebookSessionClient("321684751264693");
             fb.LoginWithApp("basic_info", "custom_state_string");
         }
 
