@@ -143,9 +143,7 @@
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Tiles\FlipCycleTileMedium.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileMedium.png" />
     <Content Include="Assets\Tiles\FlipCycleTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -307,7 +305,6 @@
     <Content Include="Html\js\vendor\jquery.min.js" />
     <Content Include="Html\js\vendor\jquery.mobile.custom.js" />
     <Content Include="Html\js\vendor\modernizr-2.6.2.min.js" />
-    <Content Include="icon_nokia_01.png" />
     <Content Include="icon_nokia_01_l.png" />
     <Content Include="icon_nokia_01_m.png" />
     <Content Include="icon_nokia_01_s.png" />

@@ -6,7 +6,7 @@
     <Language code="th-TH" />
   </Languages>
   <App xmlns="" ProductID="{7a67f426-3109-47fe-8630-8521367ad27a}" Title="ภารกิจเที่ยว" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="_1081009 author" Description="Sample description" Publisher="_1081009" PublisherID="{6f3d951e-7638-42c5-99c8-71f3dd27145f}">
-    <IconPath IsRelative="true" IsResource="false">icon_nokia_01.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -24,9 +24,9 @@
     <Tokens>
       <PrimaryToken TokenID="_1081009Token" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">icon_nokia_01_s.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">icon_nokia_01_m.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
           <Title>ภารกิจเที่ยว</Title>
           <BackContent>
           </BackContent>
@@ -34,8 +34,7 @@
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
-          <LargeBackgroundImageURI IsRelative="true" IsResource="false">
-          </LargeBackgroundImageURI>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileLarge.png</LargeBackgroundImageURI>
           <LargeBackContent />
           <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
           </LargeBackBackgroundImageURI>
