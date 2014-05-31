@@ -531,6 +531,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
             $('main').hide();
             $('main.login').show();
+
+            callWindowsPhoneNotify('login');
         }
     };
     $scope.getSetting = function () {
