@@ -47,7 +47,6 @@ namespace _1081009
 
         private void Browser_Loaded(object sender, RoutedEventArgs e)
         {
-            //deprecated//SystemTray.ProgressIndicator = new ProgressIndicator();
             Browser.IsScriptEnabled = true;
             Browser.Navigate(new Uri(MainUri, UriKind.Relative));
             Browser.ScriptNotify += Browser_ScriptNotify;
@@ -137,10 +136,10 @@ namespace _1081009
 
         void setProgressIndicator(bool isVisible)
         {
-            /* deprecated
-            SystemTray.ProgressIndicator.IsIndeterminate = isVisible;
-            SystemTray.ProgressIndicator.IsVisible = isVisible;
-            */
+            if (isVisible)
+                CustomProgressIndicator.Visibility = System.Windows.Visibility.Visible;
+            else
+                CustomProgressIndicator.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         void OpenIE(string url)

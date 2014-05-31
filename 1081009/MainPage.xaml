@@ -37,6 +37,10 @@
                 </toolkit:MapItemsControl>
             </toolkit:MapExtensions.Children>
         </maps:Map>
+        <Canvas x:Name="CustomProgressIndicator" HorizontalAlignment="Center" Height="50" Margin="0" VerticalAlignment="Center" Width="100">
+            <ProgressBar Height="10" Margin="-190,0,0,0" Width="480" HorizontalAlignment="Center" VerticalAlignment="Center" IsIndeterminate="True" Canvas.Left="0" Canvas.Top="0"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Please wait..." VerticalAlignment="Center" Canvas.Left="0" Canvas.Top="10" Foreground="White"/>
+        </Canvas>
     </Grid>
 
     <!-- ApplicationBar -->
