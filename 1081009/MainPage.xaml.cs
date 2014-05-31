@@ -64,6 +64,9 @@ namespace _1081009
             HereMap.Visibility = System.Windows.Visibility.Visible;
             GetCurrentCoordinate();
             //Browser.InvokeScript("onAppBarBtnMapClick");
+
+            // for nav refference to current page later when hit back button
+            addPageNav("map");
         }
 
         void appBarBtnTop10_Click(object sender, EventArgs e)
@@ -93,6 +96,9 @@ namespace _1081009
             if (isGoback)
             {
                 e.Cancel = true;
+
+                // hide loading
+                setProgressIndicator(false);
 
                 int numberOfPage = pageNavigation.Count;
 
