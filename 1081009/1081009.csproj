@@ -305,9 +305,6 @@
     <Content Include="Html\js\vendor\jquery.min.js" />
     <Content Include="Html\js\vendor\jquery.mobile.custom.js" />
     <Content Include="Html\js\vendor\modernizr-2.6.2.min.js" />
-    <Content Include="icon_nokia_01_l.png" />
-    <Content Include="icon_nokia_01_m.png" />
-    <Content Include="icon_nokia_01_s.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
