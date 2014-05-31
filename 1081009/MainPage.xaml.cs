@@ -94,42 +94,36 @@ namespace _1081009
             {
                 e.Cancel = true;
 
-                // won't go back if _contentWebBrowser is shown
-                if ((_contentWebBrowser != null) && (_contentWebBrowser.Visibility == System.Windows.Visibility.Visible))
-                {
-                    _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
+                int numberOfPage = pageNavigation.Count;
 
+                string currentPage = pageNavigation.ElementAt(numberOfPage - 1);
+                string targetPage = pageNavigation.ElementAt(numberOfPage - 2);
+
+                pageNavigation.RemoveAt(numberOfPage - 1);
+
+                System.Diagnostics.Debug.WriteLine("currentPage:" + currentPage);
+                System.Diagnostics.Debug.WriteLine("targetPage:" + targetPage);
+
+                if (targetPage == "map")
+                {
+                    HereMap.Visibility = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    HereMap.Visibility = System.Windows.Visibility.Collapsed;
+                }
+
+                if (targetPage == "webview")
+                {
+                    Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
+                }
+                else if (targetPage == "feed")
+                {
                     Browser.InvokeScript("restoreFeed");
                 }
                 else
                 {
-                    int numberOfPage = pageNavigation.Count;
-
-                    string currentPage = pageNavigation.ElementAt(numberOfPage - 1);
-                    string targetPage = pageNavigation.ElementAt(numberOfPage - 2);
-
-                    pageNavigation.RemoveAt(numberOfPage - 1);
-
-                    System.Diagnostics.Debug.WriteLine("currentPage:" + currentPage);
-                    System.Diagnostics.Debug.WriteLine("targetPage:" + targetPage);
-
-                    if (targetPage == "map")
-                    {
-                        HereMap.Visibility = System.Windows.Visibility.Visible;
-                    }
-                    else
-                    {
-                        HereMap.Visibility = System.Windows.Visibility.Collapsed;
-                    }
-
-                    if (targetPage == "feed")
-                    {
-                        Browser.InvokeScript("restoreFeed");
-                    }
-                    else
-                    {
-                        Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
-                    }
+                    Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
                 }
             }
         }
@@ -157,16 +151,16 @@ namespace _1081009
 
         public static async void GetFacebookId()
         {
-           // if (!IsolatedStorageSettings.ApplicationSettings.Contains("fbid"))
+            // if (!IsolatedStorageSettings.ApplicationSettings.Contains("fbid"))
             //{
-                FacebookSession session = SessionStorage.Load();
-                FacebookClient client = new FacebookClient(session.AccessToken);
+            FacebookSession session = SessionStorage.Load();
+            FacebookClient client = new FacebookClient(session.AccessToken);
 
-                dynamic result = await client.GetTaskAsync("me");
-                string fbid = result.id;
-                IsolatedStorageSettings.ApplicationSettings["fbid"] = fbid;
-                bw.InvokeScript("fbidReturn", new string[] { fbid });
-           // }
+            dynamic result = await client.GetTaskAsync("me");
+            string fbid = result.id;
+            IsolatedStorageSettings.ApplicationSettings["fbid"] = fbid;
+            bw.InvokeScript("fbidReturn", new string[] { fbid });
+            // }
         }
 
         void Browser_ScriptNotify(object sender, NotifyEventArgs e)
@@ -224,7 +218,7 @@ namespace _1081009
                 BindDataMap(e.Value.Split('|')[1]);
                 return;
             }
-            
+
             if (e.Value.StartsWith("fbLogin"))
             {
                 FacebookLogin();
@@ -269,10 +263,12 @@ namespace _1081009
                 if (!settings.Contains("recent"))
                 {
                     recent = new List<string>();
-                }else{
+                }
+                else
+                {
                     recent = (List<string>)settings["recent"];
                 }
-                    
+
                 if (recent.Count >= 20)
                 {
                     recent.RemoveAt(19);
@@ -287,7 +283,8 @@ namespace _1081009
                 return;
             }
 
-            if(e.Value.StartsWith("getRecent")){
+            if (e.Value.StartsWith("getRecent"))
+            {
                 string recentsList = "";
                 List<string> recent = (List<string>)settings["recent"];
                 for (int i = 0; i < recent.Count; i++)
@@ -343,8 +340,8 @@ namespace _1081009
                     settings["user_id"] = str[1];
                     settings["username"] = str[2];
                     settings["first_name"] = str[3];
-                    settings["last_name"] =  str[4];
-                    settings["email"] =  str[5];
+                    settings["last_name"] = str[4];
+                    settings["email"] = str[5];
                 }
                 else
                 {
@@ -404,6 +401,7 @@ namespace _1081009
             {
                 string[] str = e.Value.Split('|');
                 ShowContentWebView(str[1]);
+                addPageNav("webview");
                 return;
             }
 
@@ -434,27 +432,30 @@ namespace _1081009
 
         private void ShowContentWebView(String uriString)
         {
-            // for later use
-            _currentContentLink = uriString;
-
             // create if not exist
-            if(_contentWebBrowser == null)
+            if (_contentWebBrowser == null)
+            {
                 _contentWebBrowser = new WebBrowser();
+
+                // avoid top bar+bottom bar
+                Thickness margin = _contentWebBrowser.Margin;
+                margin.Top = 80;
+                margin.Bottom = 72;
+                _contentWebBrowser.Margin = margin;
+
+                // present to view
+                _contentWebBrowser.Width = LayoutRoot.Width;
+                LayoutRoot.Children.Add(_contentWebBrowser);
+            }
 
             _contentWebBrowser.Visibility = System.Windows.Visibility.Visible;
 
-            // avoid top bar+bottom bar
-            Thickness margin = _contentWebBrowser.Margin;
-            margin.Top = 80;
-            margin.Bottom = 72;
-            _contentWebBrowser.Margin = margin;
-
-            // present to view
-            _contentWebBrowser.Width = LayoutRoot.Width;
-            LayoutRoot.Children.Add(_contentWebBrowser);
-
             // nav to url
-            _contentWebBrowser.Navigate(new Uri(uriString, UriKind.Absolute));
+            if (_currentContentLink != uriString)
+                _contentWebBrowser.Navigate(new Uri(uriString, UriKind.Absolute));
+
+            // for later use
+            _currentContentLink = uriString;
         }
 
         private void MyMap_Loaded(object sender, RoutedEventArgs e)
@@ -485,7 +486,7 @@ namespace _1081009
             catch (Exception)
             {
                 // Couldn't get current location - location might be disabled in settings
-               // MessageBox.Show(AppResources.LocationDisabledMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
+                // MessageBox.Show(AppResources.LocationDisabledMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
             }
             setProgressIndicator(false);
         }
@@ -500,8 +501,9 @@ namespace _1081009
 
         private void DrawMapPushpin(JsonMapData dataAPiList)
         {
-            ObservableCollection<PushpinItems> PushpinItem = new ObservableCollection<PushpinItems>(); 
-            foreach(MapData data in dataAPiList.data){
+            ObservableCollection<PushpinItems> PushpinItem = new ObservableCollection<PushpinItems>();
+            foreach (MapData data in dataAPiList.data)
+            {
                 PushpinItem.Add(new PushpinItems() { Coordinate = new GeoCoordinate(float.Parse(data.lat), float.Parse(data.lng)), Name = data.keyword, Address = data.keyword });
             }
 
@@ -516,7 +518,7 @@ namespace _1081009
             {
 
             }
-            
+
             HereMap.SetView(MyCoordinate, 16);
         }
 
@@ -542,7 +544,8 @@ namespace _1081009
         {
             // Create a MapOverlay and add marker.
             MapOverlay overlay = new MapOverlay();
-            overlay.Content = new Ellipse{
+            overlay.Content = new Ellipse
+            {
                 Fill = new SolidColorBrush(Colors.Blue),
                 Width = 40,
                 Height = 40
