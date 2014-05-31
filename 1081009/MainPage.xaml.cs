@@ -65,6 +65,9 @@ namespace _1081009
             GetCurrentCoordinate();
             //Browser.InvokeScript("onAppBarBtnMapClick");
 
+            // hide AppBar
+            ApplicationBar.IsVisible = false;
+
             // for nav refference to current page later when hit back button
             addPageNav("map");
         }
