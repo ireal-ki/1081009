@@ -167,7 +167,7 @@ namespace _1081009
         {
             System.Diagnostics.Debug.WriteLine("Browser_ScriptNotify:" + e.Value);
 
-            if (e.Value.StartsWith("log"))
+            if (e.Value.StartsWith("log|"))
             {
                 System.Diagnostics.Debug.WriteLine(e.Value.Split('|')[1]);
                 return;
