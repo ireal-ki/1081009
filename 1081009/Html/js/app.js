@@ -653,7 +653,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $('#setting-username').val($scope.userInfo.username);
 
         $('main').hide();
-        $('main.profile').show();
+        $('main.user-setting').show();
     };
     $scope.saveProfileChange = function () {
 
