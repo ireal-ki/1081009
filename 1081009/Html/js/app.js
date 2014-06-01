@@ -202,6 +202,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify('top10');
         callTop10($scope, apiCaller);
+
+        $scope.appBarVisible(false);
     };
 
     $scope.restoreFeed = function () {
@@ -786,6 +788,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     callWindowsPhoneNotify('uuid');
     callWindowsPhoneNotify('top10');
     callTop10($scope, apiCaller);
+
+    $scope.appBarVisible(false);
 };
 
 var callMap = function ($scope, apiCaller) {
