@@ -639,7 +639,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
             $scope.appBarVisible(true);
         });
-        callArticalView($scope, apiCaller);
+        callArticleView($scope, apiCaller);
     };
     $scope.addArticle = function () {
         $('#add-article').show();
@@ -649,9 +649,9 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
             $('body').removeClass('show-overlay');
         })
     };
-    $scope.addArticalSubmit = function () {
+    $scope.addArticleSubmit = function () {
         var url = $('#input-url').val();
-        callArticalAdd($scope, apiCaller, url);
+        callArticleAdd($scope, apiCaller, url);
         $('#add-article').hide();
         $('body').removeClass('show-overlay');
     };
@@ -989,10 +989,10 @@ var callFavView = function ($scope, apiCaller) {
     }, $scope);
 };
 
-var callArticalView = function ($scope, apiCaller) {
+var callArticleView = function ($scope, apiCaller) {
 
     // log
-    callWindowsPhoneNotify("log|callArticalView");
+    callWindowsPhoneNotify("log|callArticleView");
 
     callWindowsPhoneNotify('hide_contentWebBrowser');
 
@@ -1034,10 +1034,10 @@ var callArticalView = function ($scope, apiCaller) {
     }, $scope);
 };
 
-var callArticalAdd = function ($scope, apiCaller, article_url) {
+var callArticleAdd = function ($scope, apiCaller, article_url) {
 
     // log
-    callWindowsPhoneNotify("log|callArticalAdd");
+    callWindowsPhoneNotify("log|callArticleAdd");
 
     callWindowsPhoneNotify('hide_contentWebBrowser');
 
