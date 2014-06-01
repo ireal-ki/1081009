@@ -624,6 +624,9 @@ footer.show a em { opacity: 1; }
 .regist article.lv2 p { margin: 10px 0 0; }
 .regist article.lv2 { height: calc(100% - 53px); }
 
+.profile article.lv2 p { margin: 10px 0 0; }
+.profile article.lv2 { height: calc(100% - 53px); }
+
 .galcolumn { padding-bottom: 0 !important; }
 
 main.feed article { padding-bottom: 108px; }
