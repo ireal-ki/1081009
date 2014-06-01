@@ -737,6 +737,8 @@ p.center { text-align: center; }
 .term article.lv2 ol { padding-left: 20px; }
 .term article.lv2 li { margin-bottom: 10px; font-size: 14px; }
 .term footer button { margin-top: 5px; }
+.term article.lv2 p { margin: 10px 0 0; }
+.term article.lv2 { height: calc(100% - 53px); }
 
 input[type="submit"].hide { position: absolute; right: 0; top: 0; z-index: -99; visibility: hidden; }
 
