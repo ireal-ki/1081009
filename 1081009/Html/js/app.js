@@ -213,7 +213,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
 
         $('main').hide();
         $('main.feed').show(function () {
@@ -223,6 +222,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: false
             });
+
+            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -238,7 +239,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
+        
         $scope.feedContent = [];
         $scope.feedLanding = 'โพสต์ล่าสุด';
         $('main').hide();
@@ -249,6 +250,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: true
             });
+
+            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -318,7 +321,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
+        
         $scope.feedContent = [];
         $scope.feedLanding = title;
         $('main').hide();
@@ -329,6 +332,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: true
             });
+
+            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -353,7 +358,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
+        
         $scope.feedContent = [];
         $scope.feedLanding = name;
         $('main').hide();
@@ -364,6 +369,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: true
             });
+
+            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -444,7 +451,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
 
         // already cache
         var isCached = ($scope.feedContent.length > 0 && $scope.feedLanding == keyword);
@@ -462,6 +468,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: false
             });
+
+            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
