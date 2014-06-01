@@ -340,8 +340,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: true
             });
-
-            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -377,8 +375,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: true
             });
-
-            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -477,8 +473,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: false
             });
-
-            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -712,7 +706,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         var keyword = $('#searchbox').val();
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
+        
         $scope.feedContent = [];
         $scope.feedLanding = keyword;
         $('main').hide();
@@ -741,7 +735,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         var keyword = $('#searchbox2').val();
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
+        
         $scope.feedContent = [];
         $scope.feedLanding = keyword;
         $('main').hide();
@@ -752,6 +746,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: true
             });
+
+            $scope.appBarVisible(true);
         });
 
         callWindowsPhoneNotify('feed');
@@ -1117,6 +1113,7 @@ var callFeedSearch = function ($scope, apiCaller, keyword) {
             self.feedContent.push(response[i]);
         }
         callWindowsPhoneNotify('responseNavigated');
+        $scope.appBarVisible(true);
     }, $scope);
 };
 
@@ -1152,6 +1149,7 @@ var callSearchKeyword = function ($scope, apiCaller, group, keyword) {
             self.feedContent.push(response[i]);
         }
         callWindowsPhoneNotify('responseNavigated');
+        $scope.appBarVisible(true);
     }, $scope);
 };
 
@@ -1183,6 +1181,7 @@ var callFeedTrip = function ($scope, apiCaller, apiName) {
             self.feedContent.push(response[i]);
         }
         callWindowsPhoneNotify('responseNavigated');
+        $scope.appBarVisible(true);
     }, $scope);
 }
 
@@ -1366,6 +1365,7 @@ var callFeedSubActivityTrip = function ($scope, apiCaller, group, type) {
             self.feedContent.push(response[i]);
         }
         callWindowsPhoneNotify('responseNavigated');
+        $scope.appBarVisible(true);
     }, $scope);
 };
 
