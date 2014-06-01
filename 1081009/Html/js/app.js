@@ -643,6 +643,11 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
             $scope.appBarVisible(true);
         });
+
+        // notify app
+        callWindowsPhoneNotify("callArticleView");
+
+        // call
         callArticleView($scope, apiCaller);
     };
     $scope.addArticle = function () {
