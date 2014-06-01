@@ -309,6 +309,10 @@ namespace _1081009
                 // hide loading
                 setProgressIndicator(false);
 
+                // hide map if need
+                if (e.Value != "map")
+                    HereMap.Visibility = System.Windows.Visibility.Collapsed;
+
                 addPageNav(e.Value);
                 return;
             }
@@ -413,6 +417,11 @@ namespace _1081009
             {
                 string[] str = e.Value.Split('|');
                 ShowContentWebView(str[1]);
+
+                // hide map if need
+                if (e.Value != "map")
+                    HereMap.Visibility = System.Windows.Visibility.Collapsed;
+
                 addPageNav("webview");
                 return;
             }
@@ -425,6 +434,10 @@ namespace _1081009
 
             // hide loading
             setProgressIndicator(false);
+
+            // hide map if need
+            if (e.Value != "map")
+                HereMap.Visibility = System.Windows.Visibility.Collapsed;
 
             // default case will count as page nav
             addPageNav(e.Value);

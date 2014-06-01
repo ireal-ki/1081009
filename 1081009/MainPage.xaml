@@ -26,7 +26,7 @@
                           Navigated="Browser_Navigated"
                           IsScriptEnabled="True" 
                           IsGeolocationEnabled="True"/>
-        <maps:Map x:Name="HereMap" Visibility="Collapsed" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded">
+        <maps:Map x:Name="HereMap" Visibility="Collapsed" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" Margin="0,80,0,0">
             <toolkit:MapExtensions.Children>
                 <toolkit:MapItemsControl Name="PushpinItems">
                     <toolkit:MapItemsControl.ItemTemplate>
