@@ -36,6 +36,10 @@ function restoreFeed() {
 }
 function onBackBtnPress(page) {
     if (scopeNg != null) {
+
+        // hide overlay if has
+        scopeNg.hideCurrentModalDialog();
+
         switch (page) {
             case 'top10':
                 scopeNg.getTop10();
@@ -172,6 +176,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     $scope.favoriteCount = 0;
     $scope.myArticleCount = 0;
     $scope.apiCaller = apiCaller;
+    $scope.currentModalDialog = null;
 
     $scope.firstTimeLaunched = function () {
         $('main.intro').addClass('first');
@@ -241,7 +246,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        
+
         $scope.feedContent = [];
         $scope.feedLanding = 'โพสต์ล่าสุด';
         $('main').hide();
@@ -323,7 +328,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        
+
         $scope.feedContent = [];
         $scope.feedLanding = title;
         $('main').hide();
@@ -360,7 +365,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        
+
         $scope.feedContent = [];
         $scope.feedLanding = name;
         $('main').hide();
@@ -456,8 +461,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         // already cache
         var isCached = ($scope.feedContent.length > 0 && $scope.feedLanding == keyword);
-        if (!isCached) 
-        {
+        if (!isCached) {
             $scope.feedContent = [];
             $scope.feedLanding = keyword;
         }
@@ -476,7 +480,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify('feed');
 
-        if (!isCached) 
+        if (!isCached)
             callFeedSearch($scope, apiCaller, keyword);
     };
     $scope.openWebView = function (item) {
@@ -642,12 +646,24 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callArticleView($scope, apiCaller);
     };
     $scope.addArticle = function () {
+
+        callWindowsPhoneNotify("add-article");
+
+        $scope.currentModalDialog = $('#add-article');
         $('#add-article').show();
+
         $('body').addClass('show-overlay');
         $('.close-overlay').on('click', function () {
             $('#add-article').hide();
             $('body').removeClass('show-overlay');
         })
+    };
+    $scope.hideCurrentModalDialog = function () {
+
+        if ($scope.currentModalDialog != null)
+            $scope.currentModalDialog.hide();
+
+        $('body').removeClass('show-overlay');
     };
     $scope.addArticleSubmit = function () {
         var url = $('#input-url').val();
@@ -879,8 +895,7 @@ var callTop10 = function ($scope, apiCaller) {
     callWindowsPhoneNotify('responseNavigating');
 
     // already load cover?
-    if (self.cover == null)
-    {
+    if (self.cover == null) {
         // not yet, will fecth top10
 
         //$scope.showFeed = false;
