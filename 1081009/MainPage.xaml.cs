@@ -306,6 +306,9 @@ namespace _1081009
                 }
                 Browser.InvokeScript("getRecentReturn", new string[] { recentsList });
 
+                // hide loading
+                setProgressIndicator(false);
+
                 addPageNav(e.Value);
                 return;
             }
@@ -419,6 +422,9 @@ namespace _1081009
             {
                 ApplicationBar.IsVisible = false;
             }
+
+            // hide loading
+            setProgressIndicator(false);
 
             // default case will count as page nav
             addPageNav(e.Value);
