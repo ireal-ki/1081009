@@ -345,16 +345,13 @@
                 <li>
                     <a href="#" ng-click="getTerm()">Term and Condition</a>
                 </li>
-                <li>
-                    <a href="#" ng-click="logout()">Logout</a>
-                </li>
             </ul>
         </article>
     </main>
     <!-- .user-setting -->
     <main class="user-setting">
         <header>
-            <h1 class="text">ลงทะเบียน</h1>
+            <h1 class="text">ข้อมูลการลงทะเบียน</h1>
         </header>
         <article class="lv2">
             <section>
@@ -369,11 +366,8 @@
                     <p><label for="regist-username">ชื่อผู้ใช้</label><input type="text" name="setting-username" id="setting-username"></p>
                     <p><label for="regist-password">รหัสผ่าน</label><input type="password" name="setting-password" id="setting-password"></p>
                     <p><label for="regist-confirm">ยืนยันรหัสผ่าน</label><input type="password" name="setting-confirm" id="setting-confirm"></p>
-                </div>
-            </section>
-            <section>
-                <div>
                     <p><input type="submit" value="บันทึกการลงทะเบียน" ng-click="saveProfileChange()"></p>
+                    <button ng-click="logout()">Logout</button>
                     <br>
                 </div>
             </section>
