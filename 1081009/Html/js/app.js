@@ -623,7 +623,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.hideAll();
         $scope.isShowFeed = true;
-        $scope.appBarVisible(true);
+
         $scope.feedContent = [];
         $scope.feedLanding = 'เรื่องราวท่องเที่ยวของฉัน';
         $('main').hide();
@@ -634,6 +634,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 width: 160,
                 animate: true
             });
+
+            $scope.appBarVisible(true);
         });
         callArticalView($scope, apiCaller);
     };
