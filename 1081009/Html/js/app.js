@@ -297,6 +297,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
+        $scope.appBarVisible(false);
         $scope.hideAll();
         $('main').hide();
         $('main.search').show();
@@ -439,6 +440,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     $scope.openViewPhoto = function (list) {
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
+
+        $scope.appBarVisible(false);
 
         if (list != null) {
             $scope.viewPhoto = list;
