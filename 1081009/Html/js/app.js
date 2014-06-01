@@ -658,7 +658,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $('#add-article').show();
 
         $('body').addClass('show-overlay');
-        $('.close-overlay').on('click', function () {
+        $('.close-overlay, #overlay').on('click', function () {
             $('#add-article').hide();
             $('body').removeClass('show-overlay');
         })
