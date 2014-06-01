@@ -64,6 +64,9 @@ function onBackBtnPress(page) {
             case 'fav':
                 scopeNg.getFav();
                 break;
+            case 'getRecent':
+                scopeNg.restoreRecentView();
+                break;
         }
     }
 };
@@ -497,12 +500,19 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.openRecentView = function (itemList) {
 
-        //callWindowsPhoneNotify('hide_contentWebBrowser');
-
         $scope.recentList = itemList;
         $('main').hide();
         $('main.recent').show();
     }
+
+    $scope.restoreRecentView = function (itemList) {
+
+        callWindowsPhoneNotify('hide_contentWebBrowser');
+
+        $('main').hide();
+        $('main.recent').show();
+    }
+
     $scope.trustSrc = function (src) {
         return $sce.trustAsResourceUrl(src);
     };
