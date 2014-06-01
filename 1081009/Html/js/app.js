@@ -685,6 +685,9 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $('#setting-email').val($scope.userInfo.email);
         $('#setting-username').val($scope.userInfo.username);
 
+        // notify app
+        callWindowsPhoneNotify('user-setting');
+
         $('main').hide();
         $('main.user-setting').show();
     };
