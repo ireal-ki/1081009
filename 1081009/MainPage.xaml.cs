@@ -28,8 +28,8 @@ namespace _1081009
         // Url of Home page
         private string MainUri = "/Html/index.html";
         private List<string> pageNavigation = new List<string>();
-        private IsolatedStorageSettings settings;
-        private static WebBrowser bw = null;
+        public static IsolatedStorageSettings settings;
+        public static WebBrowser bw = null;
         private double _accuracy = 0.0;
         private GeoCoordinate MyCoordinate = null;
 
@@ -110,8 +110,8 @@ namespace _1081009
 
                 pageNavigation.RemoveAt(numberOfPage - 1);
 
-                System.Diagnostics.Debug.WriteLine("currentPage:" + currentPage);
-                System.Diagnostics.Debug.WriteLine("targetPage:" + targetPage);
+                // System.Diagnostics.Debug.WriteLine(" * [back] currentPage:" + currentPage);
+                // System.Diagnostics.Debug.WriteLine(" * [back] targetPage:" + targetPage);
 
                 if (targetPage == "map")
                 {
@@ -152,34 +152,16 @@ namespace _1081009
             webBrowserTask.Show();
         }
 
-        void FacebookLogin()
-        {
-            FacebookSessionClient fb = new FacebookSessionClient("321684751264693");
-            fb.LoginWithApp("basic_info,publish_actions", "custom_state_string");
-        }
-
-        public static async void GetFacebookId()
-        {
-            // if (!IsolatedStorageSettings.ApplicationSettings.Contains("fbid"))
-            //{
-            FacebookSession session = SessionStorage.Load();
-            FacebookClient client = new FacebookClient(session.AccessToken);
-
-            dynamic result = await client.GetTaskAsync("me");
-            string fbid = result.id;
-            IsolatedStorageSettings.ApplicationSettings["fbid"] = fbid;
-            bw.InvokeScript("fbidReturn", new string[] { fbid });
-            // }
-        }
-
         void Browser_ScriptNotify(object sender, NotifyEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Browser_ScriptNotify:" + e.Value);
-
             if (e.Value.StartsWith("log|"))
             {
-                System.Diagnostics.Debug.WriteLine(e.Value.Split('|')[1]);
+                // just log 
+                System.Diagnostics.Debug.WriteLine(" ! [Log] : " + e.Value.Split('|')[1]);
                 return;
+            }
+            else {
+                System.Diagnostics.Debug.WriteLine(" ! [Browser_ScriptNotify] : " + e.Value);
             }
 
             // show wp share
@@ -230,7 +212,7 @@ namespace _1081009
 
             if (e.Value.StartsWith("fbLogin"))
             {
-                FacebookLogin();
+                FacebookUtil.LoginWithApp();
                 return;
             }
 
@@ -439,7 +421,7 @@ namespace _1081009
 
         private void addPageNav(String pageString)
         {
-            System.Diagnostics.Debug.WriteLine("addPageNav:" + pageString);
+            System.Diagnostics.Debug.WriteLine(" * addPageNav : " + pageString);
 
             if (pageNavigation.Count > 0)
             {
@@ -767,6 +749,8 @@ namespace _1081009
 
         public override Uri MapUri(Uri uri)
         {
+            System.Diagnostics.Debug.WriteLine("MapUri : " + uri.ToString());
+
             if (AppAuthenticationHelper.IsFacebookLoginResponse(uri))
             {
                 FacebookSession session = new FacebookSession();
@@ -785,6 +769,7 @@ namespace _1081009
                         // save the token and continue (token is retrieved and used when the app
                         // is launched)
                         SessionStorage.Save(session);
+                        FacebookUtil.willAutoRegisterIfNeedAndAutoLogin(session.AccessToken, MainPage.settings);
                     }
                 }
                 catch (Facebook.FacebookOAuthException exc)
@@ -797,7 +782,7 @@ namespace _1081009
                     }
                 }
 
-                MainPage.GetFacebookId();
+                // MainPage.GetFacebookId();
                 return new Uri("/MainPage.xaml", UriKind.Relative);
             }
             // by default, navigate to the requested uri

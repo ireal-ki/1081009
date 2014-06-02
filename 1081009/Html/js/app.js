@@ -29,6 +29,11 @@ function setUUID(id) {
         scopeNg.uuid = id;
     }
 };
+function showRegisterSuccess() {
+    if (scopeNg != null) {
+        scopeNg.showRegisterSuccess();
+    }
+}
 function restoreFeed() {
     if (scopeNg != null) {
         scopeNg.restoreFeed();
@@ -112,7 +117,18 @@ function SetUser(user_id, username, first_name, last_name, email) {
         };
     }
 };
-
+function updateFacebookUserView(username, first_name, last_name, email) {
+    if (scopeNg != null) {
+        scopeNg.isLoggedIn = false;
+        scopeNg.username = username;
+        scopeNg.userInfo = {
+            'username': username,
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email
+        };
+    }
+};
 function fbidReturn(fbid) {
     if (scopeNg != null) {
         scopeNg.fbid = fbid;
@@ -379,6 +395,9 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify('feed');
         callFeedTrip($scope, apiCaller, feedName);
+    }; 
+    $scope.showRegisterSuccess = function (registerData) {
+        showRegisterSuccess($scope, registerData);
     };
     $scope.regist = function () {
 
@@ -1184,7 +1203,20 @@ var callFeedTrip = function ($scope, apiCaller, apiName) {
         $scope.appBarVisible(true);
     }, $scope);
 }
-
+var showRegisterSuccess = function ($scope, self)
+{
+    callWindowsPhoneNotify('saveUser|' + self.userInfo.user_id + '|' + self.userInfo.username + '|' + self.userInfo.first_name + '|' + self.userInfo.last_name + '|' + self.userInfo.email);
+    $('main').hide();
+    $('main.menu').show();
+    self.alertMsg = "ลงทะเบียนสำเร็จ"
+    $('#alert6').show();
+    $('body').addClass('show-overlay');
+    $('.btnPopupOk').on('click', function () {
+        $('#alert6').hide();
+        $('body').removeClass('show-overlay');
+        self.alertMsg = '';
+    })
+}
 var callRegist = function ($scope, apiCaller, registParams) {
 
     callWindowsPhoneNotify('hide_contentWebBrowser');
