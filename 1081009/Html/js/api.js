@@ -1,4 +1,7 @@
-angular.module('api', [])
+angular.module('api', []).config(['$httpProvider', function ($httpProvider) {
+    // enable http caching
+    $httpProvider.defaults.cache = true;
+}])
 
 .factory('apiCaller', ['$http', function ($http) {
     var API_108_1009 = 'http://1081009.tourismthailand.org/api/';
@@ -19,7 +22,7 @@ angular.module('api', [])
         }
 
         var url = API_108_1009 + args + '?callback=JSON_CALLBACK' + argument;
-        return $http.jsonp(url)
+        return $http.jsonp(url, { cache: true })
 	    		.success(function (data) {
 	    		    callback(data, _self);
 	    		}
