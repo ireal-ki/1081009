@@ -271,7 +271,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 gutter: 8,
                 selector: 'figure',
                 width: 160,
-                animate: true
+                animate: false
             });
 
             $scope.appBarVisible(true);
@@ -354,7 +354,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 gutter: 8,
                 selector: 'figure',
                 width: 160,
-                animate: true
+                animate: false
             });
         });
 
@@ -389,7 +389,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 gutter: 8,
                 selector: 'figure',
                 width: 160,
-                animate: true
+                animate: false
             });
         });
 
@@ -498,6 +498,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         if (!isCached)
             callFeedSearch($scope, apiCaller, keyword);
+        else
+            $scope.appBarVisible(true);
     };
     $scope.openWebView = function (item) {
 
@@ -630,7 +632,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 gutter: 8,
                 selector: 'figure',
                 width: 160,
-                animate: true
+                animate: false
             });
         });
         callWindowsPhoneNotify('fav');
@@ -654,7 +656,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 gutter: 8,
                 selector: 'figure',
                 width: 160,
-                animate: true
+                animate: false
             });
 
             $scope.appBarVisible(true);
@@ -734,7 +736,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 gutter: 8,
                 selector: 'figure',
                 width: 160,
-                animate: true
+                animate: false
             });
         });
 
@@ -763,7 +765,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
                 gutter: 8,
                 selector: 'figure',
                 width: 160,
-                animate: true
+                animate: false
             });
 
             $scope.appBarVisible(true);
@@ -1531,7 +1533,7 @@ main.directive("contentGrid", function () {
                     gutter: 8,
                     selector: 'figure',
                     width: 160,
-                    animate: true
+                    animate: false
                 });
             }
         }, true);
