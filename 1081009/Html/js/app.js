@@ -421,14 +421,14 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         if (password != repassword) {
             $('#alert5').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert5').hide();
                 $('body').removeClass('show-overlay');
             })
         } else if (email == '') {
             $('#alert3').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert3').hide();
                 $('body').removeClass('show-overlay');
             })
@@ -1020,7 +1020,7 @@ var callFavView = function ($scope, apiCaller) {
         if (self.alertMsg != '') {
             $('#alert6').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
                 self.alertMsg = '';
@@ -1065,7 +1065,7 @@ var callArticleView = function ($scope, apiCaller) {
         if (self.alertMsg != '') {
             $('#alert6').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('body').removeClass('show-overlay');
                 $('#alert6').hide();
                 self.alertMsg = '';
@@ -1211,7 +1211,7 @@ var showRegisterSuccess = function ($scope, self)
     self.alertMsg = "ลงทะเบียนสำเร็จ"
     $('#alert6').show();
     $('body').addClass('show-overlay');
-    $('.btnPopupOk').on('click', function () {
+    $('.btnPopupOk, #overlay').on('click', function () {
         $('#alert6').hide();
         $('body').removeClass('show-overlay');
         self.alertMsg = '';
@@ -1246,7 +1246,7 @@ var callRegist = function ($scope, apiCaller, registParams) {
             self.alertMsg = "ลงทะเบียนสำเร็จ"
             $('#alert6').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
                 self.alertMsg = '';
@@ -1264,7 +1264,7 @@ var callRegist = function ($scope, apiCaller, registParams) {
             $('.wp-popup').hide();
             $('#alert6').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
                 self.alertMsg = '';
@@ -1306,7 +1306,7 @@ var callForgot = function ($scope, apiCaller, email) {
             $('.wp-popup').hide();
             $('#alert6').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
                 self.alertMsg = '';
@@ -1355,7 +1355,7 @@ var callLogin = function ($scope, apiCaller, username, password) {
             $('.wp-popup').hide();
             $('#alert6').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
                 self.alertMsg = '';
@@ -1507,7 +1507,7 @@ var callFacebookLogin = function ($scope, apiCaller, fbid) {
             $('.wp-popup').hide();
             $('#alert6').show();
             $('body').addClass('show-overlay');
-            $('.btnPopupOk').on('click', function () {
+            $('.btnPopupOk, #overlay').on('click', function () {
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
                 self.alertMsg = '';
