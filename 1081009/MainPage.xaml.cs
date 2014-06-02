@@ -28,7 +28,7 @@ namespace _1081009
         // Url of Home page
         private string MainUri = "/Html/index.html";
         private List<string> pageNavigation = new List<string>();
-        public static IsolatedStorageSettings settings;
+        private static IsolatedStorageSettings settings;
         public static WebBrowser bw = null;
         private double _accuracy = 0.0;
         private GeoCoordinate MyCoordinate = null;
@@ -742,14 +742,14 @@ namespace _1081009
             }
         }
     }
-
+    
     public class FacebookUriMapper : UriMapperBase
     {
         private bool facebookLoginHandled;
 
         public override Uri MapUri(Uri uri)
         {
-            System.Diagnostics.Debug.WriteLine("MapUri : " + uri.ToString());
+            System.Diagnostics.Debug.WriteLine(" ! MapUri : " + uri.ToString());
 
             if (AppAuthenticationHelper.IsFacebookLoginResponse(uri))
             {
@@ -769,7 +769,6 @@ namespace _1081009
                         // save the token and continue (token is retrieved and used when the app
                         // is launched)
                         SessionStorage.Save(session);
-                        FacebookUtil.willAutoRegisterIfNeedAndAutoLogin(session.AccessToken, MainPage.settings);
                     }
                 }
                 catch (Facebook.FacebookOAuthException exc)
@@ -782,7 +781,8 @@ namespace _1081009
                     }
                 }
 
-                // MainPage.GetFacebookId();
+                FacebookUtil.willLoginWithFacebookID(session.AccessToken);
+
                 return new Uri("/MainPage.xaml", UriKind.Relative);
             }
             // by default, navigate to the requested uri

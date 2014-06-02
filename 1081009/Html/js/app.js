@@ -29,9 +29,9 @@ function setUUID(id) {
         scopeNg.uuid = id;
     }
 };
-function showRegisterSuccess() {
+function loginWithFacebook(username, password) {
     if (scopeNg != null) {
-        scopeNg.showRegisterSuccess();
+        scopeNg.loginWithFacebook(username, password);
     }
 }
 function restoreFeed() {
@@ -396,8 +396,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('feed');
         callFeedTrip($scope, apiCaller, feedName);
     }; 
-    $scope.showRegisterSuccess = function (registerData) {
-        showRegisterSuccess($scope, registerData);
+    $scope.loginWithFacebook = function (username, password) {
+        callLogin($scope, apiCaller, username, password);
     };
     $scope.regist = function () {
 
