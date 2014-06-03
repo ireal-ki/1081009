@@ -942,6 +942,10 @@ var callTop10 = function ($scope, apiCaller) {
 
         // call api
         apiCaller.call(url, params, function (response, self) {
+
+            self.cover = {};
+            self.toplist = [];
+
             for (var i = 0; i < response.data.length; i++) {
                 if (response.data[i].iscover == 'true') {
                     self.cover = response.data[i];
