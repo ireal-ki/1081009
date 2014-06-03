@@ -5,7 +5,7 @@
     <Language code="th" />
     <Language code="th-TH" />
   </Languages>
-  <App xmlns="" ProductID="{7a67f426-3109-47fe-8630-8521367ad27a}" Title="ภารกิจเที่ยว" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="_1081009 author" Description="Sample description" Publisher="_1081009" PublisherID="{415ea278-81e1-4845-ab39-e1dbb5923952}">
+  <App xmlns="" ProductID="{7a67f426-3109-47fe-8630-8521367ad27a}" Title="ภารกิจเที่ยว" RuntimeType="Silverlight" Version="1.1.0" Genre="apps.normal" Author="_1081009 author" Description="Sample description" Publisher="_1081009" PublisherID="{415ea278-81e1-4845-ab39-e1dbb5923952}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
