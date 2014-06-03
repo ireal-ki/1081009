@@ -987,6 +987,9 @@ var callHomeFeed = function ($scope, apiCaller) {
     }
 
     apiCaller.call(url, params, function (response, self) {
+
+        self.feedContent = [];
+
         for (var i = 0; i < response.length; i++) {
             self.feedContent.push(response[i]);
         }
@@ -1019,6 +1022,9 @@ var callFavView = function ($scope, apiCaller) {
         if (response.length == 0) {
             self.alertMsg = 'ไม่มีเรื่องราวท่องเที่ยวของฉัน';
         } else {
+
+            self.feedContent = [];
+
             for (var i = 0; i < response.length; i++) {
                 self.feedContent.push(response[i]);
             }
@@ -1064,6 +1070,9 @@ var callArticleView = function ($scope, apiCaller) {
         if (response.length == 0) {
             self.alertMsg = 'ไม่มีเรื่องราวท่องเที่ยวของฉัน';
         } else {
+
+            self.feedContent = [];
+
             for (var i = 0; i < response.length; i++) {
                 self.feedContent.push(response[i]);
             }
@@ -1134,6 +1143,9 @@ var callFeedSearch = function ($scope, apiCaller, keyword) {
     }
 
     apiCaller.call(url, params, function (response, self) {
+
+        self.feedContent = [];
+
         for (var i = 0; i < response.length; i++) {
             self.feedContent.push(response[i]);
         }
@@ -1170,6 +1182,9 @@ var callSearchKeyword = function ($scope, apiCaller, group, keyword) {
     }
 
     apiCaller.call(url, params, function (response, self) {
+
+        self.feedContent = [];
+
         for (var i = 0; i < response.length; i++) {
             self.feedContent.push(response[i]);
         }
@@ -1202,6 +1217,9 @@ var callFeedTrip = function ($scope, apiCaller, apiName) {
     }
 
     apiCaller.call(url, params, function (response, self) {
+
+        self.feedContent = [];
+
         for (var i = 0; i < response.length; i++) {
             self.feedContent.push(response[i]);
         }
@@ -1399,6 +1417,9 @@ var callFeedSubActivityTrip = function ($scope, apiCaller, group, type) {
     }
 
     apiCaller.call(url, params, function (response, self) {
+
+        self.feedContent = [];
+
         for (var i = 0; i < response.length; i++) {
             self.feedContent.push(response[i]);
         }
