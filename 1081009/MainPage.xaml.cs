@@ -37,6 +37,9 @@ namespace _1081009
         private static WebBrowser _contentWebBrowser = null;
         private String _currentContentLink = null;
 
+        // map
+        public List<GeoCoordinate> MyCoordinates = new List<GeoCoordinate>();
+
         // Constructor
         public MainPage()
         {
@@ -46,6 +49,59 @@ namespace _1081009
             settings = IsolatedStorageSettings.ApplicationSettings;
         }
 
+        // ----------------------------------------------------------------------------------
+
+        private void OnCenterButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Geolocator geolocator = new Geolocator();
+
+            geolocator.MovementThreshold = 100;
+            geolocator.ReportInterval = 1000;
+            geolocator.DesiredAccuracy = PositionAccuracy.High;
+
+            geolocator.PositionChanged += geolocator_PositionChanged;
+        }
+
+        private void geolocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                Geocoordinate coordinate = args.Position.Coordinate;
+                System.Diagnostics.Debug.WriteLine(" ! geolocator_PositionChanged.SetView");
+                myMap.SetView(coordinate.ToGeoCoordinate(), 16, MapAnimationKind.Parabolic);
+                Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
+                pushpin.GeoCoordinate = coordinate.ToGeoCoordinate();
+            });
+        }
+
+        private void OnAddShapeClicked(object sender, RoutedEventArgs e)
+        {
+            MapOverlay overlay = new MapOverlay
+            {
+                GeoCoordinate = myMap.Center,
+                Content = new Ellipse
+                {
+                    Fill = new SolidColorBrush(Colors.Blue),
+                    Width = 40,
+                    Height = 40
+                }
+            };
+            MapLayer layer = new MapLayer();
+            layer.Add(overlay);
+
+            myMap.Layers.Add(layer);
+
+            Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
+            pushpin.GeoCoordinate = new GeoCoordinate(45.3967, 009.3163);
+        }
+
+        private void MyPushpin_OnTap(object sender, GestureEventArgs e)
+        {
+            Pushpin pushpin = sender as Pushpin;
+            MessageBox.Show(pushpin.Content.ToString());
+        }
+
+        // ----------------------------------------------------------------------------------
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -84,6 +140,8 @@ namespace _1081009
             });
         }
 
+        // ----------------------------------------------------------------------------------
+
         private void Browser_Loaded(object sender, RoutedEventArgs e)
         {
             Browser.IsScriptEnabled = true;
@@ -94,13 +152,13 @@ namespace _1081009
 
         void appBarBtnStory_Click(object sender, EventArgs e)
         {
-            HereMap.Visibility = System.Windows.Visibility.Collapsed;
+            myMap.Visibility = System.Windows.Visibility.Collapsed;
             Browser.InvokeScript("onAppBarBtnStoryClick");
         }
 
         void appBarBtnMap_Click(object sender, EventArgs e)
         {
-            HereMap.Visibility = System.Windows.Visibility.Visible;
+            myMap.Visibility = System.Windows.Visibility.Visible;
             GetCurrentCoordinate();
             //Browser.InvokeScript("onAppBarBtnMapClick");
 
@@ -113,7 +171,7 @@ namespace _1081009
 
         void appBarBtnTop10_Click(object sender, EventArgs e)
         {
-            HereMap.Visibility = System.Windows.Visibility.Collapsed;
+            myMap.Visibility = System.Windows.Visibility.Collapsed;
             Browser.InvokeScript("onAppBarBtnTop10Click");
         }
 
@@ -154,11 +212,11 @@ namespace _1081009
 
                 if (targetPage == "map")
                 {
-                    HereMap.Visibility = System.Windows.Visibility.Visible;
+                    myMap.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    HereMap.Visibility = System.Windows.Visibility.Collapsed;
+                    myMap.Visibility = System.Windows.Visibility.Collapsed;
                 }
 
                 if (targetPage == "webview")
@@ -329,7 +387,7 @@ namespace _1081009
 
                 // hide map if need
                 if (e.Value != "map")
-                    HereMap.Visibility = System.Windows.Visibility.Collapsed;
+                    myMap.Visibility = System.Windows.Visibility.Collapsed;
 
                 addPageNav(e.Value);
                 return;
@@ -438,7 +496,7 @@ namespace _1081009
 
                 // hide map if need
                 if (e.Value != "map")
-                    HereMap.Visibility = System.Windows.Visibility.Collapsed;
+                    myMap.Visibility = System.Windows.Visibility.Collapsed;
 
                 addPageNav("webview");
                 return;
@@ -449,7 +507,7 @@ namespace _1081009
 
             // hide map if need
             if (e.Value != "map")
-                HereMap.Visibility = System.Windows.Visibility.Collapsed;
+                myMap.Visibility = System.Windows.Visibility.Collapsed;
 
             // default case will count as page nav
             addPageNav(e.Value);
@@ -519,8 +577,12 @@ namespace _1081009
                 {
                     MyCoordinate = new GeoCoordinate(currentPosition.Coordinate.Latitude, currentPosition.Coordinate.Longitude);
                     CallMapApi();
-                    DrawMapMarkers();
-                    HereMap.SetView(MyCoordinate, 10, MapAnimationKind.Parabolic);
+
+                    System.Diagnostics.Debug.WriteLine(" ! GetCurrentCoordinate.SetView");
+                    myMap.SetView(MyCoordinate, 8, MapAnimationKind.Parabolic);
+
+                    Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
+                    pushpin.GeoCoordinate = MyCoordinate;
                 });
             }
             catch (Exception)
@@ -541,63 +603,51 @@ namespace _1081009
 
         private void DrawMapPushpin(JsonMapData dataAPiList)
         {
-            ObservableCollection<PushpinItems> PushpinItem = new ObservableCollection<PushpinItems>();
+            ObservableCollection<PushpinModel> Pushpins = new ObservableCollection<PushpinModel>();
+
+            MyCoordinates.Clear();
             foreach (MapData data in dataAPiList.data)
             {
-                PushpinItem.Add(new PushpinItems() { Coordinate = new GeoCoordinate(float.Parse(data.lat), float.Parse(data.lng)), Name = data.keyword, Address = data.keyword });
+               GeoCoordinate _GeoCoordinate = new GeoCoordinate(float.Parse(data.lat), float.Parse(data.lng));
+                Pushpins.Add(new PushpinModel() {
+                    Coordinate = _GeoCoordinate,
+                    Name = data.keyword,
+                    Address = data.keyword,
+                    ImageURI = data.image_url
+                });
+
+                MyCoordinates.Add(_GeoCoordinate);
             }
 
-            ObservableCollection<DependencyObject> children = MapExtensions.GetChildren(HereMap);
+            ObservableCollection<DependencyObject> children = MapExtensions.GetChildren(myMap);
             var obj = children.FirstOrDefault(x => x.GetType() == typeof(MapItemsControl)) as MapItemsControl;
 
             try
             {
-                obj.ItemsSource = PushpinItem;
+                obj.ItemsSource = Pushpins;
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(" ! Exception : " + e);
             }
 
-            HereMap.SetView(MyCoordinate, 16);
-        }
+            //System.Diagnostics.Debug.WriteLine(" ! DrawMapPushpin.SetView");
+            //myMap.SetView(MyCoordinate, 16, MapAnimationKind.Parabolic);
 
-        private void DrawMapMarkers()
-        {
-            HereMap.Layers.Clear();
-            MapLayer mapLayer = new MapLayer();
-
-            // Draw marker for current position
-            if (MyCoordinate != null)
+            // LocationRectangle boundingRectangle = new LocationRectangle( );
+            myMap.Center = MyCoordinates[MyCoordinates.Count - 1];
+            //  MapVieMode.ZoomLevel = 14;
+            Dispatcher.BeginInvoke(() =>
             {
-                //DrawAccuracyRadius(mapLayer);
-                DrawMapMarker(MyCoordinate, mapLayer);
-            }
-
-            // Draw markers for location(s) / destination(s)
-            //DrawMapMarker(MyCoordinate, Colors.Blue, mapLayer);
-
-            HereMap.Layers.Add(mapLayer);
-        }
-
-        private void DrawMapMarker(GeoCoordinate coordinate, MapLayer mapLayer)
-        {
-            // Create a MapOverlay and add marker.
-            MapOverlay overlay = new MapOverlay();
-            overlay.Content = new Ellipse
-            {
-                Fill = new SolidColorBrush(Colors.Blue),
-                Width = 40,
-                Height = 40
-            };
-            overlay.GeoCoordinate = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
-            overlay.PositionOrigin = new Point(0.0, 1.0);
-            mapLayer.Add(overlay);
+                myMap.SetView(LocationRectangle.CreateBoundingRectangle(MyCoordinates));
+            });
+            // MapVieMode.SetView(LocationRectangle.CreateBoundingRectangle(from 1 in MyCoordinates);
+            myMap.SetView(MyCoordinates[MyCoordinates.Count - 1], 10, MapAnimationKind.Linear);
         }
 
         private void ZoomLevelChanged(object sender, EventArgs e)
         {
-            //DrawMapMarkers();
+           // do something
         }
 
         // Navigates back in the web browser's navigation stack, not the applications.
@@ -842,10 +892,11 @@ namespace _1081009
         public string image_url { get; set; }
     }
 
-    public class PushpinItems
+    public class PushpinModel
     {
         public GeoCoordinate Coordinate { get; set; }
         public string Address { get; set; }
         public string Name { get; set; }
+        public string ImageURI { get; set; }
     }
 }
