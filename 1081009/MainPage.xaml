@@ -32,7 +32,20 @@
                 <toolkit:MapItemsControl Name="RestaurantItems">
                     <toolkit:MapItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <toolkit:Pushpin GeoCoordinate="{Binding Coordinate}" Content="{Binding Address}" Tag="{Binding ID}" Tap="Pushpin_Tap"/>
+                            <toolkit:Pushpin GeoCoordinate="{Binding Coordinate}" Content="{Binding Address}" Tag="{Binding ID}" Tap="Pushpin_Tap">
+                                <toolkit:Pushpin.Template>
+                                    <ControlTemplate>
+                                        <Border Background="#BFFFFFFF" Visibility="Visible" x:Name="border" >
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8">
+                                                <Grid x:Name="ContentGrid" Width="64" Height="64">
+                                                    <Image Source="{Binding ImageURI}" Stretch="Fill"/>
+                                                </Grid>
+                                                <TextBlock Text="{Binding Address}" TextAlignment="Center" Margin="0" Padding="4" Foreground="Black"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </toolkit:Pushpin.Template>
+                            </toolkit:Pushpin>
                         </DataTemplate>
                     </toolkit:MapItemsControl.ItemTemplate>
                 </toolkit:MapItemsControl>
