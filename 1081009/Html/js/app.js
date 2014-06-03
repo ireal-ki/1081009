@@ -344,7 +344,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     $scope.getSearchFeedTrip = function (group, type, title) {
 
         // log
-        callWindowsPhoneNotify("log|getSearchFeedTrip" + group, type, title);
+        callWindowsPhoneNotify("log|getSearchFeedTrip" + group + ":" + type + ":" + title);
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
@@ -370,9 +370,11 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     $scope.searchFromMap = function (amphoe_id, amphoe_name) {
 
         // log
-        callWindowsPhoneNotify("log|searchFromMap" + amphoe_id, amphoe_name);
+        callWindowsPhoneNotify("log|searchFromMap" + amphoe_id + ":" + amphoe_name);
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
+
+        callWindowsPhoneNotify('responseNavigating');
 
         $scope.hideAll();
         $scope.isShowFeed = true;
@@ -405,7 +407,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     $scope.getFeedTrip = function (feedName, name) {
 
         // log
-        callWindowsPhoneNotify("log|getFeedTrip" + feedName, name);
+        callWindowsPhoneNotify("log|getFeedTrip" + feedName + ":" + name);
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
