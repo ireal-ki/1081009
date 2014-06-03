@@ -10,7 +10,6 @@ using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Maps.Controls;
 using Windows.Devices.Geolocation;
 using System.IO.IsolatedStorage;
-using Facebook;
 using Facebook.Client;
 using System.Security.Cryptography;
 using System.Text;
@@ -20,6 +19,7 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Maps.Toolkit;
+using System.Windows.Threading;
 
 namespace _1081009
 {
@@ -41,8 +41,47 @@ namespace _1081009
         public MainPage()
         {
             InitializeComponent();
+
             BackKeyPress += MainPage_BackKeyPress;
             settings = IsolatedStorageSettings.ApplicationSettings;
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            NetworkInformationUtility.GetNetworkTypeCompleted += GetNetworkTypeCompleted;
+            NetworkInformationUtility.GetNetworkTypeAsync(3000); // Timeout of 3 seconds
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            NetworkInformationUtility.GetNetworkTypeCompleted -= GetNetworkTypeCompleted;
+        }
+
+        private void GetNetworkTypeCompleted(object sender, NetworkTypeEventArgs networkTypeEventArgs)
+        {
+            // Always dispatch on the UI thread
+            Dispatcher.BeginInvoke(() =>
+            {
+                if (networkTypeEventArgs.HasTimeout)
+                {
+                    // message = "The timeout occurred";
+                    no_connection_img.Visibility = Visibility.Visible;
+                }
+                else if (networkTypeEventArgs.HasInternet)
+                {
+                    //message = "The Internet connection type is: " + networkTypeEventArgs.Type.ToString();
+                    no_connection_img.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    //message = "There is no Internet connection";
+                    no_connection_img.Visibility = Visibility.Visible;
+                }
+
+                System.Diagnostics.Debug.WriteLine(" ! has internet : " + (no_connection_img.Visibility == Visibility.Collapsed));
+            });
         }
 
         private void Browser_Loaded(object sender, RoutedEventArgs e)
@@ -160,7 +199,8 @@ namespace _1081009
                 System.Diagnostics.Debug.WriteLine(" ! [Log] : " + e.Value.Split('|')[1]);
                 return;
             }
-            else {
+            else
+            {
                 System.Diagnostics.Debug.WriteLine(" ! [Browser_ScriptNotify] : " + e.Value);
             }
 
@@ -520,7 +560,7 @@ namespace _1081009
             }
             catch (Exception e)
             {
-
+                System.Diagnostics.Debug.WriteLine(" ! Exception : " + e);
             }
 
             HereMap.SetView(MyCoordinate, 16);
@@ -742,7 +782,7 @@ namespace _1081009
             }
         }
     }
-    
+
     public class FacebookUriMapper : UriMapperBase
     {
         private bool facebookLoginHandled;
