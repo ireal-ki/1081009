@@ -40,6 +40,7 @@ namespace _1081009
         // map
         public List<GeoCoordinate> MyCoordinates = new List<GeoCoordinate>();
         private static GeoCoordinateWatcher watcher;
+        private static LocationRectangle _LocationRectangle;
 
         // Constructor
         public MainPage()
@@ -48,58 +49,6 @@ namespace _1081009
 
             BackKeyPress += MainPage_BackKeyPress;
             settings = IsolatedStorageSettings.ApplicationSettings;
-        }
-
-        // ----------------------------------------------------------------------------------
-
-        private void OnCenterButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Geolocator geolocator = new Geolocator();
-
-            geolocator.MovementThreshold = 100;
-            geolocator.ReportInterval = 1000;
-            geolocator.DesiredAccuracy = PositionAccuracy.High;
-
-            geolocator.PositionChanged += geolocator_PositionChanged;
-        }
-
-        private void geolocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
-        {
-            Dispatcher.BeginInvoke(() =>
-            {
-                Geocoordinate coordinate = args.Position.Coordinate;
-                System.Diagnostics.Debug.WriteLine(" ! geolocator_PositionChanged.SetView");
-                MyMap.SetView(coordinate.ToGeoCoordinate(), 16, MapAnimationKind.Parabolic);
-                Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
-                pushpin.GeoCoordinate = coordinate.ToGeoCoordinate();
-            });
-        }
-
-        private void OnAddShapeClicked(object sender, RoutedEventArgs e)
-        {
-            MapOverlay overlay = new MapOverlay
-            {
-                GeoCoordinate = MyMap.Center,
-                Content = new Ellipse
-                {
-                    Fill = new SolidColorBrush(Colors.Blue),
-                    Width = 40,
-                    Height = 40
-                }
-            };
-            MapLayer layer = new MapLayer();
-            layer.Add(overlay);
-
-            MyMap.Layers.Add(layer);
-
-            Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
-            pushpin.GeoCoordinate = new GeoCoordinate(45.3967, 009.3163);
-        }
-
-        private void MyPushpin_OnTap(object sender, GestureEventArgs e)
-        {
-            Pushpin pushpin = sender as Pushpin;
-            MessageBox.Show(pushpin.Content.ToString());
         }
 
         // ----------------------------------------------------------------------------------
@@ -160,6 +109,7 @@ namespace _1081009
         void appBarBtnMap_Click(object sender, EventArgs e)
         {
             MyMap.Visibility = System.Windows.Visibility.Visible;
+
             GetCurrentCoordinate();
             //Browser.InvokeScript("onAppBarBtnMapClick");
 
@@ -209,6 +159,9 @@ namespace _1081009
                 if (targetPage == "map")
                 {
                     MyMap.Visibility = System.Windows.Visibility.Visible;
+                    
+                    // hide AppBar
+                    ApplicationBar.IsVisible = false;
                 }
                 else
                 {
@@ -560,6 +513,8 @@ namespace _1081009
 
         private async void GetCurrentCoordinate()
         {
+            System.Diagnostics.Debug.WriteLine(" ! GetCurrentCoordinate");
+
             setProgressIndicator(true);
 
             if (watcher == null)
@@ -573,29 +528,6 @@ namespace _1081009
             watcher.Start();
         }
 
-        /*
-            try
-            {
-                Geoposition currentPosition = await geolocator.GetGeopositionAsync(TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(10));
-                _accuracy = currentPosition.Coordinate.Accuracy;
-
-                Dispatcher.BeginInvoke(() =>
-                {
-                    MyCoordinate = new GeoCoordinate(currentPosition.Coordinate.Latitude, currentPosition.Coordinate.Longitude);
-                    CallMapApi();
-
-                    System.Diagnostics.Debug.WriteLine(" ! GetCurrentCoordinate.SetView");
-                    MyMap.SetView(MyCoordinate, 8, MapAnimationKind.Parabolic);
-
-                    Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
-                    pushpin.GeoCoordinate = MyCoordinate;
-                });
-            }
-            catch (Exception)
-            {
-                // Couldn't get current location - location might be disabled in settings
-                // MessageBox.Show(AppResources.LocationDisabledMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
-            }*/
         void watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
         {
             switch (e.Status)
@@ -626,17 +558,24 @@ namespace _1081009
             MyCoordinate = watcher.Position.Location;
 
             System.Diagnostics.Debug.WriteLine(" ! GetCurrentCoordinate.SetView");
-            MyMap.SetView(MyCoordinate, 8, MapAnimationKind.Parabolic);
+
+            // TODO : check if not far from previous location will use old data, or add button to relocate
+            if(_LocationRectangle != null)
+                MyMap.SetView(_LocationRectangle);
+            else
+                MyMap.SetView(MyCoordinate, 8, MapAnimationKind.Parabolic);
 
             Pushpin MyPushpin = (Pushpin)this.FindName("MyPushpin");
             MyPushpin.GeoCoordinate = MyCoordinate;
-
+            
             // get near by data
             Browser.InvokeScript("callMapApi", new string[] { MyCoordinate.Latitude.ToString(), MyCoordinate.Longitude.ToString() });
         }
 
         private void BindDataMap(string data)
         {
+            System.Diagnostics.Debug.WriteLine(" ! BindDataMap");
+
             setProgressIndicator(true);
             JsonMapData dataAPiList = JsonConvert.DeserializeObject<JsonMapData>(data);
             DrawMapPushpin(dataAPiList);
@@ -645,6 +584,8 @@ namespace _1081009
 
         private void DrawMapPushpin(JsonMapData dataAPiList)
         {
+            System.Diagnostics.Debug.WriteLine(" ! DrawMapPushpin");
+
             ObservableCollection<PushpinModel> Pushpins = new ObservableCollection<PushpinModel>();
 
             MyCoordinates.Clear();
@@ -675,17 +616,14 @@ namespace _1081009
                 System.Diagnostics.Debug.WriteLine(" ! Exception : " + e);
             }
 
-            //System.Diagnostics.Debug.WriteLine(" ! DrawMapPushpin.SetView");
-            //MyMap.SetView(MyCoordinate, 16, MapAnimationKind.Parabolic);
-
-            // LocationRectangle boundingRectangle = new LocationRectangle( );
             MyMap.Center = MyCoordinates[MyCoordinates.Count - 1];
-            //  MapVieMode.ZoomLevel = 14;
+
             Dispatcher.BeginInvoke(() =>
             {
-                MyMap.SetView(LocationRectangle.CreateBoundingRectangle(MyCoordinates));
+                _LocationRectangle = LocationRectangle.CreateBoundingRectangle(MyCoordinates);
+                MyMap.SetView(_LocationRectangle);
             });
-            // MapVieMode.SetView(LocationRectangle.CreateBoundingRectangle(from 1 in MyCoordinates);
+
             MyMap.SetView(MyCoordinates[MyCoordinates.Count - 1], 10, MapAnimationKind.Linear);
         }
 
