@@ -271,10 +271,6 @@ namespace _1081009
 
             if (e.Value.StartsWith("responseNavigating"))
             {
-                // hide content
-                if (_contentWebBrowser != null)
-                    _contentWebBrowser.Visibility = System.Windows.Visibility.Collapsed;
-
                 setProgressIndicator(true);
                 return;
             }
