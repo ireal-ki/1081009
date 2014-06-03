@@ -39,6 +39,7 @@ namespace _1081009
 
         // map
         public List<GeoCoordinate> MyCoordinates = new List<GeoCoordinate>();
+        private static GeoCoordinateWatcher watcher;
 
         // Constructor
         public MainPage()
@@ -68,7 +69,7 @@ namespace _1081009
             {
                 Geocoordinate coordinate = args.Position.Coordinate;
                 System.Diagnostics.Debug.WriteLine(" ! geolocator_PositionChanged.SetView");
-                myMap.SetView(coordinate.ToGeoCoordinate(), 16, MapAnimationKind.Parabolic);
+                MyMap.SetView(coordinate.ToGeoCoordinate(), 16, MapAnimationKind.Parabolic);
                 Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
                 pushpin.GeoCoordinate = coordinate.ToGeoCoordinate();
             });
@@ -78,7 +79,7 @@ namespace _1081009
         {
             MapOverlay overlay = new MapOverlay
             {
-                GeoCoordinate = myMap.Center,
+                GeoCoordinate = MyMap.Center,
                 Content = new Ellipse
                 {
                     Fill = new SolidColorBrush(Colors.Blue),
@@ -89,7 +90,7 @@ namespace _1081009
             MapLayer layer = new MapLayer();
             layer.Add(overlay);
 
-            myMap.Layers.Add(layer);
+            MyMap.Layers.Add(layer);
 
             Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
             pushpin.GeoCoordinate = new GeoCoordinate(45.3967, 009.3163);
@@ -152,13 +153,13 @@ namespace _1081009
 
         void appBarBtnStory_Click(object sender, EventArgs e)
         {
-            myMap.Visibility = System.Windows.Visibility.Collapsed;
+            MyMap.Visibility = System.Windows.Visibility.Collapsed;
             Browser.InvokeScript("onAppBarBtnStoryClick");
         }
 
         void appBarBtnMap_Click(object sender, EventArgs e)
         {
-            myMap.Visibility = System.Windows.Visibility.Visible;
+            MyMap.Visibility = System.Windows.Visibility.Visible;
             GetCurrentCoordinate();
             //Browser.InvokeScript("onAppBarBtnMapClick");
 
@@ -171,13 +172,8 @@ namespace _1081009
 
         void appBarBtnTop10_Click(object sender, EventArgs e)
         {
-            myMap.Visibility = System.Windows.Visibility.Collapsed;
+            MyMap.Visibility = System.Windows.Visibility.Collapsed;
             Browser.InvokeScript("onAppBarBtnTop10Click");
-        }
-
-        private void CallMapApi()
-        {
-            Browser.InvokeScript("callMapApi", new string[] { MyCoordinate.Latitude.ToString(), MyCoordinate.Longitude.ToString() });
         }
 
         void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
@@ -212,11 +208,11 @@ namespace _1081009
 
                 if (targetPage == "map")
                 {
-                    myMap.Visibility = System.Windows.Visibility.Visible;
+                    MyMap.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    myMap.Visibility = System.Windows.Visibility.Collapsed;
+                    MyMap.Visibility = System.Windows.Visibility.Collapsed;
                 }
 
                 if (targetPage == "webview")
@@ -387,7 +383,7 @@ namespace _1081009
 
                 // hide map if need
                 if (e.Value != "map")
-                    myMap.Visibility = System.Windows.Visibility.Collapsed;
+                    MyMap.Visibility = System.Windows.Visibility.Collapsed;
 
                 addPageNav(e.Value);
                 return;
@@ -496,7 +492,7 @@ namespace _1081009
 
                 // hide map if need
                 if (e.Value != "map")
-                    myMap.Visibility = System.Windows.Visibility.Collapsed;
+                    MyMap.Visibility = System.Windows.Visibility.Collapsed;
 
                 addPageNav("webview");
                 return;
@@ -507,7 +503,7 @@ namespace _1081009
 
             // hide map if need
             if (e.Value != "map")
-                myMap.Visibility = System.Windows.Visibility.Collapsed;
+                MyMap.Visibility = System.Windows.Visibility.Collapsed;
 
             // default case will count as page nav
             addPageNav(e.Value);
@@ -565,9 +561,19 @@ namespace _1081009
         private async void GetCurrentCoordinate()
         {
             setProgressIndicator(true);
-            Geolocator geolocator = new Geolocator();
-            geolocator.DesiredAccuracy = PositionAccuracy.High;
 
+            if (watcher == null)
+            {
+                watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+                watcher.MovementThreshold = 20;
+                watcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
+                watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            }
+
+            watcher.Start();
+        }
+
+        /*
             try
             {
                 Geoposition currentPosition = await geolocator.GetGeopositionAsync(TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(10));
@@ -579,7 +585,7 @@ namespace _1081009
                     CallMapApi();
 
                     System.Diagnostics.Debug.WriteLine(" ! GetCurrentCoordinate.SetView");
-                    myMap.SetView(MyCoordinate, 8, MapAnimationKind.Parabolic);
+                    MyMap.SetView(MyCoordinate, 8, MapAnimationKind.Parabolic);
 
                     Pushpin pushpin = (Pushpin)this.FindName("MyPushpin");
                     pushpin.GeoCoordinate = MyCoordinate;
@@ -589,8 +595,44 @@ namespace _1081009
             {
                 // Couldn't get current location - location might be disabled in settings
                 // MessageBox.Show(AppResources.LocationDisabledMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
+            }*/
+        void watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
+        {
+            switch (e.Status)
+            {
+                case GeoPositionStatus.Disabled:
+                    MessageBox.Show("Location Service is not enabled on the device");
+                    setProgressIndicator(false);
+                    break;
+
+                case GeoPositionStatus.NoData:
+                    MessageBox.Show(" The Location Service is working, but it cannot get location data.");
+                    setProgressIndicator(false);
+                    break;
             }
-            setProgressIndicator(false);
+        }
+
+        void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        {
+            if (e.Position.Location.IsUnknown)
+            {
+                MessageBox.Show("Please wait while your prosition is determined....");
+                return;
+            }
+
+            // enough
+            watcher.Stop();
+
+            MyCoordinate = watcher.Position.Location;
+
+            System.Diagnostics.Debug.WriteLine(" ! GetCurrentCoordinate.SetView");
+            MyMap.SetView(MyCoordinate, 8, MapAnimationKind.Parabolic);
+
+            Pushpin MyPushpin = (Pushpin)this.FindName("MyPushpin");
+            MyPushpin.GeoCoordinate = MyCoordinate;
+
+            // get near by data
+            Browser.InvokeScript("callMapApi", new string[] { MyCoordinate.Latitude.ToString(), MyCoordinate.Longitude.ToString() });
         }
 
         private void BindDataMap(string data)
@@ -608,9 +650,11 @@ namespace _1081009
             MyCoordinates.Clear();
             foreach (MapData data in dataAPiList.data)
             {
-               GeoCoordinate _GeoCoordinate = new GeoCoordinate(float.Parse(data.lat), float.Parse(data.lng));
-                Pushpins.Add(new PushpinModel() {
+                GeoCoordinate _GeoCoordinate = new GeoCoordinate(float.Parse(data.lat), float.Parse(data.lng));
+                Pushpins.Add(new PushpinModel()
+                {
                     Coordinate = _GeoCoordinate,
+                    ID = data.id,
                     Name = data.keyword,
                     Address = data.keyword,
                     ImageURI = data.image_url
@@ -619,7 +663,7 @@ namespace _1081009
                 MyCoordinates.Add(_GeoCoordinate);
             }
 
-            ObservableCollection<DependencyObject> children = MapExtensions.GetChildren(myMap);
+            ObservableCollection<DependencyObject> children = MapExtensions.GetChildren(MyMap);
             var obj = children.FirstOrDefault(x => x.GetType() == typeof(MapItemsControl)) as MapItemsControl;
 
             try
@@ -632,22 +676,38 @@ namespace _1081009
             }
 
             //System.Diagnostics.Debug.WriteLine(" ! DrawMapPushpin.SetView");
-            //myMap.SetView(MyCoordinate, 16, MapAnimationKind.Parabolic);
+            //MyMap.SetView(MyCoordinate, 16, MapAnimationKind.Parabolic);
 
             // LocationRectangle boundingRectangle = new LocationRectangle( );
-            myMap.Center = MyCoordinates[MyCoordinates.Count - 1];
+            MyMap.Center = MyCoordinates[MyCoordinates.Count - 1];
             //  MapVieMode.ZoomLevel = 14;
             Dispatcher.BeginInvoke(() =>
             {
-                myMap.SetView(LocationRectangle.CreateBoundingRectangle(MyCoordinates));
+                MyMap.SetView(LocationRectangle.CreateBoundingRectangle(MyCoordinates));
             });
             // MapVieMode.SetView(LocationRectangle.CreateBoundingRectangle(from 1 in MyCoordinates);
-            myMap.SetView(MyCoordinates[MyCoordinates.Count - 1], 10, MapAnimationKind.Linear);
+            MyMap.SetView(MyCoordinates[MyCoordinates.Count - 1], 10, MapAnimationKind.Linear);
         }
 
         private void ZoomLevelChanged(object sender, EventArgs e)
         {
-           // do something
+            // do something
+        }
+
+        private void Pushpin_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Pushpin pushpin = sender as Pushpin;
+
+            System.Diagnostics.Debug.WriteLine(" ! Pushpin_Tap : " + pushpin.Content);
+
+            // not me
+            if (String.Equals((string)pushpin.Content, "My Location"))
+                return;
+
+            string amphoe_id = (string)pushpin.Tag;
+
+            // search by content
+            Browser.InvokeScript("searchFromMap", new string[] { amphoe_id, (string)pushpin.Content });
         }
 
         // Navigates back in the web browser's navigation stack, not the applications.
@@ -898,5 +958,6 @@ namespace _1081009
         public string Address { get; set; }
         public string Name { get; set; }
         public string ImageURI { get; set; }
+        public string ID { get; set; }
     }
 }

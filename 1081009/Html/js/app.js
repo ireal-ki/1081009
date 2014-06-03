@@ -39,6 +39,11 @@ function restoreFeed() {
         scopeNg.restoreFeed();
     }
 }
+function searchFromMap(amphoe_id, amphoe_name) {
+    if (scopeNg != null) {
+        scopeNg.searchFromMap(amphoe_id, amphoe_name);
+    }
+}
 function onBackBtnPress(page) {
     if (scopeNg != null) {
 
@@ -308,7 +313,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         }
 
         callWindowsPhoneNotify('userMenu');
-    };
+    }; 
     $scope.getSearch = function () {
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
@@ -360,6 +365,32 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify('feed');
         callFeedSubActivityTrip($scope, apiCaller, group, type);
+    };
+
+    $scope.searchFromMap = function (amphoe_id, amphoe_name) {
+
+        // log
+        callWindowsPhoneNotify("log|searchFromMap" + amphoe_id, amphoe_name);
+
+        callWindowsPhoneNotify('hide_contentWebBrowser');
+
+        $scope.hideAll();
+        $scope.isShowFeed = true;
+
+        $scope.feedContent = [];
+        $scope.feedLanding = amphoe_name;
+        $('main').hide();
+        $('main.feed').show(function () {
+            $("article.grid").gridalicious({
+                gutter: 8,
+                selector: 'figure',
+                width: 160,
+                animate: false
+            });
+        });
+
+        callWindowsPhoneNotify('feed');
+        callSearchFromMap($scope, apiCaller, amphoe_id);
     };
     $scope.getMenu = function () {
 
@@ -828,6 +859,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     }, true).bind(this);
 
     scopeNg = $scope;
+
     callWindowsPhoneNotify('checkSaveLogin');
     callWindowsPhoneNotify('uuid');
     callWindowsPhoneNotify('top10');
@@ -1114,6 +1146,43 @@ var callArticleAdd = function ($scope, apiCaller, article_url) {
     apiCaller.call(apiURL, params, function (response, self) {
 
         callWindowsPhoneNotify('responseNavigated');
+    }, $scope);
+};
+
+var callSearchFromMap = function ($scope, apiCaller, amphoe_id) {
+
+    // log
+    callWindowsPhoneNotify("log|callSearchFromMap");
+
+    callWindowsPhoneNotify('hide_contentWebBrowser');
+
+    callWindowsPhoneNotify('responseNavigating');
+    var apiList = apiCaller.apiList;
+    var url = apiList.get_feed_by_amphoe_id.url;
+    var apiParams = apiList.get_feed_by_amphoe_id.params;
+    var params = [];
+
+    for (var param in apiParams) {
+        if (param == 'amphoe_id') {
+            params.push(param + '=' + amphoe_id)
+        } else if (param == 'username') {
+            params.push(param + '=' + $scope.username);
+        } else if (param == 'device_id') {
+            params.push(param + '=' + $scope.uuid);
+        } else {
+            params.push(param + '=' + apiParams[param]);
+        }
+    }
+
+    apiCaller.call(url, params, function (response, self) {
+
+        self.feedContent = [];
+
+        for (var i = 0; i < response.length; i++) {
+            self.feedContent.push(response[i]);
+        }
+        callWindowsPhoneNotify('responseNavigated');
+        $scope.appBarVisible(true);
     }, $scope);
 };
 

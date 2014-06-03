@@ -27,21 +27,20 @@
                           IsScriptEnabled="True" 
                           IsGeolocationEnabled="True"/>
 
-        <maps:Map x:Name="myMap" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" Margin="0,80,0,0">
+        <maps:Map x:Name="MyMap" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" Margin="0,80,0,0" Visibility="Collapsed">
             <toolkit:MapExtensions.Children>
                 <toolkit:MapItemsControl Name="RestaurantItems">
                     <toolkit:MapItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <toolkit:Pushpin GeoCoordinate="{Binding Coordinate}" Content="{Binding Address}" />
+                            <toolkit:Pushpin GeoCoordinate="{Binding Coordinate}" Content="{Binding Address}" Tag="{Binding ID}" Tap="Pushpin_Tap"/>
                         </DataTemplate>
                     </toolkit:MapItemsControl.ItemTemplate>
                 </toolkit:MapItemsControl>
-                <toolkit:UserLocationMarker x:Name="UserLocationMarker" Visibility="Visible" />
-                <toolkit:Pushpin x:Name="MyPushpin" Content="My Position" Visibility="Visible"/>
+                <toolkit:Pushpin x:Name="MyPushpin" Content="My Position" Visibility="Collapsed"/>
             </toolkit:MapExtensions.Children>
         </maps:Map>
 
-        <Canvas x:Name="CustomProgressIndicator" HorizontalAlignment="Center" Height="50" Margin="0" VerticalAlignment="Center" Width="100">
+        <Canvas x:Name="CustomProgressIndicator" HorizontalAlignment="Center" Height="50" Margin="0" VerticalAlignment="Center" Width="100" Visibility="Collapsed">
             <ProgressBar Height="10" Margin="-190,0,0,0" Width="480" HorizontalAlignment="Center" VerticalAlignment="Center" IsIndeterminate="True" Canvas.Left="0" Canvas.Top="0"/>
             <TextBlock HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Please wait..." VerticalAlignment="Center" Canvas.Left="0" Canvas.Top="10" Foreground="White"/>
         </Canvas>

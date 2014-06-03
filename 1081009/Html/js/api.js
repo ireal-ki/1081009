@@ -609,6 +609,16 @@ angular.module('api', []).config(['$httpProvider', function ($httpProvider) {
                     article_url: ''
                 }
             },
+            get_feed_by_amphoe_id: {
+                url: '/feed/get_feed_by_amphoe_id',
+                params: {
+                    device_id: '',
+                    username: '',
+                    amphoe_id: '',
+                    offset: 0,
+                    limit: 20
+                }
+            },
             save_view: {
                 url: '/feed/save_view',
                 params: {
