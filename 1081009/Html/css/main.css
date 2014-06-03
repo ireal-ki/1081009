@@ -436,7 +436,7 @@ body.sliderOpen { overflow-x: hidden; }
 .intro header h1 { text-indent: -1000em; }
 .intro article { background-color: #c6beaa; }
 .intro article div, .intro article > figure { position: absolute; }
-.intro article figure { background-color: rgba(0, 0, 0, 0.5); background-size: cover; background-repeat: no-repaet; background-position: center center; height: 100%; }
+.intro article figure { background-color: rgba(0, 0, 0, 0); background-size: cover; background-repeat: no-repaet; background-position: center center; height: 100%; }
 .intro article figure a { display: block; width: 100%; height: 100%; }
 .intro article figcaption { color: #fff; padding: 30px 20px 5%; bottom: 0; left: 0; right: 0; position: absolute; font-size: 0.75em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.03) 100%); background-image: linear-gradient(to top, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.03) 100%); }
 @media screen and (orientation: landscape) { .intro article figcaption { padding: 30px 20px 10px; } }
