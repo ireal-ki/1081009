@@ -63,6 +63,9 @@ function onBackBtnPress(page) {
             case 'userMenu':
                 scopeNg.getUserMenu();
                 break;
+            case 'setting':
+                scopeNg.getSetting();
+                break;
             case 'search':
                 scopeNg.getSearch();
                 break;
@@ -614,12 +617,18 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
+        // notify app
+        callWindowsPhoneNotify('setting');
+
         $('main').hide();
         $('main.setting').show();
     };
     $scope.getTerm = function () {
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
+
+        // notify app
+        callWindowsPhoneNotify('term');
 
         $('main').hide();
         $('main.term').show();
