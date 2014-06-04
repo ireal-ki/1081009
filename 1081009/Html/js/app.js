@@ -826,6 +826,12 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
+        callWindowsPhoneNotify('responseNavigating');
+
+        $scope.hideAll();
+        $('main').hide();
+        $scope.appBarVisible(false);
+
         callWindowsPhoneNotify('fbLogin');
     };
 
@@ -1597,7 +1603,14 @@ var callFacebookLogin = function ($scope, apiCaller, fbid) {
             $('main').hide();
             $('main.menu').show();
         } else if (response.result == 'user_not_found') {
-            self.alertMsg = 'ไม่พบข้อมูล';
+            //self.alertMsg = 'ไม่พบข้อมูล';
+
+            // hide current screen
+            $scope.hideAll();
+            $('main').hide();
+
+            // will register with facebook
+            callWindowsPhoneNotify("registerWithFacebook|" + fbid);
         } else {
             self.alertMsg = 'ไม่สามารถทำรายการได้';
         }
@@ -1609,7 +1622,7 @@ var callFacebookLogin = function ($scope, apiCaller, fbid) {
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
                 self.alertMsg = '';
-            })
+            });
         }
         callWindowsPhoneNotify('responseNavigated');
     }, $scope);

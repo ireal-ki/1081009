@@ -257,6 +257,12 @@ namespace _1081009
                 return;
             }
 
+            if (e.Value.StartsWith("registerWithFacebook"))
+            {
+                FacebookUtil.willRegisterWithFacebookAndLogin(e.Value.Split('|')[1]);
+                return;
+            }
+
             if (e.Value.StartsWith("fbLogin"))
             {
                 FacebookUtil.LoginWithApp();

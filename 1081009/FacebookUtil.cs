@@ -32,27 +32,28 @@ namespace _1081009
 
         public static async void willLoginWithFacebookID(string AccessToken)
         {
-            // prevent duplicated call
-            if (client == null)
-                client = new HttpClient();
-            else
-                return;
-
             // get fbid
             if (_facebookClient == null)
                 _facebookClient = new FacebookClient(AccessToken);
-
-            dynamic result = await _facebookClient.GetTaskAsync("me");
-            string fbid = result.id;
+            else
+                return;
+            
+            dynamic me_result = await _facebookClient.GetTaskAsync("me");
+            string fbid = me_result.id;
 
             // for later use
             IsolatedStorageSettings.ApplicationSettings["fbid"] = fbid;
+            IsolatedStorageSettings.ApplicationSettings["fb_username"] = me_result.username;
+            IsolatedStorageSettings.ApplicationSettings["fb_first_name"] = me_result.first_name;
+            IsolatedStorageSettings.ApplicationSettings["fb_last_name"] = me_result.last_name;
+            IsolatedStorageSettings.ApplicationSettings["fb_email"] = me_result.email;
+            IsolatedStorageSettings.ApplicationSettings.Save();
 
             // call js
             MainPage.bw.InvokeScript("fbidReturn", new string[] { fbid });
         }
 
-        public static async void willAutoRegisterIfNeedAndAutoLogin(string AccessToken)
+        public static async void willRegisterWithFacebookAndLogin(string fbid)
         {
             // prevent duplicated call
             if (client == null)
@@ -60,67 +61,43 @@ namespace _1081009
             else
                 return;
 
-            // get fbid
-            if (_facebookClient == null)
-                _facebookClient = new FacebookClient(AccessToken);
-
-            // will gathering register info from facebook
-            dynamic me_result = await _facebookClient.GetTaskAsync("me");
-            string fbid = me_result.id;
-
             try
             {
-                HttpResponseMessage response = await client.GetAsync(_API_URL + "auth/facebook?fbid=" + fbid);
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
+                // string fbid = me_result.id;
+                string username = (string)IsolatedStorageSettings.ApplicationSettings["fb_username"];
+                string first_name = (string)IsolatedStorageSettings.ApplicationSettings["fb_first_name"];
+                string last_name = (string)IsolatedStorageSettings.ApplicationSettings["fb_last_name"];
+                string email = (string)IsolatedStorageSettings.ApplicationSettings["fb_email"];
 
-                JObject responseJSON = JObject.Parse(responseBody);
+                // do register : TODO send to js registering view and deprecated this?
+                Dictionary<string, string> dict = new Dictionary<string, string>();
+                dict.Add("fbid", fbid);
+                dict.Add("username", username);
+                dict.Add("first_name", first_name);
+                dict.Add("last_name", last_name);
+                dict.Add("email", email);
+                dict.Add("password", fbid);
 
-                // not found this fbid
-                if ((string)responseJSON["result"] == "user_not_found")
+                HttpContent httpContent = new FormUrlEncodedContent(dict);
+
+                HttpResponseMessage register_response = await client.PostAsync(_API_URL + "register", httpContent);
+                register_response.EnsureSuccessStatusCode();
+                string register_responseBody = await register_response.Content.ReadAsStringAsync();
+
+                dynamic register_responseJSON = JObject.Parse(register_responseBody);
+
+                switch ((string)register_responseJSON["result"])
                 {
-                    // string fbid = me_result.id;
-                    string username = me_result.username;
-                    string first_name = me_result.first_name;
-                    string last_name = me_result.last_name;
-                    string email = me_result.email;
-                    string password = me_result.password;
-
-                    // do register : TODO send to js registering view and deprecated this?
-                    Dictionary<string, string> dict = new Dictionary<string, string>();
-                    dict.Add("fbid", fbid);
-                    dict.Add("username", username + "_" + fbid);
-                    dict.Add("first_name", first_name);
-                    dict.Add("last_name", last_name);
-                    dict.Add("email", email);
-                    dict.Add("password", fbid);
-
-                    HttpContent httpContent = new FormUrlEncodedContent(dict);
-
-                    HttpResponseMessage register_response = await client.PostAsync(_API_URL + "register", httpContent);
-                    register_response.EnsureSuccessStatusCode();
-                    string register_responseBody = await register_response.Content.ReadAsStringAsync();
-
-                    dynamic register_responseJSON = JObject.Parse(register_responseBody);
-
-                    // TODO : add register with facebook at view and test this
-                    switch ((string)register_responseJSON["result"])
-                    {
-                        case "success":
-                            {
-                                MainPage.bw.InvokeScript("loginWithFacebook", new string[] {username + "_" + fbid, fbid});
-                                break;
-                            }
-                        case "user_existing":
-                            {
-                                MessageBox.Show("Email already use");
-                            }
+                    case "success":
+                        {
+                            MainPage.bw.InvokeScript("fbidReturn", new string[] { fbid });
                             break;
-                    }
-                }
-                else
-                {
-                    // TODO : will log in by username and fbid as password
+                        }
+                    case "user_existing":
+                        {
+                            MessageBox.Show("Sorry, User already exist");
+                        }
+                        break;
                 }
             }
             catch (HttpRequestException e)
