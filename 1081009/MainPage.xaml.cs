@@ -176,6 +176,11 @@ namespace _1081009
                 {
                     Browser.InvokeScript("restoreFeed");
                 }
+                else if (currentPage == "userMenu")
+                {
+                    // TODO : replace with native
+                    Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
+                }
                 else
                 {
                     Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
@@ -268,6 +273,15 @@ namespace _1081009
                 FacebookUtil.LoginWithApp();
                 return;
             }
+
+            // TODO : replace with native
+            /*
+            if (e.Value.StartsWith("userMenu"))
+            {
+                NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+                return;
+            }
+             * */
 
             if (e.Value.StartsWith("ieOpen"))
             {
