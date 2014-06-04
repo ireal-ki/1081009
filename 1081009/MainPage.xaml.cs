@@ -94,6 +94,9 @@ namespace _1081009
 
         private void Browser_Loaded(object sender, RoutedEventArgs e)
         {
+            if (bw != null)
+                return;
+
             Browser.IsScriptEnabled = true;
             Browser.Navigate(new Uri(MainUri, UriKind.Relative));
             Browser.ScriptNotify += Browser_ScriptNotify;
@@ -275,13 +278,11 @@ namespace _1081009
             }
 
             // TODO : replace with native
-            /*
             if (e.Value.StartsWith("userMenu"))
             {
                 NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
                 return;
             }
-             * */
 
             if (e.Value.StartsWith("ieOpen"))
             {

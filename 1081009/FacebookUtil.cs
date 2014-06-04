@@ -43,10 +43,10 @@ namespace _1081009
 
             // for later use
             IsolatedStorageSettings.ApplicationSettings["fbid"] = fbid;
-            IsolatedStorageSettings.ApplicationSettings["fb_username"] = me_result.username;
-            IsolatedStorageSettings.ApplicationSettings["fb_first_name"] = me_result.first_name;
-            IsolatedStorageSettings.ApplicationSettings["fb_last_name"] = me_result.last_name;
-            IsolatedStorageSettings.ApplicationSettings["fb_email"] = me_result.email;
+            IsolatedStorageSettings.ApplicationSettings["username"] = me_result.username;
+            IsolatedStorageSettings.ApplicationSettings["first_name"] = me_result.first_name;
+            IsolatedStorageSettings.ApplicationSettings["last_name"] = me_result.last_name;
+            IsolatedStorageSettings.ApplicationSettings["email"] = me_result.email;
             IsolatedStorageSettings.ApplicationSettings.Save();
 
             // call js
@@ -64,10 +64,10 @@ namespace _1081009
             try
             {
                 // string fbid = me_result.id;
-                string username = (string)IsolatedStorageSettings.ApplicationSettings["fb_username"];
-                string first_name = (string)IsolatedStorageSettings.ApplicationSettings["fb_first_name"];
-                string last_name = (string)IsolatedStorageSettings.ApplicationSettings["fb_last_name"];
-                string email = (string)IsolatedStorageSettings.ApplicationSettings["fb_email"];
+                string username = (string)IsolatedStorageSettings.ApplicationSettings["username"];
+                string first_name = (string)IsolatedStorageSettings.ApplicationSettings["first_name"];
+                string last_name = (string)IsolatedStorageSettings.ApplicationSettings["last_name"];
+                string email = (string)IsolatedStorageSettings.ApplicationSettings["email"];
 
                 // do register : TODO send to js registering view and deprecated this?
                 Dictionary<string, string> dict = new Dictionary<string, string>();

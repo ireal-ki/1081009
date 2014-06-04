@@ -20,10 +20,10 @@ namespace _1081009
             Button UserProfileButton = (Button)this.FindName("UserProfileButton");
             TextBlock UserProfileTextBlock = (TextBlock)UserProfileButton.FindName("UserProfileTextBlock");
 
-            string username = (string)IsolatedStorageSettings.ApplicationSettings["fb_username"];
-            string first_name = (string)IsolatedStorageSettings.ApplicationSettings["fb_first_name"];
-            string last_name = (string)IsolatedStorageSettings.ApplicationSettings["fb_last_name"];
-            string email = (string)IsolatedStorageSettings.ApplicationSettings["fb_email"];
+            string username = (string)IsolatedStorageSettings.ApplicationSettings["username"];
+            string first_name = (string)IsolatedStorageSettings.ApplicationSettings["first_name"];
+            string last_name = (string)IsolatedStorageSettings.ApplicationSettings["last_name"];
+            string email = (string)IsolatedStorageSettings.ApplicationSettings["email"];
 
             UserProfileTextBlock.Text = first_name + " " + last_name + "\n" + email + "\n" + username;
         }

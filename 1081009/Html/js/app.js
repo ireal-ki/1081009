@@ -304,18 +304,18 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     $scope.getUserMenu = function () {
 
         callWindowsPhoneNotify('hide_contentWebBrowser');
-
-        $scope.hideAll();
+        
         $scope.appBarVisible(false);
-
-        $('main').hide();
+        
         if ($scope.isLoggedIn) {
-            $('main.menu').show();
+            //$('main.menu').show();
+            callWindowsPhoneNotify('userMenu');
         } else {
+            $scope.hideAll();
+            $('main').hide();
             $('main.login').show();
+            callWindowsPhoneNotify('login');
         }
-
-        callWindowsPhoneNotify('userMenu');
     }; 
     $scope.getSearch = function () {
 

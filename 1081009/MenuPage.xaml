@@ -24,7 +24,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="0" Background="#ffebe9e1" Height="80" Orientation="Horizontal">
-            <Image Source="/Html/img/base/logo.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <Image Source="/Html/img/base/logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,-3,0,0" Height="77" Width="250" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
