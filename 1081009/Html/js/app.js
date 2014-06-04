@@ -308,7 +308,10 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $scope.appBarVisible(false);
         
         if ($scope.isLoggedIn) {
-            //$('main.menu').show();
+            // TODO : replace with native
+            $scope.hideAll();
+            $('main').hide();
+            $('main.menu').show();
             callWindowsPhoneNotify('userMenu');
         } else {
             $scope.hideAll();

@@ -182,7 +182,7 @@ namespace _1081009
                 else if (currentPage == "userMenu")
                 {
                     // TODO : replace with native
-                    //Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
+                    Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
                 }
                 else
                 {
@@ -280,8 +280,8 @@ namespace _1081009
             // TODO : replace with native
             if (e.Value.StartsWith("userMenu"))
             {
-                NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
-                return;
+                //NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+                //return;
             }
 
             if (e.Value.StartsWith("ieOpen"))
