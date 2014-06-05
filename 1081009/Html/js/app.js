@@ -461,15 +461,19 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
             $('#alert5').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert5').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
             })
         } else if (email == '') {
             $('#alert3').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert3').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
             })
         } else {
             var paramObj = {
@@ -722,8 +726,9 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $('body').addClass('show-overlay');
         $('.close-overlay, #overlay').on('click', function () {
-            $('#add-article').hide();
-            $('body').removeClass('show-overlay');
+            $('.close-overlay, #overlay').off();
+            $scope.hideCurrentModalDialog();
+            callWindowsPhoneNotify("hide-overlay");
         })
     };
     $scope.hideCurrentModalDialog = function () {
@@ -732,12 +737,16 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
             $scope.currentModalDialog.hide();
 
         $('body').removeClass('show-overlay');
+
+        $scope.currentModalDialog = null;
     };
     $scope.addArticleSubmit = function () {
         var url = $('#input-url').val();
         callArticleAdd($scope, apiCaller, url);
         $('#add-article').hide();
-        $('body').removeClass('show-overlay');
+        $('.close-overlay, #overlay').off();
+        $scope.hideCurrentModalDialog();
+        callWindowsPhoneNotify("hide-overlay");
     };
     $scope.userSetting = function () {
 
@@ -1085,8 +1094,10 @@ var callFavView = function ($scope, apiCaller) {
             $('#alert6').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
                 self.alertMsg = '';
             })
         }
@@ -1133,8 +1144,10 @@ var callArticleView = function ($scope, apiCaller) {
             $('#alert6').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
-                $('body').removeClass('show-overlay');
+                $('.btnPopupOk, #overlay').off();
                 $('#alert6').hide();
+                $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
                 self.alertMsg = '';
             })
         }
@@ -1325,8 +1338,10 @@ var showRegisterSuccess = function ($scope, self)
     $('#alert6').show();
     $('body').addClass('show-overlay');
     $('.btnPopupOk, #overlay').on('click', function () {
+        $('.btnPopupOk, #overlay').off();
         $('#alert6').hide();
         $('body').removeClass('show-overlay');
+        callWindowsPhoneNotify("hide-overlay");
         self.alertMsg = '';
     })
 }
@@ -1360,8 +1375,10 @@ var callRegist = function ($scope, apiCaller, registParams) {
             $('#alert6').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
                 self.alertMsg = '';
             })
         } else if (response.result == 'exist_username') {
@@ -1378,8 +1395,10 @@ var callRegist = function ($scope, apiCaller, registParams) {
             $('#alert6').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
                 self.alertMsg = '';
             })
         }
@@ -1420,8 +1439,10 @@ var callForgot = function ($scope, apiCaller, email) {
             $('#alert6').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
                 self.alertMsg = '';
             })
         }
@@ -1469,8 +1490,10 @@ var callLogin = function ($scope, apiCaller, username, password) {
             $('#alert6').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
                 self.alertMsg = '';
             })
         }
@@ -1631,8 +1654,10 @@ var callFacebookLogin = function ($scope, apiCaller, fbid) {
             $('#alert6').show();
             $('body').addClass('show-overlay');
             $('.btnPopupOk, #overlay').on('click', function () {
+                $('.btnPopupOk, #overlay').off();
                 $('#alert6').hide();
                 $('body').removeClass('show-overlay');
+                callWindowsPhoneNotify("hide-overlay");
                 self.alertMsg = '';
             });
         }

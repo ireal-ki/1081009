@@ -191,6 +191,13 @@ namespace _1081009
             }
         }
 
+        void whenHideOverlay()
+        {
+            // also pop nav
+            if (pageNavigation.Count>1)
+                pageNavigation.RemoveAt(pageNavigation.Count - 1);
+        }
+
         void setProgressIndicator(bool isVisible)
         {
             if (isVisible)
@@ -217,6 +224,13 @@ namespace _1081009
             else
             {
                 System.Diagnostics.Debug.WriteLine(" ! [Browser_ScriptNotify] : " + e.Value);
+            }
+
+            //
+            if (e.Value.StartsWith("hide-overlay"))
+            {
+                whenHideOverlay();
+                return;
             }
 
             // show wp share
