@@ -528,16 +528,32 @@ namespace _1081009
                 // present to view
                 _contentWebBrowser.Width = LayoutRoot.Width;
                 LayoutRoot.Children.Add(_contentWebBrowser);
+
+                // will open external link via IE
+                _contentWebBrowser.Navigating += new EventHandler<NavigatingEventArgs>(_contentWebBrowser_Navigating);
             }
 
             _contentWebBrowser.Visibility = System.Windows.Visibility.Visible;
 
             // nav to url
             if (_currentContentLink != uriString)
-                _contentWebBrowser.Navigate(new Uri(uriString, UriKind.Absolute));
+            {
+                // for later use
+                _currentContentLink = uriString;
 
-            // for later use
-            _currentContentLink = uriString;
+                _contentWebBrowser.Navigate(new Uri(uriString, UriKind.Absolute));
+            }
+        }
+
+        private void _contentWebBrowser_Navigating(object sender, NavigatingEventArgs e)
+        {
+            String uriString = e.Uri.AbsoluteUri;
+
+            if (uriString.StartsWith("http://") && !uriString.Equals(_currentContentLink))
+            {
+                e.Cancel = true;
+                OpenIE(uriString);
+            }
         }
 
         private void MyMap_Loaded(object sender, RoutedEventArgs e)
