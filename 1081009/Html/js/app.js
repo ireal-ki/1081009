@@ -326,6 +326,8 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.appBarVisible(false);
         $scope.hideAll();
+        $('main.feed').find('#notfound').hide();
+
         $('main').hide();
         $('main.search').show();
         $scope.isShowSearch = true;
@@ -337,10 +339,15 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
         $scope.hideAll();
+        $('main.feed').find('#notfound').hide();
+
         var list = apiCaller.category(group);
+        
+        $scope.feedContent = [];
         $scope.feedLanding = name;
+
         if (group == 6) {
-            $scope.getSearchFeedTrip('activity%3A7', -1);
+            $scope.getSearchFeedTrip('activity%3A7', -1, name);
         } else {
             $('main').hide();
             $('main.search2').show();
@@ -355,6 +362,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
         $scope.hideAll();
+        $('main.feed').find('#notfound').hide();
         $scope.isShowFeed = true;
 
         $scope.feedContent = [];
@@ -518,6 +526,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
         $scope.hideAll();
+        $('main.feed').find('#notfound').hide();
         $scope.isShowFeed = true;
 
         // already cache
@@ -1532,11 +1541,20 @@ var callFeedSubActivityTrip = function ($scope, apiCaller, group, type) {
 
         self.feedContent = [];
 
-        for (var i = 0; i < response.length; i++) {
-            self.feedContent.push(response[i]);
+        if (response.length <= 0)
+        {
+            $('main.feed').find('#notfound').show();
+        } else {
+            $('main.feed').find('#notfound').hide();
+
+            for (var i = 0; i < response.length; i++) {
+                self.feedContent.push(response[i]);
+            }
         }
+
         callWindowsPhoneNotify('responseNavigated');
         $scope.appBarVisible(true);
+
     }, $scope);
 };
 

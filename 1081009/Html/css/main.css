@@ -477,6 +477,7 @@ body.sliderOpen { overflow-x: hidden; }
 @media screen and (orientation: landscape) and (min-width: 720px) { .intro article > figure:nth-child(11), .intro article > div:nth-child(11) { left: auto; right: 0; bottom: 0; width: -moz-calc(20% - 3px); width: -o-calc(20% - 3px); width: -webkit-calc(20% - 3px); width: calc(20% - 3px); height: -moz-calc(30%); height: -o-calc(30%); height: -webkit-calc(30%); height: calc(30%); } }
 
 .grid article { padding-top: 10px; background-color: #c6beaa; }
+.grid article p { padding-left: 10px; display:none; }
 @media screen and (orientation: landscape) and (min-width: 720px) { .grid article { max-width: 1040px; margin: 0 auto; } }
 .grid figure { width: 100%; background-color: #fafaf7; position: relative; opacity: 0; overflow: hidden; }
 .grid figure img { width: 100%; }
