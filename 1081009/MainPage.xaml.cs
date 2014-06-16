@@ -59,8 +59,6 @@ namespace _1081009
             }
         }
 
-        private String _currentPageCommand = "|";
-
         // Constructor
         public MainPage()
         {
@@ -204,8 +202,8 @@ namespace _1081009
 
             pageNavigation.RemoveAt(numberOfPage - 1);
 
-            // System.Diagnostics.Debug.WriteLine(" * [back] currentPage:" + currentPage);
-            // System.Diagnostics.Debug.WriteLine(" * [back] targetPage:" + targetPage);
+            System.Diagnostics.Debug.WriteLine(" * [back] currentPage:" + currentPage);
+            System.Diagnostics.Debug.WriteLine(" * [back] targetPage:" + targetPage);
 
             if (targetPage == "map")
             {
@@ -219,18 +217,9 @@ namespace _1081009
                 MyMap.Visibility = System.Windows.Visibility.Collapsed;
             }
 
-            if (targetPage == "webview")
-            {
-                Browser.InvokeScript("navTo", new string[] { targetPage });
-            }
-            else if (targetPage == "feed")
+            if (targetPage == "feed")
             {
                 Browser.InvokeScript("restoreFeed");
-            }
-            else if (currentPage == "userMenu")
-            {
-                // TODO : replace with native
-                Browser.InvokeScript("navTo", new string[] { targetPage });
             }
             else
             {
@@ -267,12 +256,6 @@ namespace _1081009
 
         void applyCommandFromNative(string pageCommand)
         {
-            // prevent rapid call
-            if (_currentPageCommand.Equals(pageCommand))
-                return;
-
-            _currentPageCommand = pageCommand;
-
             // fake command from native
             if (pageCommand.StartsWith("navTo|"))
             {
@@ -364,6 +347,7 @@ namespace _1081009
             if (pageCommand.StartsWith("userMenu"))
             {
                 NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+                addPageNav(pageCommand);
                 return;
             }
 

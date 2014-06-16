@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="38*"/>
                 <ColumnDefinition Width="38*"/>
             </Grid.ColumnDefinitions>
-            <Button Tap="onTap" Tag="getSetting" x:Name="UserProfileButton" Margin="0" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
+            <Button Tap="onTap" Tag="userSetting" x:Name="UserProfileButton" Margin="0" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
                         <Image Height="90" Width="90" Source="/Html/img/menu/tile-user_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-30,40,0" IsHitTestVisible="False"/>
