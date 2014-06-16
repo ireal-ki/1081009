@@ -18,12 +18,6 @@ namespace _1081009
             InitializeComponent();
 
             Button UserProfileButton = (Button)this.FindName("UserProfileButton");
-            UserProfileButton.Tap += onTap;
-
-            Button FavButton = (Button)this.FindName("FavButton");
-            FavButton.Tap += onTap;
-            FavButton.Tag = "fav";
-
             TextBlock UserProfileTextBlock = (TextBlock)UserProfileButton.FindName("UserProfileTextBlock");
 
             string username = (string)IsolatedStorageSettings.ApplicationSettings["username"];
@@ -32,14 +26,36 @@ namespace _1081009
             string email = (string)IsolatedStorageSettings.ApplicationSettings["email"];
 
             UserProfileTextBlock.Text = first_name + " " + last_name + "\n" + email + "\n" + username;
+
+            this.Unloaded += onUnloaded;
+        }
+
+        private void onUnloaded(object sender, RoutedEventArgs e)
+        {
+            Button UserProfileButton = (Button)this.FindName("UserProfileButton");
+            UserProfileButton.Tap -= onTap;
+
+            Button FavButton = (Button)this.FindName("FavButton");
+            FavButton.Tap -= onTap;
+
+            Button MyStoryButton = (Button)this.FindName("MyStoryButton");
+            MyStoryButton.Tap -= onTap;
+
+            Button AboutButton = (Button)this.FindName("AboutButton");
+            AboutButton.Tap -= onTap;
+
+            Button AddArticleButton = (Button)this.FindName("AddArticleButton");
+            AddArticleButton.Tap -= onTap;
         }
 
         private void onTap(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService.CanGoBack)
             {
+                // inject page command for MainPage excution after go back
                 MainPage.model.pageCommand = ((Button)sender).Tag.ToString();
 
+                // do go back
                 this.NavigationService.GoBack();
             }
         }

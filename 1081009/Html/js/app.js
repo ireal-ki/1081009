@@ -78,11 +78,24 @@ function navTo(page) {
             case 'viewPhoto':
                 scopeNg.openViewPhoto();
                 break;
-            case 'fav':
-                scopeNg.getFav();
-                break;
             case 'getRecent':
                 scopeNg.restoreRecentView();
+                break;
+                // from native
+            case 'userSetting':
+                scopeNg.userSetting();
+                break;
+            case 'getFav':
+                scopeNg.getFav();
+                break;
+            case 'getMyStory':
+                scopeNg.getMyStory();
+                break;
+            case 'getSetting':
+                scopeNg.getSetting();
+                break;
+            case 'addArticle':
+                scopeNg.addArticle();
                 break;
         }
     }
@@ -216,6 +229,7 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         $scope.isShowFeed = false;
         $scope.isShowMap = false;
         $scope.isShowSearch = false;
+        $('main.feed').find('#notfound').hide();
     };
     $scope.getTop10 = function () {
 
@@ -332,7 +346,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
 
         $scope.appBarVisible(false);
         $scope.hideAll();
-        $('main.feed').find('#notfound').hide();
 
         $('main').hide();
         $('main.search').show();
@@ -345,7 +358,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
         $scope.hideAll();
-        $('main.feed').find('#notfound').hide();
 
         var list = apiCaller.category(group);
         
@@ -368,7 +380,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
         $scope.hideAll();
-        $('main.feed').find('#notfound').hide();
         $scope.isShowFeed = true;
 
         $scope.feedContent = [];
@@ -532,7 +543,6 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
         $scope.hideAll();
-        $('main.feed').find('#notfound').hide();
         $scope.isShowFeed = true;
 
         // already cache
@@ -657,10 +667,14 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
     };
     $scope.accept = function () {
 
+        /*
         callWindowsPhoneNotify('hide_contentWebBrowser');
 
         $('main').hide();
         $('main.menu').show();
+        */
+        // back to menu
+        $scope.getUserMenu();
     };
     $scope.logout = function () {
 
@@ -1095,10 +1109,12 @@ var callFavView = function ($scope, apiCaller) {
     }
 
     apiCaller.call(url, params, function (response, self) {
-        if (response.length == 0) {
-            self.alertMsg = 'ไม่มีเรื่องราวท่องเที่ยวของฉัน';
+        if (response.length <= 0)
+        {
+            $('main.feed').find('#notfound').show();
+            self.alertMsg = 'ไม่มีสถานที่โปรด';
         } else {
-
+            $('main.feed').find('#notfound').hide();
             self.feedContent = [];
 
             for (var i = 0; i < response.length; i++) {
@@ -1492,7 +1508,9 @@ var callLogin = function ($scope, apiCaller, username, password) {
             self.myArticleCount = response.my_article_count;
             callWindowsPhoneNotify('saveUser|' + self.userInfo.user_id + '|' + self.userInfo.username + '|' + self.userInfo.first_name + '|' + self.userInfo.last_name + '|' + self.userInfo.email);
             $('main').hide();
-            $('main.menu').show();
+            //$('main.menu').show();
+            // back to menu
+            $scope.getUserMenu();
         } else if (response.result == 'wrong_password') {
             self.alertMsg = 'password ไม่ถูกต้อง';
         } else if (response.result == 'user_not_found') {

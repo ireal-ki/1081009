@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="38*"/>
                 <ColumnDefinition Width="38*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="UserProfileButton" Margin="0" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
+            <Button Tap="onTap" Tag="getSetting" x:Name="UserProfileButton" Margin="0" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
                         <Image Height="90" Width="90" Source="/Html/img/menu/tile-user_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-30,40,0" IsHitTestVisible="False"/>
@@ -46,8 +46,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button x:Name="testButton" Content="lol" Grid.Column="1" HorizontalAlignment="Left" Margin="64,68,0,0" Grid.Row="2" VerticalAlignment="Top" Tag="fav"/>
-            <Button x:Name="FavButton" Margin="0" Grid.Column="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
+            <Button Tap="onTap" Tag="getFav" x:Name="FavButton" Margin="0" Grid.Column="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
                         <Image Height="100" Width="100" Source="/Html/img/menu/tile-fav_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-20,40,0" Grid.RowSpan="2"/>
@@ -55,7 +54,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Margin="0" Grid.Row="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
+            <Button Tap="onTap" Tag="getMyStory" x:Name="MyStoryButton" Margin="0" Grid.Row="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
                         <Image Height="100" Width="100" Source="/Html/img/menu/tile-article_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-20,40,0" Grid.RowSpan="2"/>
@@ -63,15 +62,15 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Grid.Row="1" Grid.Column="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
+            <Button Tap="onTap" Tag="getSetting" x:Name="AboutButton" Grid.Row="1" Grid.Column="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
                         <Image Height="100" Width="100" Source="/Html/img/menu/tile-about_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-20,40,0" Grid.RowSpan="2"/>
-                        <TextBlock Text="Setting" Grid.Row="1" FontSize="18" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" />
+                        <TextBlock Text="About" Grid.Row="1" FontSize="18" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.502" />
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Grid.Row="2" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
+            <Button Tap="onTap" Tag="addArticle" x:Name="AddArticleButton" Grid.Row="2" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
                         <Image Height="100" Width="100" Source="/Html/img/menu/tile-add_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-20,40,0" Grid.RowSpan="2"/>

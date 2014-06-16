@@ -59,6 +59,8 @@ namespace _1081009
             }
         }
 
+        private String _currentPageCommand = "|";
+
         // Constructor
         public MainPage()
         {
@@ -67,12 +69,21 @@ namespace _1081009
             BackKeyPress += MainPage_BackKeyPress;
             settings = IsolatedStorageSettings.ApplicationSettings;
 
-            this.Loaded += delegate { NavigationService.Navigating += NavigationService_Navigating; };
-            //this.Unloaded += delegate { NavigationService.Navigating -= NavigationService_Navigating; };
+            this.Loaded += delegate {
+                System.Diagnostics.Debug.WriteLine(" ! [MainPage.Loaded]");
+                NavigationService.Navigating -= NavigationService_Navigating;
+                NavigationService.Navigating += NavigationService_Navigating; 
+            };
+            this.Unloaded += delegate {
+                System.Diagnostics.Debug.WriteLine(" ! [MainPage.Unloaded]");
+                //NavigationService.Navigating -= NavigationService_Navigating; 
+            };
         }
 
         void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(" ! [NavigationService_Navigating]");
+
             // Don't allow refreshing of a static page 
             //if ((e.NavigationMode == NavigationMode.Refresh) &&
             if (e.Uri.OriginalString == "/MainPage.xaml")
@@ -256,6 +267,12 @@ namespace _1081009
 
         void applyCommandFromNative(string pageCommand)
         {
+            // prevent rapid call
+            if (_currentPageCommand.Equals(pageCommand))
+                return;
+
+            _currentPageCommand = pageCommand;
+
             // fake command from native
             if (pageCommand.StartsWith("navTo|"))
             {
