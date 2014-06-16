@@ -25,6 +25,13 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="0" Background="#ffebe9e1" Height="80" Orientation="Horizontal">
             <Image Source="/Html/img/base/logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,-3,0,0" Height="77" Width="250" />
+            <Button Tap="onTap" Tag="getHomeFeed" x:Name="HomeButton" Margin="-24,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0">
+                <Button.Content>
+                    <Image Source="/Html/img/base/icon-home.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" IsHitTestVisible="False"/>
+                </Button.Content>
+            </Button>
+            <Image Source="/Html/img/base/icon-user-active.png" VerticalAlignment="Center" Stretch="None" Margin="24,0" />
+            <Image Source="/Html/img/base/icon-search.png" VerticalAlignment="Center" Stretch="None" Margin="24,0" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->

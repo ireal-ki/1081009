@@ -32,6 +32,11 @@ namespace _1081009
 
         private void onUnloaded(object sender, RoutedEventArgs e)
         {
+            // TODO : move to header
+            Button HomeButton = (Button)this.FindName("HomeButton");
+            HomeButton.Tap -= onTap;
+
+            // buttons
             Button UserProfileButton = (Button)this.FindName("UserProfileButton");
             UserProfileButton.Tap -= onTap;
 
@@ -46,6 +51,8 @@ namespace _1081009
 
             Button AddArticleButton = (Button)this.FindName("AddArticleButton");
             AddArticleButton.Tap -= onTap;
+
+            //getHomeFeed
         }
 
         private void onTap(object sender, RoutedEventArgs e)

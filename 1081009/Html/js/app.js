@@ -81,7 +81,11 @@ function navTo(page) {
             case 'getRecent':
                 scopeNg.restoreRecentView();
                 break;
-                // from native
+                // from native header
+            case 'getHomeFeed':
+                scopeNg.getHomeFeed();
+                break;
+                // from native user-menu
             case 'userSetting':
                 scopeNg.userSetting();
                 break;
