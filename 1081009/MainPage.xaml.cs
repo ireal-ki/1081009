@@ -42,6 +42,23 @@ namespace _1081009
         private static GeoCoordinateWatcher watcher;
         private static LocationRectangle _LocationRectangle;
 
+        // Model ----------------------------------------------------------------------------------
+
+        private static Model _model;
+
+        public static Model model
+        {
+            get
+            {
+                if (_model == null)
+                {
+                    _model = new Model();
+                }
+
+                return _model;
+            }
+        }
+
         // Constructor
         public MainPage()
         {
@@ -49,6 +66,20 @@ namespace _1081009
 
             BackKeyPress += MainPage_BackKeyPress;
             settings = IsolatedStorageSettings.ApplicationSettings;
+
+            this.Loaded += delegate { NavigationService.Navigating += NavigationService_Navigating; };
+            //this.Unloaded += delegate { NavigationService.Navigating -= NavigationService_Navigating; };
+        }
+
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            // Don't allow refreshing of a static page 
+            //if ((e.NavigationMode == NavigationMode.Refresh) &&
+            if (e.Uri.OriginalString == "/MainPage.xaml")
+            {
+                //e.Cancel = true;
+                applyCommandFromNative("navTo|" + model.pageCommand);
+            }
         }
 
         // ----------------------------------------------------------------------------------
@@ -146,48 +177,53 @@ namespace _1081009
             {
                 e.Cancel = true;
 
-                // hide loading
-                setProgressIndicator(false);
+                goback();
+            }
+        }
 
-                int numberOfPage = pageNavigation.Count;
+        private void goback()
+        {
+            // hide loading
+            setProgressIndicator(false);
 
-                string currentPage = pageNavigation.ElementAt(numberOfPage - 1);
-                string targetPage = pageNavigation.ElementAt(numberOfPage - 2);
+            int numberOfPage = pageNavigation.Count;
 
-                pageNavigation.RemoveAt(numberOfPage - 1);
+            string currentPage = pageNavigation.ElementAt(numberOfPage - 1);
+            string targetPage = pageNavigation.ElementAt(numberOfPage - 2);
 
-                // System.Diagnostics.Debug.WriteLine(" * [back] currentPage:" + currentPage);
-                // System.Diagnostics.Debug.WriteLine(" * [back] targetPage:" + targetPage);
+            pageNavigation.RemoveAt(numberOfPage - 1);
 
-                if (targetPage == "map")
-                {
-                    MyMap.Visibility = System.Windows.Visibility.Visible;
-                    
-                    // hide AppBar
-                    ApplicationBar.IsVisible = false;
-                }
-                else
-                {
-                    MyMap.Visibility = System.Windows.Visibility.Collapsed;
-                }
+            // System.Diagnostics.Debug.WriteLine(" * [back] currentPage:" + currentPage);
+            // System.Diagnostics.Debug.WriteLine(" * [back] targetPage:" + targetPage);
 
-                if (targetPage == "webview")
-                {
-                    Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
-                }
-                else if (targetPage == "feed")
-                {
-                    Browser.InvokeScript("restoreFeed");
-                }
-                else if (currentPage == "userMenu")
-                {
-                    // TODO : replace with native
-                    Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
-                }
-                else
-                {
-                    Browser.InvokeScript("onBackBtnPress", new string[] { targetPage });
-                }
+            if (targetPage == "map")
+            {
+                MyMap.Visibility = System.Windows.Visibility.Visible;
+
+                // hide AppBar
+                ApplicationBar.IsVisible = false;
+            }
+            else
+            {
+                MyMap.Visibility = System.Windows.Visibility.Collapsed;
+            }
+
+            if (targetPage == "webview")
+            {
+                Browser.InvokeScript("navTo", new string[] { targetPage });
+            }
+            else if (targetPage == "feed")
+            {
+                Browser.InvokeScript("restoreFeed");
+            }
+            else if (currentPage == "userMenu")
+            {
+                // TODO : replace with native
+                Browser.InvokeScript("navTo", new string[] { targetPage });
+            }
+            else
+            {
+                Browser.InvokeScript("navTo", new string[] { targetPage });
             }
         }
 
@@ -213,28 +249,44 @@ namespace _1081009
             webBrowserTask.Show();
         }
 
-        void Browser_ScriptNotify(object sender, NotifyEventArgs e)
+        private void Browser_ScriptNotify(object sender, NotifyEventArgs e)
         {
-            if (e.Value.StartsWith("log|"))
+            applyCommand(e.Value);
+        }
+
+        void applyCommandFromNative(string pageCommand)
+        {
+            // fake command from native
+            if (pageCommand.StartsWith("navTo|"))
+            {
+                string targetPage = pageCommand.Split('|')[1];
+                Browser.InvokeScript("navTo", new string[] { targetPage });
+                return;
+            }
+        }
+
+        void applyCommand(string pageCommand)
+        {
+            if (pageCommand.StartsWith("log|"))
             {
                 // just log 
-                System.Diagnostics.Debug.WriteLine(" ! [Log] : " + e.Value.Split('|')[1]);
+                System.Diagnostics.Debug.WriteLine(" ! [Log] : " + pageCommand.Split('|')[1]);
                 return;
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine(" ! [Browser_ScriptNotify] : " + e.Value);
+                System.Diagnostics.Debug.WriteLine(" ! [applyCommand] : " + pageCommand);
             }
 
             //
-            if (e.Value.StartsWith("hide-overlay"))
+            if (pageCommand.StartsWith("hide-overlay"))
             {
                 whenHideOverlay();
                 return;
             }
 
             // show wp share
-            if (e.Value.StartsWith("share_content"))
+            if (pageCommand.StartsWith("share_content"))
             {
                 ShareUtil.WillShareLink(_currentContentLink);
 
@@ -242,7 +294,7 @@ namespace _1081009
             }
 
             // show content
-            if (e.Value.StartsWith("show_contentWebBrowser"))
+            if (pageCommand.StartsWith("show_contentWebBrowser"))
             {
                 // show content if exist
                 if (_contentWebBrowser != null)
@@ -252,7 +304,7 @@ namespace _1081009
             }
 
             // hide content
-            if (e.Value.StartsWith("hide_contentWebBrowser"))
+            if (pageCommand.StartsWith("hide_contentWebBrowser"))
             {
                 // hide content if exist
                 if (_contentWebBrowser != null)
@@ -262,7 +314,7 @@ namespace _1081009
             }
 
             // release content
-            if (e.Value.StartsWith("release_contentWebBrowser"))
+            if (pageCommand.StartsWith("release_contentWebBrowser"))
             {
                 // hide content if exist
                 if (_contentWebBrowser != null)
@@ -273,51 +325,51 @@ namespace _1081009
                 return;
             }
 
-            if (e.Value.StartsWith("MapData"))
+            if (pageCommand.StartsWith("MapData"))
             {
-                BindDataMap(e.Value.Split('|')[1]);
+                BindDataMap(pageCommand.Split('|')[1]);
                 return;
             }
 
-            if (e.Value.StartsWith("registerWithFacebook"))
+            if (pageCommand.StartsWith("registerWithFacebook"))
             {
-                FacebookUtil.willRegisterWithFacebookAndLogin(e.Value.Split('|')[1]);
+                FacebookUtil.willRegisterWithFacebookAndLogin(pageCommand.Split('|')[1]);
                 return;
             }
 
-            if (e.Value.StartsWith("fbLogin"))
+            if (pageCommand.StartsWith("fbLogin"))
             {
                 FacebookUtil.LoginWithApp();
                 return;
             }
 
             // TODO : replace with native
-            if (e.Value.StartsWith("userMenu"))
+            if (pageCommand.StartsWith("userMenu"))
             {
-                //NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
-                //return;
+                NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+                return;
             }
 
-            if (e.Value.StartsWith("ieOpen"))
+            if (pageCommand.StartsWith("ieOpen"))
             {
-                string[] url = e.Value.Split('|');
+                string[] url = pageCommand.Split('|');
                 OpenIE(url[1]);
                 return;
             }
 
-            if (e.Value.StartsWith("responseNavigated"))
+            if (pageCommand.StartsWith("responseNavigated"))
             {
                 setProgressIndicator(false);
                 return;
             }
 
-            if (e.Value.StartsWith("responseNavigating"))
+            if (pageCommand.StartsWith("responseNavigating"))
             {
                 setProgressIndicator(true);
                 return;
             }
 
-            if (e.Value.StartsWith("uuid"))
+            if (pageCommand.StartsWith("uuid"))
             {
                 byte[] myDeviceID = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
                 string DeviceIDAsString = Convert.ToBase64String(myDeviceID);
@@ -326,7 +378,7 @@ namespace _1081009
                 return;
             }
 
-            if (e.Value.StartsWith("recentAdd"))
+            if (pageCommand.StartsWith("recentAdd"))
             {
                 List<string> recent = null;
                 if (!settings.Contains("recent"))
@@ -344,7 +396,7 @@ namespace _1081009
                 }
                 else
                 {
-                    recent.Insert(0, e.Value);
+                    recent.Insert(0, pageCommand);
                 }
 
                 settings["recent"] = recent;
@@ -352,7 +404,7 @@ namespace _1081009
                 return;
             }
 
-            if (e.Value.StartsWith("getRecent"))
+            if (pageCommand.StartsWith("getRecent"))
             {
                 string recentsList = "";
                 List<string> recent = (List<string>)settings["recent"];
@@ -370,14 +422,14 @@ namespace _1081009
                 setProgressIndicator(false);
 
                 // hide map if need
-                if (e.Value != "map")
+                if (pageCommand != "map")
                     MyMap.Visibility = System.Windows.Visibility.Collapsed;
 
-                addPageNav(e.Value);
+                addPageNav(pageCommand);
                 return;
             }
 
-            if (e.Value.StartsWith("top10Loaded"))
+            if (pageCommand.StartsWith("top10Loaded"))
             {
                 if (!settings.Contains("WasLaunched"))
                 {
@@ -388,7 +440,7 @@ namespace _1081009
                 return;
             }
 
-            if (e.Value.StartsWith("checkSaveLogin"))
+            if (pageCommand.StartsWith("checkSaveLogin"))
             {
                 if (settings.Contains("UserLogedIn"))
                 {
@@ -406,9 +458,9 @@ namespace _1081009
                 return;
             }
 
-            if (e.Value.StartsWith("saveUser"))
+            if (pageCommand.StartsWith("saveUser"))
             {
-                string[] str = e.Value.Split('|');
+                string[] str = pageCommand.Split('|');
 
                 if (settings.Contains("UserLogedIn"))
                 {
@@ -432,7 +484,7 @@ namespace _1081009
                 return;
             }
 
-            if (e.Value.StartsWith("logoutUser"))
+            if (pageCommand.StartsWith("logoutUser"))
             {
                 if (settings.Contains("UserLogedIn"))
                 {
@@ -461,9 +513,9 @@ namespace _1081009
                 return;
             }
 
-            if (e.Value.StartsWith("AppBar"))
+            if (pageCommand.StartsWith("AppBar"))
             {
-                string[] str = e.Value.Split('|');
+                string[] str = pageCommand.Split('|');
                 if (str[1] == "true")
                     ApplicationBar.IsVisible = true;
                 else
@@ -473,13 +525,13 @@ namespace _1081009
             }
 
             // will open content webview          
-            if (e.Value.StartsWith("webview"))
+            if (pageCommand.StartsWith("webview"))
             {
-                string[] str = e.Value.Split('|');
+                string[] str = pageCommand.Split('|');
                 ShowContentWebView(str[1]);
 
                 // hide map if need
-                if (e.Value != "map")
+                if (pageCommand != "map")
                     MyMap.Visibility = System.Windows.Visibility.Collapsed;
 
                 addPageNav("webview");
@@ -490,11 +542,11 @@ namespace _1081009
             setProgressIndicator(false);
 
             // hide map if need
-            if (e.Value != "map")
+            if (pageCommand != "map")
                 MyMap.Visibility = System.Windows.Visibility.Collapsed;
 
             // default case will count as page nav
-            addPageNav(e.Value);
+            addPageNav(pageCommand);
         }
 
         private void addPageNav(String pageString)

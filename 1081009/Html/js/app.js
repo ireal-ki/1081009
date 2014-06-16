@@ -44,7 +44,7 @@ function searchFromMap(amphoe_id, amphoe_name) {
         scopeNg.searchFromMap(amphoe_id, amphoe_name);
     }
 }
-function onBackBtnPress(page) {
+function navTo(page) {
     if (scopeNg != null) {
 
         // hide overlay if has
@@ -86,6 +86,10 @@ function onBackBtnPress(page) {
                 break;
         }
     }
+};
+
+function browseTo() {
+
 };
 
 function onAppBarBtnStoryClick() {
@@ -309,9 +313,11 @@ function appCtrl($rootScope, $scope, apiCaller, $sce) {
         
         if ($scope.isLoggedIn) {
             // TODO : replace with native
+            /*
             $scope.hideAll();
             $('main').hide();
             $('main.menu').show();
+            */
             callWindowsPhoneNotify('userMenu');
         } else {
             $scope.hideAll();

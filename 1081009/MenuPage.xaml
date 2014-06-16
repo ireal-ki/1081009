@@ -41,11 +41,12 @@
             <Button x:Name="UserProfileButton" Margin="0" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
-                        <Image Height="90" Width="90" Source="/Html/img/menu/tile-user_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-30,40,0"/>
+                        <Image Height="90" Width="90" Source="/Html/img/menu/tile-user_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-30,40,0" IsHitTestVisible="False"/>
                         <TextBlock x:Name="UserProfileTextBlock" Grid.Row="1" FontSize="16" Foreground="White" TextAlignment="Center" Margin="0" VerticalAlignment="Bottom"/>
                     </Grid>
                 </Button.Content>
             </Button>
+            <Button x:Name="testButton" Content="lol" Grid.Column="1" HorizontalAlignment="Left" Margin="64,68,0,0" Grid.Row="2" VerticalAlignment="Top" Tag="fav"/>
             <Button x:Name="FavButton" Margin="0" Grid.Column="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
@@ -65,7 +66,7 @@
             <Button Grid.Row="1" Grid.Column="1" Background="#FF78735D" BorderBrush="{x:Null}" BorderThickness="0">
                 <Button.Content>
                     <Grid Width="180" Height="190">
-                        <Image Height="100" Width="100" Source="/Html/img/menu/tile-setting_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-20,40,0" Grid.RowSpan="2"/>
+                        <Image Height="100" Width="100" Source="/Html/img/menu/tile-about_2x.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-20,40,0" Grid.RowSpan="2"/>
                         <TextBlock Text="Setting" Grid.Row="1" FontSize="18" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" />
                     </Grid>
                 </Button.Content>

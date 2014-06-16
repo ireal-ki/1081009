@@ -18,6 +18,12 @@ namespace _1081009
             InitializeComponent();
 
             Button UserProfileButton = (Button)this.FindName("UserProfileButton");
+            UserProfileButton.Tap += onTap;
+
+            Button FavButton = (Button)this.FindName("FavButton");
+            FavButton.Tap += onTap;
+            FavButton.Tag = "fav";
+
             TextBlock UserProfileTextBlock = (TextBlock)UserProfileButton.FindName("UserProfileTextBlock");
 
             string username = (string)IsolatedStorageSettings.ApplicationSettings["username"];
@@ -26,6 +32,16 @@ namespace _1081009
             string email = (string)IsolatedStorageSettings.ApplicationSettings["email"];
 
             UserProfileTextBlock.Text = first_name + " " + last_name + "\n" + email + "\n" + username;
+        }
+
+        private void onTap(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+            {
+                MainPage.model.pageCommand = ((Button)sender).Tag.ToString();
+
+                this.NavigationService.GoBack();
+            }
         }
 
         /*
