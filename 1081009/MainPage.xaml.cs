@@ -92,7 +92,8 @@ namespace _1081009
             if (e.Uri.OriginalString == "/MainPage.xaml")
             {
                 //e.Cancel = true;
-                applyCommandFromNative("navTo|" + model.pageCommand);
+                if (model.pageCommand != null)
+                    applyCommandFromNative("navTo|" + model.pageCommand);
             }
         }
 
