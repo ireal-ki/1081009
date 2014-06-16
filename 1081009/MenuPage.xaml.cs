@@ -36,6 +36,9 @@ namespace _1081009
             Button HomeButton = (Button)this.FindName("HomeButton");
             HomeButton.Tap -= onTap;
 
+            Button SearchButton = (Button)this.FindName("SearchButton");
+            SearchButton.Tap -= onTap;
+
             // buttons
             Button UserProfileButton = (Button)this.FindName("UserProfileButton");
             UserProfileButton.Tap -= onTap;

@@ -85,6 +85,9 @@ function navTo(page) {
             case 'getHomeFeed':
                 scopeNg.getHomeFeed();
                 break;
+            case 'getSearch':
+                scopeNg.getSearch();
+                break;
                 // from native user-menu
             case 'userSetting':
                 scopeNg.userSetting();

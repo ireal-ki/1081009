@@ -31,7 +31,11 @@
                 </Button.Content>
             </Button>
             <Image Source="/Html/img/base/icon-user-active.png" VerticalAlignment="Center" Stretch="None" Margin="24,0" />
-            <Image Source="/Html/img/base/icon-search.png" VerticalAlignment="Center" Stretch="None" Margin="24,0" />
+            <Button Tap="onTap" Tag="getSearch" x:Name="SearchButton" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0">
+                <Button.Content>
+                    <Image Source="/Html/img/base/icon-search.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" IsHitTestVisible="False"/>
+                </Button.Content>
+            </Button>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
