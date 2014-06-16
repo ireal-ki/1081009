@@ -62,6 +62,11 @@ namespace _1081009
         // Constructor
         public MainPage()
         {
+            // change highlight color
+            Resources.Remove("PhoneAccentColor");
+            Resources.Add("PhoneAccentColor", Colors.White);
+            ((SolidColorBrush)Resources["PhoneAccentBrush"]).Color = Colors.White;
+
             InitializeComponent();
 
             BackKeyPress += MainPage_BackKeyPress;
