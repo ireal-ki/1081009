@@ -1215,8 +1215,8 @@ var callArticleAdd = function ($scope, apiCaller, article_url) {
     }
 
     apiCaller.call(apiURL, params, function (response, self) {
-
         callWindowsPhoneNotify('responseNavigated');
+        callWindowsPhoneNotify("showDialog|บันทึกข้อมูลเรียบร้อยแล้ว ขอบคุณค่ะ");
     }, $scope);
 };
 

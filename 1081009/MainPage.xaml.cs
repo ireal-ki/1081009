@@ -277,6 +277,12 @@ namespace _1081009
             {
                 // just log 
                 System.Diagnostics.Debug.WriteLine(" ! [Log] : " + pageCommand.Split('|')[1]);
+               return;
+            }
+            else  if (pageCommand.StartsWith("showDialog|"))
+            {
+                string[] msgs = pageCommand.Split('|');
+                MessageBox.Show(msgs[1]);
                 return;
             }
             else
