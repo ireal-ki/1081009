@@ -75,7 +75,10 @@ namespace _1081009
             this.Loaded += delegate {
                 System.Diagnostics.Debug.WriteLine(" ! [MainPage.Loaded]");
                 NavigationService.Navigating -= NavigationService_Navigating;
-                NavigationService.Navigating += NavigationService_Navigating; 
+                NavigationService.Navigating += NavigationService_Navigating;
+
+                // for test
+                //NavigationService.Navigate(new Uri("/FeedPage.xaml", UriKind.Relative));
             };
             this.Unloaded += delegate {
                 System.Diagnostics.Debug.WriteLine(" ! [MainPage.Unloaded]");
