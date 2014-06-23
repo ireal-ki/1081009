@@ -137,6 +137,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Feed\icon-like-activate.png" />
+    <Content Include="Assets\Feed\icon-like-deactivate.png" />
     <Content Include="Assets\Fonts\icon.ttf" />
     <None Include="Html\font\icon.eot" />
     <None Include="Html\font\icon.woff" />

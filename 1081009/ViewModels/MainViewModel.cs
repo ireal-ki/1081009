@@ -69,6 +69,7 @@ namespace _1081009.ViewModels
                 ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203784.jpg",
                 ViewTotalNums = 1000,
                 LikeTotalNums = 20,
+                IsLike = false,
                 IsCompleted = false
             });
             this.Items.Add(new ItemViewModel()
@@ -79,6 +80,7 @@ namespace _1081009.ViewModels
                 ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203783.jpg",
                 ViewTotalNums = 2000,
                 LikeTotalNums = 21,
+                IsLike = true,
                 IsCompleted = false
             });
             this.Items.Add(new ItemViewModel()
@@ -89,6 +91,7 @@ namespace _1081009.ViewModels
                 ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203783.jpg",
                 ViewTotalNums = 3000,
                 LikeTotalNums = 22,
+                IsLike = false,
                 IsCompleted = false
             });
             this.IsDataLoaded = true;

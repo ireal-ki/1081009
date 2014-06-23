@@ -93,6 +93,43 @@ namespace _1081009.ViewModels
             }
         }
 
+        private string _likeIconURI = "/Assets/Feed/icon-like-deactivate.png";
+        public string LikeIconURI
+        {
+            get
+            {
+                return _likeIconURI;
+            }
+            set
+            {
+                if (value != _likeIconURI)
+                {
+                    _likeIconURI = value;
+                    NotifyPropertyChanged("LikeIconURI");
+                }
+            }
+        }
+
+        private bool _isLike;
+        public bool IsLike
+        {
+            get
+            {
+                return _isLike;
+            }
+            set
+            {
+                if (value != _isLike)
+                {
+                    _isLike = value;
+
+                    NotifyPropertyChanged("IsLike");
+                }
+
+                LikeIconURI = _isLike ? "/Assets/Feed/icon-like-activate.png" : "/Assets/Feed/icon-like-deactivate.png";
+            }
+        }
+
         private bool _isCompleted;
         /// <summary>
         /// Used to determine if an item has been successfully entered or not
