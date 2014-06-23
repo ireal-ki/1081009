@@ -12,6 +12,9 @@ namespace _1081009.ViewModels
 {
     public class ItemViewModel : INotifyPropertyChanged
     {
+        public const string LIKE_STRING = "*";
+        public const string VIEW_STRING = "view : ";
+
         private string _aItem;
         /// <summary>
         /// Sample ViewModel property; this property is used to identify the object.
@@ -48,6 +51,44 @@ namespace _1081009.ViewModels
                 {
                     _aItemName = value;
                     NotifyPropertyChanged("AItemName");
+                }
+            }
+        }
+
+        private int _likeTotalNums;
+        /// <summary>
+        /// Sample ViewModel property; this property is used to identify the object.
+        /// </summary>
+        public int LikeTotalNums
+        {
+            get
+            {
+                return _likeTotalNums;
+            }
+            set
+            {
+                if (value != _likeTotalNums)
+                {
+                    _likeTotalNums = value;
+                    LikeTotal = value.ToString();
+                    NotifyPropertyChanged("LikeTotalNums");
+                }
+            }
+        }
+
+        private string _likeTotal;
+        public string LikeTotal
+        {
+            get
+            {
+                return _likeTotal;
+            }
+            set
+            {
+                if (value != _likeTotal)
+                {
+                    _likeTotal =  value;
+                    NotifyPropertyChanged("LikeTotal");
                 }
             }
         }
@@ -92,22 +133,43 @@ namespace _1081009.ViewModels
             }
         }
 
-        private string _description;
+        private int _viewTotalNums;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
         /// </summary>
-        public string Description
+        public int ViewTotalNums
         {
             get
             {
-                return _description;
+                return _viewTotalNums;
             }
             set
             {
-                if (value != _description)
+                if (value != _viewTotalNums)
                 {
-                    _description = value;
-                    NotifyPropertyChanged("Description");
+                    _viewTotalNums = value;
+                    ViewTotal = value.ToString();
+                    NotifyPropertyChanged("ViewTotalNums");
+                }
+            }
+        }
+
+        private string _viewTotalString;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        public string ViewTotal
+        {
+            get
+            {
+                return "views : " + _viewTotalNums;
+            }
+            set
+            {
+                if (value != _viewTotalString)
+                {
+                    _viewTotalString = value;
+                    NotifyPropertyChanged("ViewTotal");
                 }
             }
         }

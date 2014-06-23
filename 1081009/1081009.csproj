@@ -137,8 +137,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Fonts\icon.ttf" />
     <None Include="Html\font\icon.eot" />
-    <None Include="Html\font\icon.ttf" />
     <None Include="Html\font\icon.woff" />
     <None Include="Html\font\pslxthaicommon.eot" />
     <None Include="Html\font\pslxthaicommon.ttf" />

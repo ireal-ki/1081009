@@ -42,9 +42,18 @@
                                     ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged">
                 <phone:LongListSelector.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="23,0,0,17">
-                            <TextBlock Text="{Binding AItem}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <StackPanel Margin="8,0,0,8">
                             <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="200" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontFamily="Tahoma" FontSize="10"/>
+                            <StackPanel Background="White" Height="80" Orientation="Horizontal">
+                                <Button Tap="onTapItem" Tag="viewFeedItem" x:Name="HomeButton" Margin="-24,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" IsHitTestVisible="False">
+                                    <Button.Content>
+                                        <TextBlock Text="" FontFamily="/1081009;component/Assets/Fonts/icon.ttf#icon" FontSize="16" Foreground="#FF2C2C2C"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBlock Text="{Binding LikeTotal}" Foreground="#FF2C2C2C"/>
+                                <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C"/>
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </phone:LongListSelector.ItemTemplate>

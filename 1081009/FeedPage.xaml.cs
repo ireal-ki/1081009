@@ -35,6 +35,9 @@ namespace _1081009
         {
             InitializeComponent();
 
+            // Set the data context of the LongListSelector control to the sample data
+            DataContext = ViewModel;
+
             // Ensure that application state is restored appropriately
             if (!ViewModel.IsDataLoaded)
             {
@@ -56,7 +59,13 @@ namespace _1081009
 
             // Reset selected item to null (no selection)
             MainLongListSelector.SelectedItem = null;
-        }  
+        }
+
+
+        private void onTapItem(object sender, RoutedEventArgs e)
+        {
+           // TODO : like, nav to webview
+        }
 
         private void onTap(object sender, RoutedEventArgs e)
         {
