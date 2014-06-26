@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using _1081009.ViewModels;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace _1081009
 {
@@ -72,9 +73,17 @@ namespace _1081009
 
         private void onTapItem(object sender, RoutedEventArgs e)
         {
-           // TODO : like, nav to webview
-            String currentTag = ((Button)sender).Tag.ToString();
+            // TODO : like, nav to webview
+            Button currentButton = (Button)sender;
+            String currentTag = currentButton.Tag.ToString();
             System.Diagnostics.Debug.WriteLine(" ! [FeedPage.onTapItem] : " + currentTag);
+            Image LikeImage = (Image)currentButton.FindName("LikeImage");
+
+            // TODO : perform like if not yet
+            //LikeImage.Source = _isLike ? "/Assets/Feed/icon-like-activate.png" : "/Assets/Feed/icon-like-deactivate.png";
+
+            BitmapImage likeIconImage = new BitmapImage(new Uri("/Assets/Feed/icon-like-activate.png", UriKind.Relative));
+            LikeImage.Source = likeIconImage;
         }
         private void onTapItemRight(object sender, RoutedEventArgs e)
         {
