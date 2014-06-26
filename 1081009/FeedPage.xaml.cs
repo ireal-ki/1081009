@@ -70,21 +70,6 @@ namespace _1081009
             MainLongListSelector.SelectedItem = null;
         }
 
-
-        private void onTapItem(object sender, RoutedEventArgs e)
-        {
-            // TODO : like, nav to webview
-            Button currentButton = (Button)sender;
-            String currentTag = currentButton.Tag.ToString();
-            System.Diagnostics.Debug.WriteLine(" ! [FeedPage.onTapItem] : " + currentTag);
-            Image LikeImage = (Image)currentButton.FindName("LikeImage");
-
-            // TODO : perform like if not yet
-            //LikeImage.Source = _isLike ? "/Assets/Feed/icon-like-activate.png" : "/Assets/Feed/icon-like-deactivate.png";
-
-            BitmapImage likeIconImage = new BitmapImage(new Uri("/Assets/Feed/icon-like-activate.png", UriKind.Relative));
-            LikeImage.Source = likeIconImage;
-        }
         private void onTapItemRight(object sender, RoutedEventArgs e)
         {
             // TODO : like, nav to webview
@@ -102,6 +87,30 @@ namespace _1081009
                 // do go back
                 this.NavigationService.GoBack();
             }
+        }
+
+        private void onTapThumbItem(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            // nav to webview
+            Button currentButton = (Button)sender;
+            String currentTag = currentButton.Tag.ToString();
+            System.Diagnostics.Debug.WriteLine(" ! [FeedPage.onTapThumbItem] : " + currentTag);
+
+
+        }
+
+        private void onTapItem(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Button currentButton = (Button)sender;
+            String currentTag = currentButton.Tag.ToString();
+            System.Diagnostics.Debug.WriteLine(" ! [FeedPage.onTapItem] : " + currentTag);
+            Image LikeImage = (Image)currentButton.FindName("LikeImage");
+
+            // TODO : perform like if not yet
+            //LikeImage.Source = _isLike ? "/Assets/Feed/icon-like-activate.png" : "/Assets/Feed/icon-like-deactivate.png";
+
+            BitmapImage likeIconImage = new BitmapImage(new Uri("/Assets/Feed/icon-like-activate.png", UriKind.Relative));
+            LikeImage.Source = likeIconImage;
         }
     }
 }

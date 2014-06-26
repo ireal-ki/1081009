@@ -45,7 +45,11 @@
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,8,0,0" HorizontalAlignment="Center">
-                                    <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228"/>
+                                    <Button Tap="onTapThumbItem" Tag="{Binding url}" x:Name="ThumbItemButton" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0">
+                                        <Button.Content>
+                                            <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228"/>
+                                        </Button.Content>
+                                    </Button>
                                     <StackPanel Background="White" Height="48" Orientation="Horizontal">
                                         <Button Tap="onTapItem" Tag="{Binding ID}" x:Name="ViewFeedItemButton" Margin="-8,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Center" Width="64" Height="64">
                                             <Button.Content>

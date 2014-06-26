@@ -150,6 +150,26 @@ namespace _1081009.ViewModels
             }
         }
 
+        private string _url;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        public string url
+        {
+            get
+            {
+                return _url;
+            }
+            set
+            {
+                if (value != _url)
+                {
+                    _url = value;
+                    NotifyPropertyChanged("url");
+                }
+            }
+        }
+
         private string _imageURI;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
