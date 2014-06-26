@@ -22,7 +22,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="0" Background="#ffebe9e1" Height="80" Orientation="Horizontal">
-            <Image Source="/Html/img/base/logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,-3,0,0" Height="77" Width="250" />
+            <Image Source="/Html/img/base/logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,-3,0,0" Height="77" Width="250" IsHitTestVisible="False" />
             <Button Tap="onTap" Tag="getHomeFeed" x:Name="HomeButton" Margin="-24,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" IsHitTestVisible="False">
                 <Button.Content>
                     <Image Source="/Html/img/base/icon-home.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" IsHitTestVisible="False"/>
@@ -38,6 +38,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0">
+            <ScrollViewer>
             <StackPanel Orientation="Horizontal">
                 <phone:LongListSelector x:Name="MainLongListSelector" Margin="0" 
                                         ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="220">
@@ -60,7 +61,7 @@
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
                 <phone:LongListSelector x:Name="MainLongListSelector2" Margin="0" 
-                                    ItemsSource="{Binding ItemsRight}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="220">
+                                    ItemsSource="{Binding ItemsRight}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="220" IsHitTestVisible="False">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="8,0,0,8">
@@ -80,6 +81,7 @@
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
             </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 

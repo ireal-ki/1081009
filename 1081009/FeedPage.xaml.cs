@@ -35,6 +35,9 @@ namespace _1081009
         {
             InitializeComponent();
 
+            LongListSelector MainLongListSelector = (LongListSelector)this.FindName("MainLongListSelector");
+            MainLongListSelector.IsHitTestVisible = false;
+
             // Set the data context of the LongListSelector control to the sample data
             DataContext = ViewModel;
 
