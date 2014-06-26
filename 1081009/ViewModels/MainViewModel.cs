@@ -65,10 +65,10 @@ namespace _1081009.ViewModels
         {
             this.Items.Add(new ItemViewModel()
             {
-                ID = "0",
+                ID = "203819",
                 AItem = "A",
                 AItemName = "Apple",
-                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203811.jpg",
+                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203819.jpg",
                 ViewTotalNums = 1000,
                 LikeTotalNums = 20,
                 IsLike = false,
@@ -76,10 +76,10 @@ namespace _1081009.ViewModels
             });
             this.ItemsRight.Add(new ItemViewModel()
             {
-                ID = "1",
+                ID = "203818",
                 AItem = "B",
                 AItemName = "Banana",
-                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203810.jpg",
+                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203818.jpg",
                 ViewTotalNums = 2000,
                 LikeTotalNums = 21,
                 IsLike = true,
@@ -87,10 +87,10 @@ namespace _1081009.ViewModels
             });
             this.Items.Add(new ItemViewModel()
             {
-                ID = "2",
+                ID = "203817",
                 AItem = "C",
                 AItemName = "Carrot",
-                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203808.jpg",
+                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203817.jpg",
                 ViewTotalNums = 3000,
                 LikeTotalNums = 22,
                 IsLike = false,
@@ -98,10 +98,10 @@ namespace _1081009.ViewModels
             });
             this.ItemsRight.Add(new ItemViewModel()
             {
-                ID = "1",
+                ID = "203816",
                 AItem = "B",
                 AItemName = "Banana",
-                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203807.jpg",
+                ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203816.jpg",
                 ViewTotalNums = 4000,
                 LikeTotalNums = 23,
                 IsLike = true,
@@ -109,7 +109,7 @@ namespace _1081009.ViewModels
             });
             this.Items.Add(new ItemViewModel()
             {
-                ID = "2",
+                ID = "4",
                 AItem = "C",
                 AItemName = "Carrot",
                 ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203806.jpg",

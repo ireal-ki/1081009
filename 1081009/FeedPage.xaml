@@ -39,48 +39,46 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0">
             <ScrollViewer>
-            <StackPanel Orientation="Horizontal">
-                <phone:LongListSelector x:Name="MainLongListSelector" Margin="0" 
-                                        ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="220">
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="8,0,0,8">
-                                <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="200" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontFamily="Tahoma" FontSize="12"/>
-                                <StackPanel Background="White" Height="80" Orientation="Horizontal">
-                                    <Button Tap="onTapItem" Tag="viewFeedItem" x:Name="ViewFeedItemButton" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" IsHitTestVisible="False">
-                                        <Button.Content>
-                                            <Image Source="{Binding LikeIconURI}" Width="24" Height="24"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <TextBlock Text="{Binding LikeTotal}" Foreground="#FF2C2C2C"/>
-                                    <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C"/>
+                <StackPanel Orientation="Horizontal">
+                    <phone:LongListSelector x:Name="MainLongListSelector" Margin="0" 
+                                        ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="228">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="8,8,0,0">
+                                    <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228" HorizontalAlignment="Left"/>
+                                    <StackPanel Background="White" Height="64" Orientation="Horizontal">
+                                        <Button Tap="onTapItem" Tag="{Binding ID}" x:Name="ViewFeedItemButton" Margin="-12,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Center" Width="64" Height="64">
+                                            <Button.Content>
+                                                <Image Source="{Binding LikeIconURI}" Width="24" Height="24" Stretch="UniformToFill"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <TextBlock Text="{Binding LikeTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="-8,0,0,0"/>
+                                        <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-                <phone:LongListSelector x:Name="MainLongListSelector2" Margin="0" 
-                                    ItemsSource="{Binding ItemsRight}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="220" IsHitTestVisible="False">
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="8,0,0,8">
-                                <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="200" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontFamily="Tahoma" FontSize="12"/>
-                                <StackPanel Background="White" Height="80" Orientation="Horizontal">
-                                    <Button Tap="onTapItem" Tag="viewFeedItem" x:Name="ViewFeedItemButton" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" IsHitTestVisible="False">
-                                        <Button.Content>
-                                            <Image Source="{Binding LikeIconURI}" Width="24" Height="24"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <TextBlock Text="{Binding LikeTotal}" Foreground="#FF2C2C2C"/>
-                                    <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C"/>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                    <phone:LongListSelector x:Name="MainLongListSelector2" Margin="0" 
+                                    ItemsSource="{Binding ItemsRight}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="228">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="8,8,0,0">
+                                    <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228" HorizontalAlignment="Left"/>
+                                    <StackPanel Background="White" Height="64" Orientation="Horizontal">
+                                        <Button Tap="onTapItem" Tag="{Binding ID}" x:Name="ViewFeedItemButtonRight" Margin="-12,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Center" Width="64" Height="64">
+                                            <Button.Content>
+                                                <Image Source="{Binding LikeIconURI}" Width="24" Height="24" Stretch="UniformToFill"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <TextBlock Text="{Binding LikeTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="-8,0,0,0"/>
+                                        <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </StackPanel>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>

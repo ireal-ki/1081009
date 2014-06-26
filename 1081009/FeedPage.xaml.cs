@@ -36,7 +36,6 @@ namespace _1081009
             InitializeComponent();
 
             LongListSelector MainLongListSelector = (LongListSelector)this.FindName("MainLongListSelector");
-            MainLongListSelector.IsHitTestVisible = false;
 
             // Set the data context of the LongListSelector control to the sample data
             DataContext = ViewModel;
@@ -68,6 +67,14 @@ namespace _1081009
         private void onTapItem(object sender, RoutedEventArgs e)
         {
            // TODO : like, nav to webview
+            String currentTag = ((Button)sender).Tag.ToString();
+            System.Diagnostics.Debug.WriteLine(" ! [FeedPage.onTapItem] : " + currentTag);
+        }
+        private void onTapItemRight(object sender, RoutedEventArgs e)
+        {
+            // TODO : like, nav to webview
+            String currentTag = ((Button)sender).Tag.ToString();
+            System.Diagnostics.Debug.WriteLine(" ! [FeedPage.onTapItemRight] : " + currentTag);
         }
 
         private void onTap(object sender, RoutedEventArgs e)
