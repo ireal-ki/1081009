@@ -10,12 +10,14 @@ namespace _1081009.ViewModels
         public MainViewModel()
         {
             this.Items = new ObservableCollection<ItemViewModel>();
+            this.ItemsRight = new ObservableCollection<ItemViewModel>();
         }
 
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<ItemViewModel> Items { get; private set; }
+        public ObservableCollection<ItemViewModel> ItemsRight { get; private set; }
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
@@ -72,7 +74,7 @@ namespace _1081009.ViewModels
                 IsLike = false,
                 IsCompleted = false
             });
-            this.Items.Add(new ItemViewModel()
+            this.ItemsRight.Add(new ItemViewModel()
             {
                 ID = "1",
                 AItem = "B",
@@ -94,7 +96,7 @@ namespace _1081009.ViewModels
                 IsLike = false,
                 IsCompleted = false
             });
-            this.Items.Add(new ItemViewModel()
+            this.ItemsRight.Add(new ItemViewModel()
             {
                 ID = "1",
                 AItem = "B",
