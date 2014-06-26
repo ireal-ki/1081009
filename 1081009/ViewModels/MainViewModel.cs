@@ -109,7 +109,7 @@ namespace _1081009.ViewModels
             });
             this.Items.Add(new ItemViewModel()
             {
-                ID = "4",
+                ID = "203806",
                 AItem = "C",
                 AItemName = "Carrot",
                 ImageURI = "http://1081009.tourismthailand.org/oldweb/uploads/trips/n/203806.jpg",

@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using _1081009.ViewModels;
+using System.Windows.Media;
 
 namespace _1081009
 {
@@ -35,7 +36,12 @@ namespace _1081009
         {
             InitializeComponent();
 
+            // hide scrollbar
             LongListSelector MainLongListSelector = (LongListSelector)this.FindName("MainLongListSelector");
+            MainLongListSelector.Loaded += (sender, e) => ((System.Windows.Controls.Primitives.ScrollBar)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(MainLongListSelector, 0), 0), 1)).Width = 0;
+
+            LongListSelector MainLongListSelectorRight = (LongListSelector)this.FindName("MainLongListSelectorRight");
+            MainLongListSelectorRight.Loaded += (sender, e) => ((System.Windows.Controls.Primitives.ScrollBar)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(MainLongListSelectorRight, 0), 0), 1)).Width = 0;
 
             // Set the data context of the LongListSelector control to the sample data
             DataContext = ViewModel;

@@ -41,38 +41,38 @@
             <ScrollViewer>
                 <StackPanel Orientation="Horizontal">
                     <phone:LongListSelector x:Name="MainLongListSelector" Margin="0" 
-                                        ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="228">
+                                        ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="240" Padding="8,0,4,0">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="8,8,0,0">
-                                    <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228" HorizontalAlignment="Left"/>
-                                    <StackPanel Background="White" Height="64" Orientation="Horizontal">
-                                        <Button Tap="onTapItem" Tag="{Binding ID}" x:Name="ViewFeedItemButton" Margin="-12,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Center" Width="64" Height="64">
+                                <StackPanel Margin="0,8,0,0" HorizontalAlignment="Center">
+                                    <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228"/>
+                                    <StackPanel Background="White" Height="48" Orientation="Horizontal">
+                                        <Button Tap="onTapItem" Tag="{Binding ID}" x:Name="ViewFeedItemButton" Margin="-8,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Center" Width="64" Height="64">
                                             <Button.Content>
-                                                <Image Source="{Binding LikeIconURI}" Width="24" Height="24" Stretch="UniformToFill"/>
+                                                <Image Source="{Binding LikeIconURI}"/>
                                             </Button.Content>
                                         </Button>
                                         <TextBlock Text="{Binding LikeTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="-8,0,0,0"/>
-                                        <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                                        <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="32,0,0,0"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
-                    <phone:LongListSelector x:Name="MainLongListSelector2" Margin="0" 
-                                    ItemsSource="{Binding ItemsRight}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="228">
+                    <phone:LongListSelector x:Name="MainLongListSelectorRight" Margin="0" 
+                                    ItemsSource="{Binding ItemsRight}" SelectionChanged="MainLongListSelector_SelectionChanged" Width="240" Padding="4,0,8,0">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="8,8,0,0">
-                                    <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228" HorizontalAlignment="Left"/>
-                                    <StackPanel Background="White" Height="64" Orientation="Horizontal">
-                                        <Button Tap="onTapItem" Tag="{Binding ID}" x:Name="ViewFeedItemButtonRight" Margin="-12,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Center" Width="64" Height="64">
+                                <StackPanel Margin="0,8,0,0" HorizontalAlignment="Center">
+                                    <Image Source="{Binding ImageURI}" Stretch="UniformToFill" Width="228"/>
+                                    <StackPanel Background="White" Height="48" Orientation="Horizontal">
+                                        <Button Tap="onTapItem" Tag="{Binding ID}" x:Name="ViewFeedItemButtonRight" Margin="-8,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Center" Width="64" Height="64">
                                             <Button.Content>
-                                                <Image Source="{Binding LikeIconURI}" Width="24" Height="24" Stretch="UniformToFill"/>
+                                                <Image Source="{Binding LikeIconURI}"/>
                                             </Button.Content>
                                         </Button>
                                         <TextBlock Text="{Binding LikeTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="-8,0,0,0"/>
-                                        <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                                        <TextBlock Text="{Binding ViewTotal}" Foreground="#FF2C2C2C" VerticalAlignment="Center" Margin="32,0,0,0"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
